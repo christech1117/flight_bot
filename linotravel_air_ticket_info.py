@@ -3,7 +3,7 @@ from pprint import pprint
 def load_json_file(filename):
     with open(filename) as outfile:
         data = json.load(outfile)
-    return   liontravel_air_tickets_data  
+    return data 
 
 
 def find_air_ticket_info():
