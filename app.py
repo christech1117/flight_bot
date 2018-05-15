@@ -12,7 +12,7 @@ from linebot.models import (
 import os
 
 #import custom function
-import linotravel_air_ticket_info as airtickets
+from linotravel_air_ticket_info  import find_air_ticket_info 
 app = Flask(__name__)
 
 # Channel Access Token
@@ -113,7 +113,7 @@ def push_message(event,message):
 def search_air_tickest():
     keys_list = ["Depart_tickets","Arrive_tickets"]
     tickets_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat','TotalFare']
-    tickets_info = airtickets.find_air_ticket_info()
+    tickets_info = find_air_ticket_info()
     tickets_text = ""
     for item in tickets_info.keys():
         tickets_text += "================去程================\n"
