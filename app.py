@@ -1,7 +1,3 @@
-
-import sys
-import pymongo
-import os
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -12,14 +8,13 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction
 )
-<<<<<<< HEAD
-
-=======
 import os
+import sys
+import pymongo
 
 #import custom function
 from linotravel_air_ticket_info  import find_air_ticket_info 
->>>>>>> 2da29252c356db7e122c95dd6d06911368018351
+
 app = Flask(__name__)
 
 # Channel Access Token
@@ -27,43 +22,15 @@ line_bot_api = LineBotApi(os.environ['linetoken'])
 # Channel Secret
 handler = WebhookHandler(os.environ['linechannel'])
 
-<<<<<<< HEAD
-
-### Create seed data
-
-SEED_DATA = [
-    {
-        'decade': '1970s',
-        'artist': 'Debby Boone',
-        'song': 'You Light Up My Life',
-        'weeksAtOne': 10
-    },
-    {
-        'decade': '1980s',
-        'artist': 'Olivia Newton-John',
-        'song': 'Physical',
-        'weeksAtOne': 10
-    },
-    {
-        'decade': '1990s',
-        'artist': 'Mariah Carey',
-        'song': 'One Sweet Day',
-        'weeksAtOne': 16
-    }
-]
-
 ### Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
-
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n' 
 client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 
-=======
 #======================parameter==================
 session_dict = {}
 session_second_list = []
 region_list = ["台北","TPE","首爾","SEL","ICN"]
->>>>>>> 2da29252c356db7e122c95dd6d06911368018351
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
