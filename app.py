@@ -91,8 +91,7 @@ def handle_message(event):
             message_text_tmp = "搜尋中，請稍後"
             message = TextSendMessage(text=message_text_tmp)        
             replay_message(event,message)
-            push_tickets_info = TextSendMessage(text=search_air_tickest()) 
-            push_message(event,push_tickets_info)    
+            search_air_tickest(event)   
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
             message = TextSendMessage(text=message_text_tmp)        
@@ -110,7 +109,7 @@ def push_message(event,message):
         event.source.user_id,
         message)        
 
-def search_air_tickest():
+def search_air_tickest(event):
     keys_list = ["Depart_tickets","Arrive_tickets"]
     tickets_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat','TotalFare']
     tickets_info = find_air_ticket_info()
@@ -128,7 +127,8 @@ def search_air_tickest():
         tickets_text += "抵達時間"+tickets_info[item][keys_list[1]]['ICN']['ArriveDate']+'\n'
         tickets_text += "================票價================\n"
         tickets_text += "每位大人含稅價格: "+str(tickets_info[item][keys_list[1]]['ICN']['TotalFare'])+'\n'
-    return tickets_text
+        push_tickets_info = TextSendMessage(text=tickets_text) 
+        push_message(event,push_tickets_info) 
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
