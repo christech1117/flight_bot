@@ -35,5 +35,5 @@ def find_air_ticket_info():
             'SellSeat':int(list(Arrive_tickets_Data[air_tickets_Itinerary_keys[4]].values())[0]),
             'TotalFare':air_tickets_info[i][air_tickets_keys_list[4]]
             }
-            tickets_Info_Dict{i} = {"Depart_tickets":dict(Depart_tickets_Dict),"Arrive_tickets":dict(Arrive_tickets_Dict)}
+            tickets_Info_Dict[i] = {"Depart_tickets":dict(Depart_tickets_Dict),"Arrive_tickets":dict(Arrive_tickets_Dict)}
     return tickets_Info_Dict            
