@@ -117,15 +117,15 @@ def search_air_tickest():
     tickets_text = ""
     for item in tickets_info.keys():
         tickets_text += "================去程================\n"
-        tickets_text += "出發地點"+tickets_info[item][keys_list[0]]['DepartAirport']+'\n'
-        tickets_text += "出發時間"+tickets_info[item][keys_list[0]]['DepartDate']+'\n'
-        tickets_text += "抵達地點"+tickets_info[item][keys_list[0]]['ArriveAirport']+'\n'
-        tickets_text += "抵達時間"+tickets_info[item][keys_list[0]]['ArriveDate']+'\n'
+        tickets_text += "出發地點"+tickets_info[item][keys_list[0]]['TPE']['DepartAirport']+'\n'
+        tickets_text += "出發時間"+tickets_info[item][keys_list[0]]['TPE']['DepartDate']+'\n'
+        tickets_text += "抵達地點"+tickets_info[item][keys_list[0]]['TPE']['ArriveAirport']+'\n'
+        tickets_text += "抵達時間"+tickets_info[item][keys_list[0]]['TPE']['ArriveDate']+'\n'
         tickets_text += "================回程================\n"
-        tickets_text += "出發地點"+tickets_info[item][keys_list[1]]['DepartAirport']+'\n'
-        tickets_text += "出發時間"+tickets_info[item][keys_list[1]]['DepartDate']+'\n'
-        tickets_text += "抵達地點"+tickets_info[item][keys_list[1]]['ArriveAirport']+'\n'
-        tickets_text += "抵達時間"+tickets_info[item][keys_list[1]]['ArriveDate']+'\n'
+        tickets_text += "出發地點"+tickets_info[item][keys_list[1]]['ICN']['DepartAirport']+'\n'
+        tickets_text += "出發時間"+tickets_info[item][keys_list[1]]['ICN']['DepartDate']+'\n'
+        tickets_text += "抵達地點"+tickets_info[item][keys_list[1]]['ICN']['ArriveAirport']+'\n'
+        tickets_text += "抵達時間"+tickets_info[item][keys_list[1]]['ICN']['ArriveDate']+'\n'
         tickets_text += "================票價================\n"
         tickets_text += "每位大人含稅價格:"+tickets_info[item][keys_list[1]]['TotalFare']+'\n'
     return tickets_text

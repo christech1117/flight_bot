@@ -1,5 +1,6 @@
 import json
 from pprint import pprint
+
 def load_json_file(filename):
     with open(filename) as outfile:
         data = json.load(outfile)
