@@ -114,21 +114,24 @@ def search_air_tickest(event):
     tickets_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat','TotalFare']
     tickets_info = find_air_ticket_info()
     tickets_text = ""
+    min_price = 100000
     for item in tickets_info.keys():
-        tickets_text += "================去程================\n"
-        tickets_text += "出發地點"+tickets_info[item][keys_list[0]]['TPE']['DepartAirport']+'\n'
-        tickets_text += "出發時間"+tickets_info[item][keys_list[0]]['TPE']['DepartDate']+'\n'
-        tickets_text += "抵達地點"+tickets_info[item][keys_list[0]]['TPE']['ArriveAirport']+'\n'
-        tickets_text += "抵達時間"+tickets_info[item][keys_list[0]]['TPE']['ArriveDate']+'\n'
-        tickets_text += "================回程================\n"
-        tickets_text += "出發地點"+tickets_info[item][keys_list[1]]['ICN']['DepartAirport']+'\n'
-        tickets_text += "出發時間"+tickets_info[item][keys_list[1]]['ICN']['DepartDate']+'\n'
-        tickets_text += "抵達地點"+tickets_info[item][keys_list[1]]['ICN']['ArriveAirport']+'\n'
-        tickets_text += "抵達時間"+tickets_info[item][keys_list[1]]['ICN']['ArriveDate']+'\n'
-        tickets_text += "================票價================\n"
-        tickets_text += "每位大人含稅價格: "+str(tickets_info[item][keys_list[1]]['ICN']['TotalFare'])+'\n'
-        push_tickets_info = TextSendMessage(text=tickets_text) 
-        push_message(event,push_tickets_info) 
+        tickets_text += "====去程====\n"
+        tickets_text += "出發地點:"+tickets_info[item][keys_list[0]]['TPE']['DepartAirport']+'\n'
+        tickets_text += "出發時間:"+tickets_info[item][keys_list[0]]['TPE']['DepartDate']+'\n'
+        tickets_text += "抵達地點:"+tickets_info[item][keys_list[0]]['TPE']['ArriveAirport']+'\n'
+        tickets_text += "抵達時間:"+tickets_info[item][keys_list[0]]['TPE']['ArriveDate']+'\n'
+        tickets_text += "====回程====\n"
+        tickets_text += "出發地點:"+tickets_info[item][keys_list[1]]['ICN']['DepartAirport']+'\n'
+        tickets_text += "出發時間:"+tickets_info[item][keys_list[1]]['ICN']['DepartDate']+'\n'
+        tickets_text += "抵達地點:"+tickets_info[item][keys_list[1]]['ICN']['ArriveAirport']+'\n'
+        tickets_text += "抵達時間:"+tickets_info[item][keys_list[1]]['ICN']['ArriveDate']+'\n'
+        tickets_text += "====票價====\n"
+        tickets_text += "每人含稅價格: NT"+str(tickets_info[item][keys_list[1]]['ICN']['TotalFare'])+'\n'
+        if(min_price > tickets_info[item][keys_list[1]]['ICN']['TotalFare']):
+            min_price = tickets_info[item][keys_list[1]]['ICN']['TotalFare']
+            push_tickets_info = TextSendMessage(text=tickets_text)
+            push_message(event,push_tickets_info) 
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
