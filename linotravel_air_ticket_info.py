@@ -12,7 +12,7 @@ def find_air_ticket_info():
     air_info_keys_list = ['ReturnData','AirlineInfo','AirportInfo','FareInfo']  
     air_tickets_info = liontravel_air_tickets_data[air_info_keys_list[0]][air_info_keys_list[-1]]
     air_tickets_keys_list = ['ItinerarySummary','StopAirport','SellCurrCode','TotalBaseFare','TotalFare','TotalTax','ValidatingAirline']
-    air_tickets_Itinerary_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat',
+    air_tickets_Itinerary_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat']
     tickets_Info_Dict = {}
     Depart_tickets_Dict = {}
     Arrive_tickets_Dict = {}
