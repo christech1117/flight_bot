@@ -127,7 +127,7 @@ def search_air_tickest():
         tickets_text += "抵達地點"+tickets_info[item][keys_list[1]]['ICN']['ArriveAirport']+'\n'
         tickets_text += "抵達時間"+tickets_info[item][keys_list[1]]['ICN']['ArriveDate']+'\n'
         tickets_text += "================票價================\n"
-        tickets_text += "每位大人含稅價格:"+tickets_info[item][keys_list[1]]['TotalFare']+'\n'
+        tickets_text += "每位大人含稅價格:"+tickets_info[item][keys_list[1]]['ICN']['TotalFare']+'\n'
     return tickets_text
     
 if __name__ == "__main__":
