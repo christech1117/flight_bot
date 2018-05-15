@@ -100,14 +100,15 @@ def handle_message(event):
     else:
         message = TextSendMessage(text="程式目前維護中，請見諒")        
         replay_message(event,message)
-def replay_message(event,text):
+
+def replay_message(event,message):
     line_bot_api.reply_message(
-        event.reply_token,text)
+        event.reply_token,message)
         
-def push_message(event,text):
+def push_message(event,message):
     line_bot_api.push_message(
         event.source.user_id,
-        text)        
+        message)        
 
 def search_air_tickest():
     keys_list = ["Depart_tickets","Arrive_tickets"]
