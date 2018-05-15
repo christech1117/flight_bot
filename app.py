@@ -39,15 +39,15 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print(event)
-    message = TextSendMessage(text=event.message.text)
-    print('message ' + message)
+    message = TextSendMessage(text='echo :' + event.message.text)
+    
     if('搜尋' in event.message.text) or ('查詢' in event.message.text):
         pass
     replay_message(event,message)
 
 def replay_message(event,message):
     line_bot_api.reply_message(
-        event.reply_token,"Echo : " + message)
+        event.reply_token,message)
         
 def push_message(event,message):
     line_bot_api.push_message(
