@@ -104,9 +104,9 @@ def replay_message(event,message):
     line_bot_api.reply_message(
         event.reply_token,message)
         
-def push_message(event,message):
+def push_message(user_id,message):
     line_bot_api.push_message(
-        event.source.user_id,
+        user_id,
         message)        
 
 def search_air_tickest(event):
@@ -115,6 +115,7 @@ def search_air_tickest(event):
     tickets_info = find_air_ticket_info()
     tickets_text = ""
     min_price = 100000
+    user_id = event.source.user_id
     for item in tickets_info.keys():
         tickets_text += "====去程====\n"
         tickets_text += "出發地點:"+tickets_info[item][keys_list[0]]['TPE']['DepartAirport']+'\n'
@@ -131,7 +132,7 @@ def search_air_tickest(event):
         if(min_price > tickets_info[item][keys_list[1]]['ICN']['TotalFare']):
             min_price = tickets_info[item][keys_list[1]]['ICN']['TotalFare']
             push_tickets_info = TextSendMessage(text=tickets_text)
-            push_message(event,push_tickets_info) 
+            push_message(user_id,push_tickets_info) 
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
