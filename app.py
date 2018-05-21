@@ -167,7 +167,6 @@ def choice_datatime():
     buttons_template_message = TemplateSendMessage(
         alt_text='DatetimePicker',
         template=ButtonsTemplate(
-            thumbnail_image_url='https://example.com/image.jpg',
             title='選擇日期',
             text='請選擇日期',
             actions=[
