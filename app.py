@@ -55,7 +55,10 @@ def callback():
 @handler.add(PostbackEvent, message=None)
 def handle_Postback(event):
     print("Now event in handle_Postback handle")
-
+    print(event)
+    print(event.postback.data)
+    if(event.postback.data == 'reSearch = true'):
+        session_dict[user_key] = []
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print(event)
@@ -108,6 +111,15 @@ def handle_message(event):
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
             message = TextSendMessage(text=message_text_tmp)        
             replay_message(event,message)
+    elif (user_key in session_dict) and (len(session_dict[user_key]) == 0):
+        if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
+            session_second_list.append(event.message.text)
+            session_dict[user_key] = list(session_second_list)
+            message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"   
+        else:
+            message_text_tmp = "抱歉目前僅提供搜尋機票功能，可打 搜尋機票 即可搜尋機票"
+        message = TextSendMessage(text=message_text_tmp)        
+        replay_message(event,message) 
     else:
         message = TextSendMessage(text="程式目前維護中，請見諒")        
         replay_message(event,message)
