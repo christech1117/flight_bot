@@ -12,6 +12,8 @@ import os
 import sys
 import pymongo
 
+
+
 #import custom function
 from linotravel_air_ticket_info  import find_air_ticket_info 
 
@@ -50,6 +52,9 @@ def callback():
 
     return 'OK'
 
+@handler.add(PostbackEvent, message=None)
+def handle_Postback(event):
+    print("Now event in handle_Postback handle")
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -115,7 +120,7 @@ def replay_message(event,message):
         
 def push_message(user_id,message):
     line_bot_api.push_message(
-        event.source.user_id,
+        user_id,
         message)     
 
 def save_message(event):
@@ -153,6 +158,30 @@ def search_air_tickest(event):
             min_price = tickets_info[item][keys_list[1]]['ICN']['TotalFare']
             push_tickets_info = TextSendMessage(text=tickets_text)
             push_message(user_id,push_tickets_info) 
+    buttons_template_message = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://example.com/image.jpg',
+            title='Menu',
+            text='是否重新搜尋新航班',
+            actions=[
+                PostbackTemplateAction(
+                    label='重新搜尋',
+                    text='重新搜尋新航班',
+                    data='reSearch = true'
+                ),
+                MessageTemplateAction(
+                    label='message',
+                    text='message text'
+                ),
+                URITemplateAction(
+                    label='uri',
+                    uri='http://example.com/'
+                )
+            ]
+        )
+    )
+    push_message(user_id,buttons_template_message)
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
