@@ -75,7 +75,6 @@ def handle_message(event):
         replay_message(event,message)
     elif (user_key not in session_dict) :
         if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
-            session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
             message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"         
