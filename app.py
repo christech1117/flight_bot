@@ -138,10 +138,11 @@ def search_air_tickest(event):
     keys_list = ["Depart_tickets","Arrive_tickets"]
     tickets_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat','TotalFare']
     tickets_info = find_air_ticket_info()
-    tickets_text = ""
     min_price = 100000
     user_id = event.source.user_id
+    print("user_id is "+user_id)
     for item in tickets_info.keys():
+        tickets_text = ""
         tickets_text += "====去程====\n"
         tickets_text += "出發地點:"+tickets_info[item][keys_list[0]]['TPE']['DepartAirport']+'\n'
         tickets_text += "出發時間:"+tickets_info[item][keys_list[0]]['TPE']['DepartDate']+'\n'
