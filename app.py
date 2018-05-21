@@ -113,7 +113,7 @@ def handle_message(event):
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
         message = TextSendMessage(text=message_text_tmp)        
-        replay_message(event,choice_datatime())
+        push_message(event.source.user_id,choice_datatime())
     elif (len(session_dict[user_key]) == 4): 
         if(event.message.text == '20180608'):
             session_second_list = list(session_dict[user_key])
