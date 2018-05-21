@@ -1,5 +1,4 @@
 from flask import Flask, request, abort
-
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -10,15 +9,23 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction
 )
 import os
+import sys
+import pymongo
 
 #import custom function
 from linotravel_air_ticket_info  import find_air_ticket_info 
+
 app = Flask(__name__)
 
 # Channel Access Token
 line_bot_api = LineBotApi(os.environ['linetoken'])
 # Channel Secret
 handler = WebhookHandler(os.environ['linechannel'])
+
+### Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
+uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n' 
+client = pymongo.MongoClient(uri)
+db = client.get_default_database()
 
 #======================parameter==================
 session_dict = {}
@@ -100,14 +107,27 @@ def handle_message(event):
         message = TextSendMessage(text="程式目前維護中，請見諒")        
         replay_message(event,message)
 
+
 def replay_message(event,message):
+    save_message(event)
     line_bot_api.reply_message(
         event.reply_token,message)
         
 def push_message(user_id,message):
     line_bot_api.push_message(
-        user_id,
-        message)        
+        event.source.user_id,
+        message)     
+
+def save_message(event):
+    data = {
+        'user_id': event.source.user_id,
+        'id': event.message.id,
+        'type': event.message.type,
+        'text' : event.message.text
+    },
+    message_collection = db['message'] # collection; it is created automatically when we insert.
+    message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
+
 
 def search_air_tickest(event):
     keys_list = ["Depart_tickets","Arrive_tickets"]
