@@ -11,7 +11,7 @@ from linebot.models import (
 import os
 import sys
 import pymongo
-
+import datatime
 
 
 #import custom function
@@ -98,7 +98,8 @@ def handle_message(event):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問出發日期? (日期格式 :2018年5月1號 請打 20180501 )"  
+            message_text_tmp = "請問出發日期? (日期格式 :2018年5月1號 請打 20180501 )"
+                
         else:
             message_text_tmp = "很抱歉，請輸入正確的目的地，如機場或是國家"
         message = TextSendMessage(text=message_text_tmp)        
@@ -108,10 +109,10 @@ def handle_message(event):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問回國日期? (日期格式 :2018年5月1號 請打 20180501 )"  
+            message_text_tmp = "請問回國日期? (日期格式 :2018年5月1號 請打 20180501 )"    
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
-        message = TextSendMessage(text=message_text_tmp)        
+        message = TextSendMessage(text=choice_datatime() )        
         replay_message(event,message)
     elif (len(session_dict[user_key]) == 4): 
         if(event.message.text == '20180608'):
@@ -161,7 +162,25 @@ def save_message(event):
     message_collection = db['message'] # collection; it is created automatically when we insert.
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
 
-
+def choice_datatime():
+    buttons_template_message = TemplateSendMessage(
+        alt_text='DatetimePicker',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://example.com/image.jpg',
+            title='選擇日期',
+            text='請選擇日期',
+            actions=[
+                DatetimePickerTemplateAction(
+                    label = "選擇出國日期",
+                    model="datetime",
+                    initial = now_time,
+                    max="2018-10-24t23:59",
+                    min=now_time
+                )                
+            ]
+        )
+    )
+    return buttons_template_message
 def search_air_tickest(event):
     keys_list = ["Depart_tickets","Arrive_tickets"]
     tickets_keys = ['ArriveAirport','ArriveDate','DepartAirport','DepartDate','SellSeat','TotalFare']
