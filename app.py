@@ -163,6 +163,7 @@ def save_message(event):
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
 
 def choice_datatime():
+    now_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     buttons_template_message = TemplateSendMessage(
         alt_text='DatetimePicker',
         template=ButtonsTemplate(
