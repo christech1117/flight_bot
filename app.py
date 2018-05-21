@@ -173,7 +173,7 @@ def choice_datatime():
             actions=[
                 DatetimePickerTemplateAction(
                     label = "選擇出國日期",
-                    model="datetime",
+                    mode="datetime",
                     initial = "2017-12-25t00:00",
                     max="2018-10-24t23:59",
                     min="2017-12-25t00:00"
