@@ -33,6 +33,8 @@ db = client.get_default_database()
 session_dict = {}
 #session_second_list = []
 region_list = ["台北","TPE","首爾","SEL","ICN"]
+type_of_return = "type = return" 
+type_of_depart = "type = depart"
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -61,6 +63,22 @@ def handle_Postback(event):
     if(event.postback.data == 'reSearch = true'):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
+    elif(event.postback.data == type_of_depart )   :
+        time = event.postback.params
+        session_second_list = list(session_dict[user_key])
+        session_second_list.append(time)
+        session_dict[user_key] = list(session_second_list)
+        message_text_tmp = "請問回國日期?"
+        push_message(event.source.user_id,choice_datatime(type_of_return))
+    elif(event.postback.data == type_of_return )   :
+        time = event.postback.params
+        session_second_list = list(session_dict[user_key])
+        session_second_list.append(time)
+        session_dict[user_key] = list(session_second_list)
+        message_text_tmp = "搜尋中，請稍後"
+        message = TextSendMessage(text=message_text_tmp)        
+        push_message(event.source.user_id,message)
+        search_air_tickest(event)       
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print(event)
@@ -98,22 +116,24 @@ def handle_message(event):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問出發日期? (日期格式 :2018年5月1號 請打 20180501 )"
+            message_text_tmp = "請問出發日期?"
                 
         else:
             message_text_tmp = "很抱歉，請輸入正確的目的地，如機場或是國家"
         message = TextSendMessage(text=message_text_tmp)        
-        replay_message(event,message)    
+        replay_message(event,message)
+        push_message(event.source.user_id,choice_datatime(type_of_depart))        
     elif (len(session_dict[user_key]) == 3): 
         if(event.message.text == '20180531'):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問回國日期? (日期格式 :2018年5月1號 請打 20180501 )"    
+            message_text_tmp = "請問回國日期?"    
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
-        message = TextSendMessage(text=message_text_tmp)        
-        push_message(event.source.user_id,choice_datatime())
+        message = TextSendMessage(text=message_text_tmp)     
+        replay_message(event,message)    
+        push_message(event.source.user_id,choice_datatime(type_of_return))
     elif (len(session_dict[user_key]) == 4): 
         if(event.message.text == '20180608'):
             session_second_list = list(session_dict[user_key])
@@ -162,21 +182,27 @@ def save_message(event):
     message_collection = db['message'] # collection; it is created automatically when we insert.
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
 
-def choice_datatime():
+def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if(type == type_of_return):
+        title_string =" 請選擇回國日期"
+        text_string = "選擇日期"
+    else:
+        title_string =" 請選擇啟程日期"
+        text_string = "選擇日期"
     buttons_template_message = TemplateSendMessage(
         alt_text='DatetimePicker',
         template=ButtonsTemplate(
-            title='選擇日期',
-            text='請選擇日期',
+            title=title_string,
+            text=text_string,
             actions=[
                 DatetimePickerTemplateAction(
-                    label = "選擇出國日期",
-                    mode = "datetime",
-                    data="action=sell&itemid=2&mode=date",
-                    initial = "2017-12-25t00:00",
-                    max="2018-10-24t23:59",
-                    min="2017-12-25t00:00"
+                    label = title_string,
+                    mode = "date",
+                    data=type,
+                    initial = "2017-12-25",
+                    max="2018-10-24",
+                    min="2017-12-25"
                 )                
             ]
         )
