@@ -68,7 +68,9 @@ def handle_Postback(event):
         session_second_list = list(session_dict[user_key])
         session_second_list.append(time)
         session_dict[user_key] = list(session_second_list)
-        message_text_tmp = "請問回國日期?"
+        message_text_tmp = "你選擇的日期為:"+time
+        message = TextSendMessage(text=message_text_tmp)
+        push_message(user_key,message)
         push_message(event.source.user_id,choice_datatime(type_of_return))
     elif(event.postback.data == type_of_return )   :
         time = event.postback.params
