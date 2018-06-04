@@ -78,7 +78,7 @@ def handle_Postback(event):
         session_second_list = list(session_dict[user_key])
         time_tmp = {datetime_type[type_of_return ]: time['date']}
         print(session_dict[user_key])
-        if(time['date'] >= session_dict[user_key][0][datetime_type[type_of_return ]]):
+        if(time['date'] >= session_dict[user_key][-1][datetime_type[type_of_return ]]):
             session_second_list.append(time_tmp)
             session_dict[user_key] = list(session_second_list)
             message_text_tmp = "你選擇的回國日期為:" + time['date']
