@@ -197,7 +197,8 @@ def save_message(event):
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d ")
-    max_time = now_time+datetime.timedelta(days=365)
+    max_time_tmp = datetime.datetime.now()+datetime.timedelta(days=365)
+    max_time = max_time_tmp.strftime("%Y-%m-%d ")
     if(type == type_of_return):
         title_string =" 請選擇回國日期"
         text_string = "選擇日期"
