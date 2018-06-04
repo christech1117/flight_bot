@@ -214,9 +214,9 @@ def choice_datatime(type):
                     label = title_string,
                     mode = "date",
                     data=type,
-                    initial = now_time,
-                    max=max_time,
-                    min=now_time
+                    initial = str(now_time),
+                    max=str(max_time),
+                    min=str(now_time)
                 )                
             ]
         )
