@@ -196,9 +196,9 @@ def save_message(event):
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
 
 def choice_datatime(type):
-    now_time = datetime.datetime.now().strftime("%Y-%m-%d ")
+    now_time = datetime.datetime.now().strftime("%Y-%m-%d")
     max_time_tmp = datetime.datetime.now()+datetime.timedelta(days=365)
-    max_time = max_time_tmp.strftime("%Y-%m-%d ")
+    max_time = max_time_tmp.strftime("%Y-%m-%d")
     print(now_time)
     print(max_time)
     if(type == type_of_return):
@@ -217,7 +217,7 @@ def choice_datatime(type):
                     label = title_string,
                     mode = "date",
                     data=type,
-                    initial = "2018-06-04",
+                    initial = now_time,
                     max="2018-10-30",
                     min="2018-06-04"
                 )                
