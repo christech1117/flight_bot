@@ -35,7 +35,7 @@ session_dict = {}
 region_list = ["台北","TPE","首爾","SEL","ICN"]
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
-
+datetime_type = {type_of_depart:'depart_date',type_of_return:'return_date'}
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -66,21 +66,32 @@ def handle_Postback(event):
     elif(event.postback.data == type_of_depart )   :
         time = event.postback.params
         session_second_list = list(session_dict[user_key])
-        session_second_list.append(time)
+        time_tmp = {datetime_type[type_of_depart]:time['date']}
+        session_second_list.append(time_tmp)
         session_dict[user_key] = list(session_second_list)
-        message_text_tmp = "你選擇的日期為:"+str(time)
+        message_text_tmp = "你選擇的日期為:"+time['date']
         message = TextSendMessage(text=message_text_tmp)
         push_message(user_key,message)
         push_message(event.source.user_id,choice_datatime(type_of_return))
     elif(event.postback.data == type_of_return )   :
         time = event.postback.params
         session_second_list = list(session_dict[user_key])
-        session_second_list.append(time)
-        session_dict[user_key] = list(session_second_list)
-        message_text_tmp = "搜尋中，請稍後"
-        message = TextSendMessage(text=message_text_tmp)        
-        push_message(event.source.user_id,message)
-        search_air_tickest(event)       
+        time_tmp = {datetime_type[type_of_return ]: time['date']}
+        if(time['date'] >= session_dict[user_key][datetime_type[type_of_return ]]):
+            session_second_list.append(time_tmp)
+            session_dict[user_key] = list(session_second_list)
+            message_text_tmp = "你選擇的回國日期為:" + time['date']
+            message = TextSendMessage(text=message_text_tmp)
+            push_message(user_key, message)
+            message_text_tmp = "搜尋中，請稍後"
+            message = TextSendMessage(text=message_text_tmp)
+            push_message(event.source.user_id,message)
+            search_air_tickest(event)
+        else:
+            message_text_tmp = "你選擇的回國日期小於出國日期，請重新選擇"
+            message = TextSendMessage(text=message_text_tmp)
+            push_message(event.source.user_id, message)
+            push_message(event.source.user_id, choice_datatime(type_of_return))
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print(event)
@@ -185,7 +196,8 @@ def save_message(event):
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
 
 def choice_datatime(type):
-    now_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now_time = datetime.datetime.now().strftime("%Y-%m-%d ")
+    max_time = now_time+datetime.timedelta(days=365)
     if(type == type_of_return):
         title_string =" 請選擇回國日期"
         text_string = "選擇日期"
@@ -202,9 +214,9 @@ def choice_datatime(type):
                     label = title_string,
                     mode = "date",
                     data=type,
-                    initial = "2017-12-25",
-                    max="2018-10-24",
-                    min="2017-12-25"
+                    initial = now_time,
+                    max=max_time,
+                    min=now_time
                 )                
             ]
         )
