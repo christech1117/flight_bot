@@ -216,7 +216,7 @@ def choice_datatime(type):
                     mode = "date",
                     data=type,
                     initial = str(now_time),
-                    max=str(max_time),
+                    max="2018-10-30",
                     min=str(now_time)
                 )                
             ]
