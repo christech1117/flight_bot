@@ -68,7 +68,7 @@ def handle_Postback(event):
         session_second_list = list(session_dict[user_key])
         session_second_list.append(time)
         session_dict[user_key] = list(session_second_list)
-        message_text_tmp = "你選擇的日期為:"+time
+        message_text_tmp = "你選擇的日期為:"+str(time)
         message = TextSendMessage(text=message_text_tmp)
         push_message(user_key,message)
         push_message(event.source.user_id,choice_datatime(type_of_return))
@@ -89,6 +89,7 @@ def handle_message(event):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
         session_second_list.append(event.message.text)
+        print("輸入重新搜尋，user text is :"+str(event.message.text))
         session_dict[user_key] = list(session_second_list)
         message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         message = TextSendMessage(text=message_text_tmp)        
@@ -119,7 +120,6 @@ def handle_message(event):
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
             message_text_tmp = "請問出發日期?"
-                
         else:
             message_text_tmp = "很抱歉，請輸入正確的目的地，如機場或是國家"
         message = TextSendMessage(text=message_text_tmp)        
