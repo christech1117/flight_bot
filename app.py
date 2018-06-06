@@ -8,7 +8,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,
     ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction
-    ,DatetimePickerTemplateAction,
+    ,DatetimePickerTemplateAction
 )
 import os
 import sys
@@ -203,7 +203,7 @@ def push_message(user_id,message):
 def save_message(event):
     print(event)
     message_collection = db['message'] # collection; it is created automatically when we insert.
-    message_collection.insert_many(event) # Note that the insert method can take either an array or a single dict.
+    message_collection.insert_many(list(event)) # Note that the insert method can take either an array or a single dict.
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
