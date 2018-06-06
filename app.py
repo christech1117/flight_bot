@@ -8,7 +8,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,
     ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction
-    ,DatetimePickerTemplateAction,RichMenu,RichMenuBound,RichMenuArea
+    ,DatetimePickerTemplateAction,
 )
 import os
 import sys
@@ -38,86 +38,8 @@ region_list = ["台北","TPE","首爾","SEL","ICN"]
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
 datetime_type = {type_of_depart:'depart_date',type_of_return:'return_date'}
-rich_menu_to_create = RichMenu(
-                            size=RichMenuBound(
-                                width=2500,
-                                height=1686
-                            ),
-                            selected= False,
-                            name="nice richmenu",
-                            chatBarText="touch me",
-                            areas=[
-                                RichMenuArea(
-                                    RichMenuBound(
-                                        x=551,
-                                        y=325,
-                                        width=321,
-                                        height=321
-                                    ),
-                                    
-                                    URITemplateAction(
-                                        uri='line://nv/location'
-                                    )
-                                ),
-                                RichMenuArea(
-                                    RichMenuBound(
-                                        x=876,
-                                        y=651,
-                                        width=321,
-                                        height=321
-                                    ),
-                                    URITemplateAction(
-                                        uri='line://nv/location'
-                                    )
-                                ),
-                                RichMenuArea(
-                                    RichMenuBound(
-                                        x=551,
-                                        y=972,
-                                        width=321,
-                                        height=321
-                                    ),
-                                    URITemplateAction(
-                                        uri='line://nv/location'
-                                    )
-                                ),
-                                RichMenuArea(
-                                    RichMenuBound(
-                                        x=225,
-                                        y=651,
-                                        width=321,
-                                        height=321
-                                    ),
-                                    URITemplateAction(
-                                        uri='line://nv/location'
-                                    )
-                                ),
-                                RichMenuArea(
-                                    RichMenuBound(
-                                        x=1433,
-                                        y=657,
-                                        width=367,
-                                        height=367
-                                    ),
-                                    URITemplateAction(
-                                        uri='line://nv/location'
-                                    )
-                                ),
-                                RichMenuArea(
-                                    RichMenuBound(
-                                        x=1907,
-                                        y=657,
-                                        width=367,
-                                        height=367
-                                    ),
-                                    URITemplateAction(
-                                        uri='line://nv/location'
-                                    )
-                                ),
-                            ]
-                        )
-rich_menu_id = line_bot_api.create_rich_menu(data=rich_menu_to_create)
-print(rich_menu_id)
+
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
