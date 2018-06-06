@@ -183,7 +183,9 @@ def handle_message(event):
 
 def replay_message(event,message):
     save_message(event)
-    save_message(message)
+    save_message({
+        "reply_message" : message
+    })
     line_bot_api.reply_message(
         event.reply_token,message)
         
