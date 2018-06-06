@@ -200,7 +200,7 @@ def save_message(event):
         'type': event.message.type,
         'text' : event.message.text
     }
-    db.message.insert_one(event)
+    
     db.message.insert_one(data)
     # message_collection = db['message'] # collection; it is created automatically when we insert.
     # message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
