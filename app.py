@@ -6,7 +6,9 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,
+    ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction
+    ,DatetimePickerTemplateAction
 )
 import os
 import sys
@@ -36,6 +38,8 @@ region_list = ["台北","TPE","首爾","SEL","ICN"]
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
 datetime_type = {type_of_depart:'depart_date',type_of_return:'return_date'}
+
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -57,6 +61,7 @@ def callback():
 @handler.add(PostbackEvent, message=None)
 def handle_Postback(event):
     print("Now event in handle_Postback handle")
+    print(PostbackEvent)
     user_key = event.source.user_id
     print(event)
     print(event.postback.data)
@@ -192,10 +197,11 @@ def save_message(event):
         'id': event.message.id,
         'type': event.message.type,
         'text' : event.message.text
-    } ,
-    message_collection = db['message'] # collection; it is created automatically when we insert.
-    message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
-
+    },
+    print(data)
+    db.message.insert_one(data)
+    # message_collection = db['message'] # collection; it is created automatically when we insert.
+    # message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
     max_time_tmp = datetime.datetime.now()+datetime.timedelta(days=365)
