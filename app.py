@@ -196,7 +196,7 @@ def save_message(event):
     
     data = {
         'user_id': event.source.user_id,
-        'event' : event
+        'event' : dict(event)
     }
     print(data)
     db.message.insert_one(dict(data))
