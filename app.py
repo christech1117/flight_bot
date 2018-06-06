@@ -196,9 +196,7 @@ def save_message(event):
     print(event)
     data = {
         'user_id': event.source.user_id,
-        'id': event.message.id,
-        'type': event.message.type,
-        'text' : event.message.text
+        'event' : event
     }
     
     db.message.insert_one(data)
