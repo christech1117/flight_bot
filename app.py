@@ -178,6 +178,7 @@ def handle_message(event):
 
 def replay_message(event,message):
     save_message(event)
+    save_message(message)
     line_bot_api.reply_message(
         event.reply_token,message)
         
@@ -187,6 +188,8 @@ def push_message(user_id,message):
         message)     
 
 def save_message(event):
+    print("###")
+    print(event)
     data = {
         'user_id': event.source.user_id,
         'id': event.message.id,
