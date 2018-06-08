@@ -282,7 +282,7 @@ def search_air_tickest(event):
     )
     push_message(user_id,buttons_template_message)
 def push_ads(user_id):
-    photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4mufMVE7R56XYhrrkbEYj7znEjkXYSWeSaPgr07wSv7zoEyf7'
+    photo_url = './images/travel_test_img.png'
     link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
     imagemap_message = ImagemapSendMessage(
         base_url=photo_url,
