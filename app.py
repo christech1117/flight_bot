@@ -6,7 +6,8 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
+ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize
 )
 import os
 import sys
@@ -275,7 +276,27 @@ def search_air_tickest(event):
         )
     )
     push_message(user_id,buttons_template_message)
-    
+def push_ads(user_id):
+    imagemap_message = ImagemapSendMessage(
+        base_url='https://example.com/base',
+        alt_text='this is an imagemap',
+        base_size=BaseSize(height=1040, width=1040),
+        actions=[
+            URIImagemapAction(
+                link_uri='https://example.com/',
+                area=ImagemapArea(
+                    x=0, y=0, width=520, height=1040
+                )
+            ),
+            MessageImagemapAction(
+                text='hello',
+                area=ImagemapArea(
+                    x=520, y=0, width=520, height=1040
+                )
+            )
+        ]
+    )
+    push_message(user_id, imagemap_message)
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
