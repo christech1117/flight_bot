@@ -108,7 +108,7 @@ def handle_message(event):
     print(profile.picture_url)
     print(profile.status_message)
     print(profile)
-    message_content = line_bot_api.get_message_content(user_key)
+    message_content = line_bot_api.get_message_content(message_id)
     print(message_content)
     if ('重新搜尋' in event.message.text):
         session_dict[user_key] = []
