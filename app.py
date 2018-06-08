@@ -106,7 +106,7 @@ def handle_message(event):
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
-    share_link_info(user_id)
+    share_link_info(user_key)
     if ('重新搜尋' in event.message.text):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
