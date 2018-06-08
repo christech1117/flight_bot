@@ -101,13 +101,12 @@ def handle_Postback(event):
 def handle_message(event):
     print(event)
     user_key = event.source.user_id
-    message_id = event.message.id
     profile = line_bot_api.get_profile(user_key)
     print(profile.display_name)
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
-    get_rich_menu_info()
+    share_link_info(user_id)
     if ('重新搜尋' in event.message.text):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
@@ -327,32 +326,24 @@ def push_ads(user_id):
         ]
     )
     push_message(user_id, imagemap_message)
-def get_rich_menu_info():
-    rich_menu_to_create = {
-      "size": {
-        "width": '2500',
-        "height": '1686'
-      },
-      "selected": 'false',
-      "name": "Nice richmenu",
-      "chatBarText": "Tap to open",
-      "areas": [
-        {
-          "bounds": {
-            "x": '0',
-            "y": '0',
-            "width": '2500',
-            "height": '1686'
-          },
-          "action": {
-            "type": "postback",
-            "data": "action=buy&itemid=123"
-          }
-        }
-      ]
+def share_link_info(user_id):
+    link_url = {
+        "to": "{user id}",
+        "messages": [{
+            "type": "template",
+            "altText": "Account Link",
+            "template": {
+                "type": "buttons",
+                "text": "Account Link",
+                "actions": [{
+                    "type": "uri",
+                    "label": "Account Link",
+                    "uri": "http://example.com/link?linkToken=xxx"
+                }]
+            }
+        }]
     }
-    rich_menu_id = line_bot_api.create_rich_menu(rich_menu_to_create)
-    print(rich_menu_id)
+    push_message(user_id, link_url)
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
