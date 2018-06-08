@@ -37,6 +37,8 @@ region_list = ["台北","TPE","首爾","SEL","ICN"]
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
 datetime_type = {type_of_depart:'depart_date',type_of_return:'return_date'}
+
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -58,6 +60,7 @@ def callback():
 @handler.add(PostbackEvent, message=None)
 def handle_Postback(event):
     print("Now event in handle_Postback handle")
+    print(PostbackEvent)
     user_key = event.source.user_id
     print(event)
     print(event.postback.data)
