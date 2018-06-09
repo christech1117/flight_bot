@@ -13,7 +13,7 @@ import os
 import sys
 import pymongo
 import datetime
-
+import json
 
 #import custom function
 from linotravel_air_ticket_info  import find_air_ticket_info 
@@ -343,7 +343,8 @@ def share_link_info(user_id):
             }
         }]
     }
-    push_message(user_id, link_url)
+    link_url_json =json.dumps(link_url)
+    push_message(user_id, link_url_json)
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
