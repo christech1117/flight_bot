@@ -214,17 +214,20 @@ def replay_message(event,message):
 def push_message(user_id,message):
     line_bot_api.push_message(
         user_id,
-        message)     
+        message)
+
 
 def save_message(event):
     data = {
         'user_id': event.source.user_id,
         'id': event.message.id,
         'type': event.message.type,
-        'text' : event.message.text
+        'text': event.message.text,
+        '1': json.dumps(event)
     },
     message_collection = db['message'] # collection; it is created automatically when we insert.
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
+
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
