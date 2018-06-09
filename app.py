@@ -318,6 +318,7 @@ def search_airticket_in_travel4(session_dict,user_key):
                                session_dict[user_key][4][datetime_type[type_of_return]].replace("-","/"),'Y','5')
     titlename =get_airticket_title_Info()
     for keys in airplane_all_detal_info_dict:
+        print(airplane_all_detal_info_dict[keys])
         tickets_text = ""
         for keys_i in titlename:
             tickets_text += titlename[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
