@@ -117,17 +117,17 @@ def load_json_file(filename):
     with open(filename) as outfile:
         data = json.load(outfile)
     return  data
-def main_search_airticket_info(var_depdate,var_retdate,var_depairport,var_retairport,var_direct = 'Y',var_rbd ='5'):
+def main_search_airticket_info(var_depairport,var_retairport,var_depdate,var_retdate,var_direct = 'Y',var_rbd ='5'):
     payload = {
         'triptype': 'Return',
         'depairport': var_depairport,
         'retairport': var_retairport,
         'depdate': var_depdate,
         'retdate': var_retdate,
-        'direct': var_direct,
+        'direct': 'Y',
         'addthree': 'N',
         'airline': '',
-        'rbd': var_rbd,
+        'rbd': '5',
         'adult': ' 1',
         'child': ' 0',
         'inft': ' 0',
