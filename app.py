@@ -106,36 +106,43 @@ def handle_message(event):
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
-    if ('重新搜尋' in event.message.text):
+    if ("廣告" == event.message.text):
+        push_ads(user_key)
+    elif ('搜尋機票' == event.message.text ) and ('重新搜尋航班' == event.message.text ):
+        search_air_info_session(event)
+    else:
+        other_session(event)
+
+def search_air_info_session(event):
+    user_key = event.source.user_id
+    if ('重新搜尋航班' in event.message.text):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
         session_second_list.append(event.message.text)
         print("輸入重新搜尋，user text is :"+str(event.message.text))
         session_dict[user_key] = list(session_second_list)
         message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
-        message = TextSendMessage(text=message_text_tmp)        
+        message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
-    elif("廣告" == event.message.text):
-        push_ads(user_key)
     elif (user_key not in session_dict) :
         if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
             session_second_list = []
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"         
+            message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         else:
             message_text_tmp = "抱歉目前僅提供搜尋機票功能，可打 搜尋機票 即可搜尋機票"
-        message = TextSendMessage(text=message_text_tmp)        
+        message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
     elif (len(session_dict[user_key]) == 1):
         if(event.message.text in region_list ):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問目的地 ?  (例如:首爾)"   
+            message_text_tmp = "請問目的地 ?  (例如:首爾)"
         else:
             message_text_tmp = "很抱歉，請輸入正確的出發地點，如機場或是國家"
-        message = TextSendMessage(text=message_text_tmp)        
+        message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
     elif (len(session_dict[user_key]) == 2):
         if(event.message.text in region_list ):
@@ -145,47 +152,50 @@ def handle_message(event):
             message_text_tmp = "請問出發日期?"
         else:
             message_text_tmp = "很抱歉，請輸入正確的目的地，如機場或是國家"
-        message = TextSendMessage(text=message_text_tmp)        
+        message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
-        push_message(event.source.user_id,choice_datatime(type_of_depart))        
-    elif (len(session_dict[user_key]) == 3): 
+        push_message(event.source.user_id,choice_datatime(type_of_depart))
+    elif (len(session_dict[user_key]) == 3):
         if(event.message.text == '20180531'):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問回國日期?"    
+            message_text_tmp = "請問回國日期?"
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
-        message = TextSendMessage(text=message_text_tmp)     
-        replay_message(event,message)    
+        message = TextSendMessage(text=message_text_tmp)
+        replay_message(event,message)
         push_message(event.source.user_id,choice_datatime(type_of_return))
-    elif (len(session_dict[user_key]) == 4): 
+    elif (len(session_dict[user_key]) == 4):
         if(event.message.text == '20180608'):
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
             message_text_tmp = "搜尋中，請稍後"
-            message = TextSendMessage(text=message_text_tmp)        
+            message = TextSendMessage(text=message_text_tmp)
             replay_message(event,message)
-            search_air_tickest(event)   
+            search_air_tickest(event)
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
-            message = TextSendMessage(text=message_text_tmp)        
+            message = TextSendMessage(text=message_text_tmp)
             replay_message(event,message)
     elif (user_key in session_dict) and (len(session_dict[user_key]) == 0):
         if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
             session_second_list = []
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"   
+            message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         else:
             message_text_tmp = "抱歉目前僅提供搜尋機票功能，可打 搜尋機票 即可搜尋機票"
-        message = TextSendMessage(text=message_text_tmp)        
-        replay_message(event,message) 
+        message = TextSendMessage(text=message_text_tmp)
+        replay_message(event,message)
     else:
-        message = TextSendMessage(text="程式目前維護中，請見諒")        
+        message = TextSendMessage(text="程式目前維護中，請見諒")
         replay_message(event,message)
 
+def other_session(event):
+    message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
+    replay_message(event, message)
 
 def replay_message(event,message):
     save_message(event)
@@ -271,7 +281,7 @@ def search_air_tickest(event):
             actions=[
                 PostbackTemplateAction(
                     label='重新搜尋',
-                    text='重新搜尋新航班',
+                    text='重新搜尋航班',
                     data='reSearch = true'
                 ),
                 MessageTemplateAction(
