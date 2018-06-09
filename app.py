@@ -321,6 +321,7 @@ def search_airticket_in_travel4(session_dict,user_key):
         print(airplane_all_detal_info_dict[keys])
         tickets_text = ""
         for keys_i in titlename:
+            print(titlename[keys_i])
             tickets_text += titlename[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
