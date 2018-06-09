@@ -320,9 +320,9 @@ def search_airticket_in_travel4(session_dict,user_key):
     for keys in airplane_all_detal_info_dict:
         print(airplane_all_detal_info_dict[keys])
         tickets_text = ""
-        for keys_i in titlename:
-            print(titlename[keys_i])
-            tickets_text += titlename[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
+        for keys_i in titlename[0]:
+            print(titlename[0][keys_i])
+            tickets_text += titlename[0][keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
 def get_ads_info():
