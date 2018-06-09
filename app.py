@@ -27,10 +27,6 @@ line_bot_api = LineBotApi(os.environ['linetoken'])
 # Channel Secret
 handler = WebhookHandler(os.environ['linechannel'])
 
-# Channel Access Token
-line_bot_api_test = LineBotApi(os.environ['linetoken_test'])
-# Channel Secret
-handler_test = WebhookHandler(os.environ['linechannel_test'])
 ### Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n' 
 client = pymongo.MongoClient(uri)
@@ -54,11 +50,10 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-    print(signature)
-    print(request.headers)
+
     # handle webhook body
     try:
-        handler_test.handle(body, signature)
+        handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
 
