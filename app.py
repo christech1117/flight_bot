@@ -218,12 +218,13 @@ def push_message(user_id,message):
 
 
 def save_message(event):
+    print(type(event))
     data = {
         'user_id': event.source.user_id,
         'id': event.message.id,
         'type': event.message.type,
         'text': event.message.text,
-        '1': json.dumps(event)
+        '1': dict(event)
     },
     message_collection = db['message'] # collection; it is created automatically when we insert.
     message_collection.insert_many(data) # Note that the insert method can take either an array or a single dict.
