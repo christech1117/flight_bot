@@ -224,7 +224,6 @@ def save_message(event):
         'id': event.message.id,
         'type': event.message.type,
         'text': event.message.text,
-        't': json.dumps(event.message),
         'a': json.dumps(event.__dict__)
     },
     message_collection = db['message'] # collection; it is created automatically when we insert.
