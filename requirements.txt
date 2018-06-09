@@ -2,3 +2,6 @@ line-bot-sdk
 flask
 pymongo
 jsonschema
+beautifulsoup4
+requests
+lxml

@@ -17,6 +17,8 @@ import json
 
 #import custom function
 from linotravel_air_ticket_info  import find_air_ticket_info 
+from travel4_craw_airticket_info import main_search_airticket_info,get_airticket_title_Info
+
 
 app = Flask(__name__)
 
@@ -91,7 +93,8 @@ def handle_Postback(event):
             message_text_tmp = "搜尋中，請稍後"
             message = TextSendMessage(text=message_text_tmp)
             push_message(event.source.user_id,message)
-            search_air_tickest(event)
+            #search_air_tickest(event)
+            search_airticket_in_travel4(session_dict, user_key)
         else:
             message_text_tmp = "你選擇的回國日期小於出國日期，請重新選擇"
             message = TextSendMessage(text=message_text_tmp)
@@ -177,7 +180,8 @@ def search_air_info_session(event):
             message_text_tmp = "搜尋中，請稍後"
             message = TextSendMessage(text=message_text_tmp)
             replay_message(event,message)
-            search_air_tickest(event)
+            #search_air_tickest(event)
+            search_airticket_in_travel4(session_dict, user_key)
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
             message = TextSendMessage(text=message_text_tmp)
@@ -200,6 +204,8 @@ def other_session(event):
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
     replay_message(event, message)
 
+def is_first_use(event):
+    None
 def replay_message(event,message):
     save_message(event)
     line_bot_api.reply_message(
@@ -299,6 +305,16 @@ def search_air_tickest(event):
         )
     )
     push_message(user_id,buttons_template_message)
+def search_airticket_in_travel4(session_dict,user_key):
+    airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2], session_dict[user_key][3],
+                               session_dict[user_key][4])
+    titlename =get_airticket_title_Info()
+    for keys in airplane_all_detal_info_dict:
+        tickets_text = ""
+        for keys_i in titlename:
+            tickets_text += titlename[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
+    push_tickets_info = TextSendMessage(text=tickets_text)
+    push_message(user_key, push_tickets_info)
 def get_ads_info():
     photo_url = 'https://github.com/housekeepbao/flight_bot/blob/master/images/travel_test_img.png?raw=true'
     link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
