@@ -65,7 +65,7 @@ def handle_Postback(event):
     print(event)
     print(event.postback.data)
     if(event.postback.data == 'reSearch = true'):
-        session_dict[user_key] = []
+        session_dict[user_key] = ['重新搜尋航班']
         session_second_list = list(session_dict[user_key])
     elif(event.postback.data == type_of_depart )   :
         time = event.postback.params
@@ -108,7 +108,10 @@ def handle_message(event):
     print(profile.status_message)
     if ("廣告" == event.message.text):
         push_ads(user_key)
-    elif ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text ):
+    elif (user_key not in session_dict):
+        if ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text ):
+            search_air_info_session(event)
+    elif(len(session_dict[user_key]) >= 1):
         search_air_info_session(event)
     else:
         other_session(event)
