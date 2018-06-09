@@ -106,7 +106,6 @@ def handle_message(event):
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
-    share_link_info(user_key)
     if ('重新搜尋' in event.message.text):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
@@ -290,40 +289,36 @@ def search_air_tickest(event):
 def get_ads_info():
     photo_url = 'https://github.com/housekeepbao/flight_bot/blob/master/images/travel_test_img.png?raw=true'
     link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
-    url_area_image = ImagemapArea(
-        x=0, y=0, width=520, height=1024
-    )
-    message_area_image = ImagemapArea(
-                    x=520, y=0, width=520, height=1024
-    )
-    return photo_url,link_url,url_area_image,message_area_image
+    actions = [
+        URIImagemapAction(
+            link_uri=link_url,
+            area=ImagemapArea(
+                x=0, y=0, width=520, height=1024
+            )
+        ),
+        MessageImagemapAction(
+            text='我是第二個區域',
+            area=ImagemapArea(
+                x=520, y=0, width=520, height=512
+            )
+        ),
+        MessageImagemapAction(
+            text='我是第三個區域',
+            area=ImagemapArea(
+                x=520, y=512, width=520, height=1024
+            )
+        )
+    ]
+    return photo_url,link_url,actions
 def push_ads(user_id):
-    photo_url = 'https://github.com/housekeepbao/flight_bot/blob/master/images/travel_test_img.png?raw=true'
-    link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
+    #photo_url = 'https://github.com/housekeepbao/flight_bot/blob/master/images/travel_test_img.png?raw=true'
+    #link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
+    photo_url,link_url,action_list = get_ads_info()
     imagemap_message = ImagemapSendMessage(
         base_url=photo_url,
         alt_text='this is an imagemap',
         base_size=BaseSize(height=1024, width=1024),
-        actions=[
-            URIImagemapAction(
-                link_uri=link_url,
-                area=ImagemapArea(
-                    x=0, y=0, width=520, height=1024
-                )
-            ),
-            MessageImagemapAction(
-                text='我是第二個區域',
-                area=ImagemapArea(
-                    x=520, y=0, width=520, height=512
-                )
-            ),
-            MessageImagemapAction(
-                text='我是第三個區域',
-                area=ImagemapArea(
-                    x=520, y=512, width=520, height=1024
-                )
-            )
-        ]
+        actions=action_list
     )
     push_message(user_id, imagemap_message)
 def share_link_info(user_id):
