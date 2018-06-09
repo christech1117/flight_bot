@@ -35,7 +35,7 @@ db = client.get_default_database()
 #======================parameter==================
 session_dict = {}
 #session_second_list = []
-region_list = ["台北","TPE","首爾","SEL","ICN"]
+region_list = ["台北","TPE","首爾","SEL","ICN",'東京成田','NRT']
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
 datetime_type = {type_of_depart:'depart_date',type_of_return:'return_date'}
