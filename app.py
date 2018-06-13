@@ -7,7 +7,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FollowEvent,ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
-ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize
+ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,StickerMessage,StickerSendMessage
 )
 import os
 import sys
@@ -114,7 +114,8 @@ def handle_FollowEvent(event):
         message_text_tmp = "Hi "+profile.display_name+"\n"
         message_text_tmp +="歡迎加入FlightGo，為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
-        replay_event(event, message)
+        message_slicker = StickerSendMessage(package_id = 4,sticker_id = 1)
+        replay_event(event, message_slicker)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -345,10 +346,10 @@ def search_airticket_in_travel4(session_dict,user_key):
             break
         for list_tmp in titlename:
             for keys_i in list_tmp:
-                if(keys_i == 'TakeTime'):
-                    tickets_text +="======================\n"
-                tickets_text += list_tmp[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
-            tickets_text+="======================"
+                tickets_text += list_tmp[keys_i] +":"+"\n"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
+                if (keys_i == 'TakeTime'):
+                    tickets_text += "=================\n"
+        tickets_text+="================="
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
         count_tmp +=1
