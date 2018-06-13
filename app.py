@@ -7,7 +7,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FollowEvent,ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
-ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,FlexMessage
+ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize
 )
 import os
 import sys
