@@ -115,7 +115,7 @@ def handle_FollowEvent(event):
         message_text_tmp +="歡迎加入FlightGo，為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
         message_slicker = StickerSendMessage(package_id = 1,sticker_id = 4)
-        replay_event(event, message_slicker+message)
+        replay_event(event, [message,message_slicker])
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
