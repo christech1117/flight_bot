@@ -7,7 +7,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FollowEvent,ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
-ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,
+ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,FlexMessage
 )
 import os
 import sys
@@ -345,7 +345,10 @@ def search_airticket_in_travel4(session_dict,user_key):
             break
         for list_tmp in titlename:
             for keys_i in list_tmp:
+                if(keys_i == 'TakeTime'):
+                    tickets_text +="======================\n"
                 tickets_text += list_tmp[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
+            tickets_text+="======================"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
         count_tmp +=1
