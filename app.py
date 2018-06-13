@@ -335,12 +335,6 @@ def search_airticket_in_travel4(session_dict,user_key):
 
     airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2], session_dict[user_key][3][datetime_type[type_of_depart]].replace("-","/"),
                                session_dict[user_key][4][datetime_type[type_of_return]].replace("-","/"),'Y','5')
-    airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2],
-                                                              session_dict[user_key][3][
-                                                                  datetime_type[type_of_depart]].replace("-", "/"),
-                                                              session_dict[user_key][4][
-                                                                  datetime_type[type_of_return]].replace("-", "/"), 'Y',
-                                                              '5')
     titlename =get_airticket_title_Info()
     count_limit =5
     count_tmp =0
