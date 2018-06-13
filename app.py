@@ -114,7 +114,7 @@ def handle_FollowEvent(event):
         message_text_tmp = "Hi "+profile.display_name+"\n"
         message_text_tmp +="歡迎加入FlightGo，為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
-        replay_message(event, message)
+        replay_event(event, message)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -224,7 +224,12 @@ def replay_message(event,message):
     save_message(event)
     line_bot_api.reply_message(
         event.reply_token,message)
-        
+
+
+def replay_event(event, message):
+    line_bot_api.reply_message(
+        event.reply_token, message)
+
 def push_message(user_id,message):
     line_bot_api.push_message(
         user_id,
