@@ -317,14 +317,21 @@ def search_airticket_in_travel4(session_dict,user_key):
     airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2], session_dict[user_key][3][datetime_type[type_of_depart]].replace("-","/"),
                                session_dict[user_key][4][datetime_type[type_of_return]].replace("-","/"),'Y','5')
     titlename =get_airticket_title_Info()
+    count_limit =5
+    count_tmp =0
     for keys in airplane_all_detal_info_dict:
         print(airplane_all_detal_info_dict[keys])
         tickets_text = ""
-        for keys_i in titlename[0]:
-            print(titlename[0][keys_i])
-            tickets_text += titlename[0][keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
+        if(count_tmp >=  count_limit):
+            break
+        for list_tmp in titlename:
+            for keys_i in list_tmp:
+                print(titlename[0][keys_i])
+                tickets_text += list_tmp[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
+        count_tmp +=1
+
 def get_ads_info():
     photo_url = 'https://github.com/housekeepbao/flight_bot/blob/master/images/travel_test_img.png?raw=true'
     link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
