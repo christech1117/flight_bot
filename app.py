@@ -100,7 +100,7 @@ def handle_Postback(event):
             message = TextSendMessage(text=message_text_tmp)
             push_message(event.source.user_id, message)
             push_message(event.source.user_id, choice_datatime(type_of_return))
-@handler.add(FollowEvent, message=None)
+@handler.add(FollowEvent)
 def handle_FollowEvent(event):
     print("Follow event")
     user_key = event.source.user_id
