@@ -6,7 +6,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
+    MessageEvent, TextMessage, TextSendMessage, FollowEvent,ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
 ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,
 )
 import os
@@ -100,15 +100,27 @@ def handle_Postback(event):
             message = TextSendMessage(text=message_text_tmp)
             push_message(event.source.user_id, message)
             push_message(event.source.user_id, choice_datatime(type_of_return))
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    print(event)
+@handler.add(FollowEvent, message=None)
+def handle_FollowEvent(event):
+    print("Follow event")
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
     print(profile.display_name)
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
+    if (is_first_Login(event)):
+        print("First Login" + user_key)
+        message_text_tmp = "Hi "+profile.display_name+"\n"
+        message_text_tmp +="歡迎加入FlightGo，為了提供更好的服務，請先填入以下基本資訊~"
+        message = TextSendMessage(text=message_text_tmp)
+        replay_message(event, message)
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    print(event)
+    user_key = event.source.user_id
+    profile = line_bot_api.get_profile(user_key)
     if ("廣告" == event.message.text):
         push_ads(user_key)
     elif (user_key not in session_dict):
@@ -204,8 +216,10 @@ def other_session(event):
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
     replay_message(event, message)
 
-def is_first_use(event):
-    None
+def is_first_Login(event):
+    #先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
+    isfirst =True
+    return  isfirst
 def replay_message(event,message):
     save_message(event)
     line_bot_api.reply_message(
@@ -316,6 +330,12 @@ def search_airticket_in_travel4(session_dict,user_key):
 
     airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2], session_dict[user_key][3][datetime_type[type_of_depart]].replace("-","/"),
                                session_dict[user_key][4][datetime_type[type_of_return]].replace("-","/"),'Y','5')
+    airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2],
+                                                              session_dict[user_key][3][
+                                                                  datetime_type[type_of_depart]].replace("-", "/"),
+                                                              session_dict[user_key][4][
+                                                                  datetime_type[type_of_return]].replace("-", "/"), 'Y',
+                                                              '5')
     titlename =get_airticket_title_Info()
     count_limit =5
     count_tmp =0
@@ -326,7 +346,6 @@ def search_airticket_in_travel4(session_dict,user_key):
             break
         for list_tmp in titlename:
             for keys_i in list_tmp:
-                print(titlename[0][keys_i])
                 tickets_text += list_tmp[keys_i] +":"+airplane_all_detal_info_dict[keys][keys_i]+"\n"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
