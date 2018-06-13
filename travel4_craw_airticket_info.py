@@ -140,11 +140,15 @@ def main_search_airticket_info(var_depairport,var_retairport,var_depdate,var_ret
                                                             airplane_datetime)
     return airplane_all_detal_info_dict
 def get_airticket_title_Info():
-    plane_Info_title_dict = {'DepartTime':'啟程時間', 'DepartAirport':'啟程機場名稱', 'ArrivalTime':'抵達時間', 'ArrivalAirport':'抵達機場名稱', 'TakeTime':'飛行時數', 'DepartTime_return':'回程時間',
-                        'DepartAirport_return':'回程機場名稱', 'ArrivalTime_return':'抵達時間', 'ArrivalAirport_return':'抵達機場名稱', 'TakeTime_return':'飛行時數'}
+    plane_Info_title_dict = {'DepartDay': '啟程日期','DepartTime':'啟程時間', 'DepartAirport':'啟程機場名稱', 'ArrivalDay': '抵達日期','ArrivalTime':'抵達時間', 'ArrivalAirport':'抵達機場名稱', 'TakeTime':'飛行時數','DepartDay_return': '回程日期', 'DepartTime_return':'回程時間',
+                        'DepartAirport_return':'回程機場名稱','ArrivalDay_return': '抵達日期', 'ArrivalTime_return':'抵達時間', 'ArrivalAirport_return':'抵達機場名稱', 'TakeTime_return':'飛行時數'}
     airplane_datetime_title_dict = {'DepartAirport_Time':'啟程機場與時間', 'ArrivalAirport_Time':'抵達機場與時間', 'DepartDay':'啟程日期', 'ArrivalDay':'抵達日期',
                                'DepartAirport_Time_return':'回程機場與時間', 'ArrivalAirport_Time_return':'抵達機場與時間', 'DepartDay_return':'回程日期',
                                'ArrivalDay_return':'抵達日期'}
+    airplane_datetime_title_dict_02 = {
+                                    'DepartDay': '啟程日期', 'ArrivalDay': '抵達日期',
+                                    'DepartDay_return': '回程日期',
+                                    'ArrivalDay_return': '抵達日期'}
     companyName = {'company':'航空公司'}
     price_dict = {'price':'含稅價格'}
-    return plane_Info_title_dict,airplane_datetime_title_dict,companyName,price_dict
+    return plane_Info_title_dict,companyName,price_dict
