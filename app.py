@@ -112,7 +112,10 @@ def handle_FollowEvent(event):
     if (is_first_Login(event)):
         print("First Login" + user_key)
         message_text_tmp = "Hi "+profile.display_name+"\n"
-        message_text_tmp +="歡迎加入FlightGo，為了提供更好的服務，請先填入以下基本資訊~"
+        message_text_tmp +="歡迎加入FlightGo!!\n\n"
+        message_text_tmp +="可以使用FlightGo 來查詢機票。\n有任何問題也可直接詢問客服，FlightGo會立即通知真人客服來為您服務喔\n\n"
+        message_text_tmp +="可以打#教學，即可秀出教學畫面唷\n\n"
+        message_text_tmp +="為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
         message_slicker = StickerSendMessage(package_id = 1,sticker_id = 4)
         replay_event(event, [message,message_slicker])
@@ -210,12 +213,12 @@ def search_air_info_session(event):
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
     else:
-        message = TextSendMessage(text="程式目前維護中，請見諒")
-        replay_message(event,message)
+        other_session(event)
 
 def other_session(event):
+    message_slicker = StickerSendMessage(package_id=2, sticker_id=34)
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
-    replay_message(event, message)
+    replay_message(event, [message,message_slicker])
 
 def is_first_Login(event):
     #先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
