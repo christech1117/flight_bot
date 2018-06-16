@@ -127,7 +127,9 @@ def handle_message(event):
     print(event)
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
-    if ("廣告" == event.message.text):
+    if(user_key in ask_member_Info_session_dict):
+        ask_paper_memberInfo(event)
+    elif ("廣告" == event.message.text):
         push_ads(user_key)
     elif (user_key not in session_dict):
         if ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text ):
@@ -139,9 +141,7 @@ def handle_message(event):
 
 def search_air_info_session(event):
     user_key = event.source.user_id
-    if(user_key in ask_member_Info_session_dict):
-        ask_paper_memberInfo(event)
-    elif ('重新搜尋航班' in event.message.text):
+    if ('重新搜尋航班' in event.message.text):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
         session_second_list.append(event.message.text)
