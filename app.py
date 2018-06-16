@@ -423,7 +423,7 @@ def ask_paper_memberInfo(event):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
         tmp_list.append("ask_session_start")
-        ask_member_Info_session_dict = list(tmp_list)
+        ask_member_Info_session_dict[user_key] = list(tmp_list)
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
     elif (len(ask_member_Info_session_dict[user_key]) == 1):
@@ -434,7 +434,7 @@ def ask_paper_memberInfo(event):
         if(re_string != None ):
             tmp_list.append(string)
             tickets_text = "請輸入您的電子信箱 例如:mymail@gmail.com"
-            ask_member_Info_session_dict = list(tmp_list)
+            ask_member_Info_session_dict[user_key] = list(tmp_list)
         else:
             tickets_text = "輸入的電話號碼有錯，請重新輸入"
         push_tickets_info = TextSendMessage(text=tickets_text)
@@ -465,7 +465,7 @@ def ask_paper_memberInfo(event):
                                 ]
                             )
                         )
-            ask_member_Info_session_dict = list(tmp_list)
+            ask_member_Info_session_dict[user_key] = list(tmp_list)
         else:
             tickets_text = "輸入的電子信箱有誤，請重新輸入"
         push_tickets_info = TextSendMessage(text=tickets_text)
@@ -475,7 +475,7 @@ def ask_paper_memberInfo(event):
         string = event.message.text
         if(string == '男性') or (string == '女性'):
             tmp_list.apppend(string)
-            ask_member_Info_session_dict = list(tmp_list)
+            ask_member_Info_session_dict[user_key] = list(tmp_list)
             tickets_text = "會員資料已輸入完畢。"
             push_tickets_info = TextSendMessage(text=tickets_text)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=125)
