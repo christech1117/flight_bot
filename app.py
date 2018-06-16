@@ -467,10 +467,11 @@ def ask_paper_memberInfo(event):
                             )
                         )
             ask_member_Info_session_dict[user_key] = list(tmp_list)
+            push_message(user_key, tickets_text)
         else:
             tickets_text = "輸入的電子信箱有誤，請重新輸入"
-        push_tickets_info = TextSendMessage(text=tickets_text)
-        push_message(user_key, push_tickets_info)
+            push_tickets_info = TextSendMessage(text=tickets_text)
+            push_message(user_key, push_tickets_info)
     elif (len(ask_member_Info_session_dict[user_key]) == 3):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
