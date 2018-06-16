@@ -482,6 +482,7 @@ def ask_paper_memberInfo(event):
             push_tickets_info = TextSendMessage(text=tickets_text)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=125)
             push_message(user_key, [push_tickets_info,message_slicker])
+            ask_member_Info_session_dict = {}
         else:
             tickets_text = "輸入性別錯誤，請重新輸入"
             push_tickets_info = TextSendMessage(text=tickets_text)
