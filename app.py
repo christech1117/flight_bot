@@ -476,7 +476,7 @@ def ask_paper_memberInfo(event):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         if(string == '男性') or (string == '女性'):
-            tmp_list.apppend(string)
+            tmp_list.append(string)
             ask_member_Info_session_dict[user_key] = list(tmp_list)
             tickets_text = "會員資料已輸入完畢。"
             push_tickets_info = TextSendMessage(text=tickets_text)
