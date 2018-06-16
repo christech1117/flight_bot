@@ -14,7 +14,7 @@ import sys
 import pymongo
 import datetime
 import json
-
+import re
 #import custom function
 from linotravel_air_ticket_info  import find_air_ticket_info 
 from travel4_craw_airticket_info import main_search_airticket_info,get_airticket_title_Info
@@ -35,6 +35,7 @@ db = client.get_default_database()
 #======================parameter==================
 session_dict = {}
 #session_second_list = []
+ask_member_Info_session_dict = {}
 region_list = ["台北","TPE","首爾","SEL","ICN",'東京成田','NRT']
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
@@ -119,6 +120,7 @@ def handle_FollowEvent(event):
         message = TextSendMessage(text=message_text_tmp)
         message_slicker = StickerSendMessage(package_id = 1,sticker_id = 4)
         replay_event(event, [message,message_slicker])
+        ask_paper_memberInfo(event)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -137,7 +139,9 @@ def handle_message(event):
 
 def search_air_info_session(event):
     user_key = event.source.user_id
-    if ('重新搜尋航班' in event.message.text):
+    if(user_key in ask_member_Info_session_dict):
+        ask_paper_memberInfo(event)
+    elif ('重新搜尋航班' in event.message.text):
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
         session_second_list.append(event.message.text)
@@ -411,6 +415,95 @@ def share_link_info(user_id):
     }
     link_url_json =json.dumps(link_url)
     push_message(user_id, link_url_json)
+def ask_paper_memberInfo(event):
+    global ask_member_Info_session_dict
+    user_key = event.source.user_id
+    ask_member_Info_session_dict[user_key] = []
+    if(len(ask_member_Info_session_dict[user_key]) ==0):
+        tmp_list = list(ask_member_Info_session_dict[user_key])
+        tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
+        tmp_list.append("ask_session_start")
+        ask_member_Info_session_dict = list(tmp_list)
+        push_tickets_info = TextSendMessage(text=tickets_text)
+        push_message(user_key, push_tickets_info)
+    elif (len(ask_member_Info_session_dict[user_key]) == 1):
+        tmp_list = list(ask_member_Info_session_dict[user_key])
+        string = event.message.text
+        pattern = '\d+'
+        re_string = re.match(pattern, string)
+        if(re_string != None ):
+            tmp_list.append(string)
+            tickets_text = "請輸入您的電子信箱 例如:mymail@gmail.com"
+            ask_member_Info_session_dict = list(tmp_list)
+        else:
+            tickets_text = "輸入的電話號碼有錯，請重新輸入"
+        push_tickets_info = TextSendMessage(text=tickets_text)
+        push_message(user_key, push_tickets_info)
+    elif (len(ask_member_Info_session_dict[user_key]) == 2):
+        tmp_list = list(ask_member_Info_session_dict[user_key])
+        string = event.message.text
+        str_tmp2 = "^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$"
+        re_string = re.match(str_tmp2, string)
+        if(re_string!= None ):
+            tmp_list.append(string)
+            tickets_text  = TemplateSendMessage(
+                            alt_text='Buttons template',
+                            template=ButtonsTemplate(
+                                title='請問您的性別',
+                                text='請選擇您的性別',
+                                actions=[
+                                    PostbackTemplateAction(
+                                        label='男性',
+                                        text='男性',
+                                        data='male'
+                                    ),
+                                    PostbackTemplateAction(
+                                        label='女性',
+                                        text='女性',
+                                        data='female'
+                                    )
+                                ]
+                            )
+                        )
+            ask_member_Info_session_dict = list(tmp_list)
+        else:
+            tickets_text = "輸入的電子信箱有誤，請重新輸入"
+        push_tickets_info = TextSendMessage(text=tickets_text)
+        push_message(user_key, push_tickets_info)
+    elif (len(ask_member_Info_session_dict[user_key]) == 3):
+        tmp_list = list(ask_member_Info_session_dict[user_key])
+        string = event.message.text
+        if(string == '男性') or (string == '女性'):
+            tmp_list.apppend(string)
+            ask_member_Info_session_dict = list(tmp_list)
+            tickets_text = "會員資料已輸入完畢。"
+            push_tickets_info = TextSendMessage(text=tickets_text)
+            message_slicker = StickerSendMessage(package_id=1, sticker_id=125)
+            push_message(user_key, [push_tickets_info,message_slicker])
+        else:
+            tickets_text = "輸入性別錯誤，請重新輸入"
+            push_tickets_info = TextSendMessage(text=tickets_text)
+            tickets_text = TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='請問您的性別',
+                    text='請選擇您的性別',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='男性',
+                            text='男性',
+                            data='male'
+                        ),
+                        PostbackTemplateAction(
+                            label='女性',
+                            text='女性',
+                            data='female'
+                        )
+                    ]
+                )
+            )
+            push_message(user_key, [push_tickets_info,tickets_text])
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
