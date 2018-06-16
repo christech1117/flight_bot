@@ -104,6 +104,7 @@ def handle_Postback(event):
 @handler.add(FollowEvent)
 def handle_FollowEvent(event):
     print("Follow event")
+    global ask_member_Info_session_dict
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
     print(profile.display_name)
@@ -118,6 +119,7 @@ def handle_FollowEvent(event):
         message_text_tmp +="可以打#教學，即可秀出教學畫面唷\n\n"
         message_text_tmp +="為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
+        ask_member_Info_session_dict[user_key] = []
         message_slicker = StickerSendMessage(package_id = 1,sticker_id = 4)
         replay_event(event, [message,message_slicker])
         ask_paper_memberInfo(event)
@@ -418,7 +420,6 @@ def share_link_info(user_id):
 def ask_paper_memberInfo(event):
     global ask_member_Info_session_dict
     user_key = event.source.user_id
-    ask_member_Info_session_dict[user_key] = []
     if(len(ask_member_Info_session_dict[user_key]) ==0):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
