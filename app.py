@@ -254,6 +254,7 @@ def is_first_Login(event):
 
 
 def replay_message(event, message):
+    print ('#replay_message')
     save_message(event)
     line_bot_api.reply_message(
         event.reply_token, message)
@@ -272,6 +273,7 @@ def push_message(user_id, message):
 
 
 def save_message(event):
+    print ('#save_message')
     print(type(event))
     data = {
         'replyToken': event.replyToken,
@@ -294,19 +296,13 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender):
     profile = line_bot_api.get_profile(user_id)
     name = profile.display_name
     picture = profile.picture_url
-    print(user_id)
-    print(name)
-    print(email)
-    print(gender)
-    print(phoneNumber)
-    print(picture)
     user = LineUser(user_id, name, email, gender, phoneNumber, picture)
 
     # collection; it is created automatically when we insert.
 
     # Note that the insert method can take either an array or a single dict.
     #json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
-    data = {'user':user}
+    data = {'user': user.__dict__}
     session_collection = db['member']
     inserted_id = session_collection.insert_one(data).inserted_id
     if inserted_id:
@@ -498,6 +494,7 @@ def share_link_info(user_id):
 
 
 def ask_paper_memberInfo(event):
+    print('ask_paper_memberInfo')
     global ask_member_Info_session_dict
     user_key = event.source.user_id
     if(len(ask_member_Info_session_dict[user_key]) == 1):
