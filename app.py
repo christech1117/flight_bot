@@ -556,27 +556,6 @@ def ask_user_favorite_travel(user_key):
                 ]
             )
         )
-        columns_list.append(
-            CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
-                title="歐洲、美國加拿大旅遊",
-                text="喜愛歐洲 德國、捷克奧地利，或是美國、加拿大旅遊，或是紐西蘭、澳洲等大洋洲線",
-                actions=[
-                    PostbackTemplateAction(
-                        label='喜愛歐洲線旅遊',
-                        data="travel,Europe"
-                    ),
-                    PostbackTemplateAction(
-                        label='喜愛美國加拿大旅遊',
-                        data="travel,America_Canada"
-                    ),
-                    PostbackTemplateAction(
-                        label='喜愛紐西蘭、澳洲旅遊',
-                        data="travel,Oceania"
-                    )
-                ]
-            )
-        )
 
         columns_list.append(
             CarouselColumn(
