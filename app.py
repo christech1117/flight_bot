@@ -260,7 +260,7 @@ def replay_message(event, message):
 
 
 def reply_event(event, message):
-    #save_message(event)
+    # save_message(event)
     line_bot_api.reply_message(
         event.reply_token, message)
 
@@ -303,11 +303,12 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender):
     user = LineUser(user_id, name, email, gender, phoneNumber, picture)
 
     # collection; it is created automatically when we insert.
-    
+
     # Note that the insert method can take either an array or a single dict.
-    json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
+    # json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
+    # print('!!'+json_str)
     session_collection = db['member']
-    session_collection.insert_many(json_str)
+    session_collection.insert_many(user.__dict__)
     return True
 
 
