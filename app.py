@@ -305,13 +305,14 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender):
     # collection; it is created automatically when we insert.
 
     # Note that the insert method can take either an array or a single dict.
-    # json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
-    # print('!!'+json_str)
-    data = {user:user}
+    json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
     
     session_collection = db['member']
-    session_collection.insert_one(data)
-    return True
+    inserted_id = session_collection.insert_one(json_str).inserted_id
+    if inserted_id:
+        return True
+    else:
+        return False
 
 
 def choice_datatime(type):
