@@ -296,7 +296,7 @@ def save_message(event, message):
         'reply': {
             'from': 'flightgo', # it may from flightgo OR vendor name
             'type': message[0].type,
-            'txt': message[0].txt
+            'txt': message[0].text
         }
     },
     # collection; it is created automatically when we insert.
