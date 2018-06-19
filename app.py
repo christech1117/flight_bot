@@ -305,7 +305,7 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender):
     # collection; it is created automatically when we insert.
     
     # Note that the insert method can take either an array or a single dict.
-    json_str = json.dumps(user, ensure_ascii=False).encode('utf8')
+    json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
     session_collection = db['member']
     session_collection.insert_many(json_str)
     return True
