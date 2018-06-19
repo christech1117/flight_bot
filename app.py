@@ -525,7 +525,7 @@ def ask_user_favorite_travel(user_key):
         columns_list = []
         columns_list.append(
             CarouselColumn(
-                thumbnail_image_url="images/SIVbanner.jpg",
+                thumbnail_image_url="/images/SIVbanner.jpg",
                 title="島嶼度假",
                 text="喜愛島嶼度假",
                 actions=[
@@ -539,7 +539,7 @@ def ask_user_favorite_travel(user_key):
         )
         columns_list.append(
             CarouselColumn(
-                thumbnail_image_url="images/Gala-2-1200x648.jpg",
+                thumbnail_image_url="/images/Gala-2-1200x648.jpg",
                 title="郵輪旅遊",
                 text="喜愛郵輪旅遊",
                 actions=[
