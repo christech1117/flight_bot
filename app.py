@@ -68,40 +68,47 @@ def handle_Postback(event):
     user_key = event.source.user_id
     print(event)
     print(event.postback.data)
-    if(event.postback.data == 'reSearch = true'):
-        session_dict[user_key] = ['重新搜尋航班']
-        session_second_list = list(session_dict[user_key])
-    elif(event.postback.data == type_of_depart )   :
-        time = event.postback.params
-        session_second_list = list(session_dict[user_key])
-        time_tmp = {datetime_type[type_of_depart]:time['date']}
-        session_second_list.append(time_tmp)
-        session_dict[user_key] = list(session_second_list)
-        message_text_tmp = "你選擇的日期為:"+time['date']
-        message = TextSendMessage(text=message_text_tmp)
-        push_message(user_key,message)
-        push_message(event.source.user_id,choice_datatime(type_of_return))
-    elif(event.postback.data == type_of_return )   :
-        time = event.postback.params
-        session_second_list = list(session_dict[user_key])
-        time_tmp = {datetime_type[type_of_return]: time['date']}
-        print(session_dict[user_key])
-        if(time['date'] >= session_dict[user_key][-1][datetime_type[type_of_depart]]):
+    if("travel" in event.postback.data):
+        tmp_list = list(ask_user_favorite_session_dict[user_key])
+        content_tmp = event.postback.data.split(",")
+        print("favorite is "+content_tmp[-1])
+        tmp_list.append(content_tmp[-1])
+        ask_user_favorite_session_dict[user_key] = list(tmp_list)
+    else:
+        if(event.postback.data == 'reSearch = true'):
+            session_dict[user_key] = ['重新搜尋航班']
+            session_second_list = list(session_dict[user_key])
+        elif(event.postback.data == type_of_depart )   :
+            time = event.postback.params
+            session_second_list = list(session_dict[user_key])
+            time_tmp = {datetime_type[type_of_depart]:time['date']}
             session_second_list.append(time_tmp)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "你選擇的回國日期為:" + time['date']
+            message_text_tmp = "你選擇的日期為:"+time['date']
             message = TextSendMessage(text=message_text_tmp)
-            push_message(user_key, message)
-            message_text_tmp = "搜尋中，請稍後"
-            message = TextSendMessage(text=message_text_tmp)
-            push_message(event.source.user_id,message)
-            #search_air_tickest(event)
-            search_airticket_in_travel4(session_dict, user_key)
-        else:
-            message_text_tmp = "你選擇的回國日期小於出國日期，請重新選擇"
-            message = TextSendMessage(text=message_text_tmp)
-            push_message(event.source.user_id, message)
-            push_message(event.source.user_id, choice_datatime(type_of_return))
+            push_message(user_key,message)
+            push_message(event.source.user_id,choice_datatime(type_of_return))
+        elif(event.postback.data == type_of_return )   :
+            time = event.postback.params
+            session_second_list = list(session_dict[user_key])
+            time_tmp = {datetime_type[type_of_return]: time['date']}
+            print(session_dict[user_key])
+            if(time['date'] >= session_dict[user_key][-1][datetime_type[type_of_depart]]):
+                session_second_list.append(time_tmp)
+                session_dict[user_key] = list(session_second_list)
+                message_text_tmp = "你選擇的回國日期為:" + time['date']
+                message = TextSendMessage(text=message_text_tmp)
+                push_message(user_key, message)
+                message_text_tmp = "搜尋中，請稍後"
+                message = TextSendMessage(text=message_text_tmp)
+                push_message(event.source.user_id,message)
+                #search_air_tickest(event)
+                search_airticket_in_travel4(session_dict, user_key)
+            else:
+                message_text_tmp = "你選擇的回國日期小於出國日期，請重新選擇"
+                message = TextSendMessage(text=message_text_tmp)
+                push_message(event.source.user_id, message)
+                push_message(event.source.user_id, choice_datatime(type_of_return))
 @handler.add(FollowEvent)
 def handle_FollowEvent(event):
     print("Follow event")
@@ -138,9 +145,8 @@ def handle_message(event):
         ask_user_favorite_travel(user_key)
     elif ("廣告" == event.message.text):
         push_ads(user_key)
-    elif (user_key not in session_dict):
-        if ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text ):
-            search_air_info_session(event)
+    elif (user_key not in session_dict) and  ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text ):
+        search_air_info_session(event)
     elif(len(session_dict[user_key]) >= 1):
         search_air_info_session(event)
     else:
@@ -520,7 +526,7 @@ def ask_user_favorite_travel(user_key):
     if user_key not in ask_user_favorite_session_dict:
         ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
     if (len(ask_user_favorite_session_dict[user_key]) == 1):
-        tickets_text ="請選擇你喜歡的旅遊類型"
+        tickets_text ="請選擇你喜歡的旅遊類型，可以複選"
         push_tickets_info = TextSendMessage(text=tickets_text)
         columns_list = []
         columns_list.append(
@@ -532,7 +538,7 @@ def ask_user_favorite_travel(user_key):
                     PostbackTemplateAction(
                         label='喜愛島嶼度假',
                         text = "島嶼度假",
-                        data="Islands"
+                        data="travel,Islands"
                     )
                 ]
             )
@@ -545,8 +551,72 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛郵輪旅遊',
-                        text="郵輪旅遊",
-                        data="Cruiseship"
+                        data="travel,Cruiseship"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
+                title="中東非旅遊",
+                text="喜愛中東非旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛中東非旅遊',
+                        data="travel,Central_Eastern_Africa"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
+                title="歐洲線旅遊",
+                text="喜愛歐洲線旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛歐洲線旅遊',
+                        data="travel,Europe"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
+                title="日韓旅遊",
+                text="喜愛日韓旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛日韓旅遊',
+                        data="travel,JP_Korea"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
+                title="東南亞旅遊",
+                text="喜愛東南亞旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛東南亞旅遊',
+                        data="travel,southeast_asia"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
+                title="美國加拿大旅遊",
+                text="美國航線與加拿大航線旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛美國加拿大旅遊',
+                        data="travel,America_Canada"
                     )
                 ]
             )
@@ -554,7 +624,7 @@ def ask_user_favorite_travel(user_key):
         carousel_template_message = TemplateSendMessage(
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list))
-        push_message(user_key,  carousel_template_message)
+        push_message(user_key, [push_tickets_info , carousel_template_message])
 
 
 if __name__ == "__main__":
