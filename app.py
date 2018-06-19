@@ -278,7 +278,8 @@ def push_message(user_id, message):
 
 def save_message(event, message):
     print('#save_message')
-    print(type(event))
+    print (message[0])
+    print (message[0].text)
     data = {
         'ask': {
             'user_id': event.source.user_id,
@@ -294,8 +295,8 @@ def save_message(event, message):
         },
         'reply': {
             'from': 'flightgo', # it may from flightgo OR vendor name
-            'type': message.type,
-            'txt': message.txt
+            'type': message[0].type,
+            'txt': message[0].txt
         }
     },
     # collection; it is created automatically when we insert.
