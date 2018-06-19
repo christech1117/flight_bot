@@ -117,6 +117,7 @@ def handle_Postback(event):
 @handler.add(FollowEvent)
 def handle_FollowEvent(event):
     print("Follow event")
+    print(event)
     global ask_member_Info_session_dict
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
@@ -259,7 +260,7 @@ def replay_message(event, message):
 
 
 def reply_event(event, message):
-    save_message(event)
+    #save_message(event)
     line_bot_api.reply_message(
         event.reply_token, message)
 
