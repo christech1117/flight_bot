@@ -280,7 +280,7 @@ def save_message(event):
     data = {
         'replyToken': event.reply_token,
         'type': event.type,
-        'timstamp': event.timstamp,
+        'timestamp': event.timestamp,
         'source_type': event.source.type,
         'source_user_id': event.source.user_id,
         'message_id': event.message.id,
