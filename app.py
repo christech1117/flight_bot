@@ -146,7 +146,7 @@ def handle_message(event):
     print(event)
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
-    if(user_key in ask_member_Info_session_dict) and (ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
+    if(user_key in ask_member_Info_session_dict and ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
         ask_paper_memberInfo(event)
     elif("喜好問卷" in event.message.text):
         ask_user_favorite_travel(user_key)
@@ -254,7 +254,7 @@ def is_first_Login(event):
 
 
 def replay_message(event, message):
-    print ('#replay_message')
+    print('#replay_message')
     save_message(event)
     line_bot_api.reply_message(
         event.reply_token, message)
@@ -273,7 +273,7 @@ def push_message(user_id, message):
 
 
 def save_message(event):
-    print ('#save_message')
+    print('#save_message')
     print(type(event))
     data = {
         'replyToken': event.replyToken,
@@ -494,7 +494,7 @@ def share_link_info(user_id):
 
 
 def ask_paper_memberInfo(event):
-    print('ask_paper_memberInfo')
+    print('#ask_paper_memberInfo')
     global ask_member_Info_session_dict
     user_key = event.source.user_id
     if(len(ask_member_Info_session_dict[user_key]) == 1):
