@@ -525,7 +525,7 @@ def ask_user_favorite_travel(user_key):
         columns_list = []
         columns_list.append(
             CarouselColumn(
-                thumbnail_image_url="/images/SIVbanner.jpg",
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/SIVbanner.jpg?raw=true",
                 title="島嶼度假",
                 text="喜愛島嶼度假",
                 actions=[
@@ -539,7 +539,7 @@ def ask_user_favorite_travel(user_key):
         )
         columns_list.append(
             CarouselColumn(
-                thumbnail_image_url="/images/Gala-2-1200x648.jpg",
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/Gala-2-1200x648.jpg?raw=true",
                 title="郵輪旅遊",
                 text="喜愛郵輪旅遊",
                 actions=[
@@ -555,7 +555,7 @@ def ask_user_favorite_travel(user_key):
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list))
         push_message(user_key,  carousel_template_message)
-    
+
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
