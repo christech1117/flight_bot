@@ -554,7 +554,7 @@ def ask_user_favorite_travel(user_key):
         carousel_template_message = TemplateSendMessage(
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list))
-        push_message(user_key, [push_tickets_info, carousel_template_message])
+        push_message(user_key,  carousel_template_message)
 
 
 if __name__ == "__main__":
