@@ -132,9 +132,10 @@ def handle_message(event):
     print(event)
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
-    if(user_key in ask_member_Info_session_dict):
-        if(ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
+    if(user_key in ask_member_Info_session_dict) and  (ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
             ask_paper_memberInfo(event)
+    elif("喜好問卷" in event.message.text):
+        ask_user_favorite_travel(user_key)
     elif ("廣告" == event.message.text):
         push_ads(user_key)
     elif (user_key not in session_dict):
@@ -156,8 +157,6 @@ def search_air_info_session(event):
         message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
-    elif("喜好問卷" in event.message.text):
-        ask_user_favorite_travel(user_key)
     elif (user_key not in session_dict) :
         if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
             session_second_list = []
