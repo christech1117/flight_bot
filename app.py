@@ -307,8 +307,10 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender):
     # Note that the insert method can take either an array or a single dict.
     # json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
     # print('!!'+json_str)
+    data = {user:user}
+    
     session_collection = db['member']
-    session_collection.insert_many(user.__dict__)
+    session_collection.insert_many(data)
     return True
 
 
