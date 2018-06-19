@@ -565,6 +565,10 @@ def ask_user_favorite_travel(user_key):
                     PostbackTemplateAction(
                         label='喜愛東南亞旅遊',
                         data="travel,southeast_asia"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛南北亞旅遊',
+                        data="travel,south_asia"
                     )
                 ]
             )
