@@ -154,7 +154,7 @@ def handle_message(event):
         push_ads(user_key)
     elif (user_key not in session_dict) and ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text):
         search_air_info_session(event)
-    elif(len(session_dict[user_key]) >= 1):
+    elif(user_key in session_dict and len(session_dict[user_key]) >= 1):
         search_air_info_session(event)
     else:
         other_session(event)
@@ -242,6 +242,7 @@ def search_air_info_session(event):
 
 
 def other_session(event):
+    print ('#other_session')
     message_slicker = StickerSendMessage(package_id=2, sticker_id=34)
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
     replay_message(event, [message, message_slicker])
