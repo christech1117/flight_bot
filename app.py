@@ -559,7 +559,7 @@ def ask_user_favorite_travel(user_key):
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
-                title="歐洲線、美國加拿大、大洋洲",
+                title="歐洲、美國加拿大旅遊",
                 text="喜愛歐洲 德國、捷克奧地利，或是美國、加拿大旅遊，或是紐西蘭、澳洲等大洋洲線",
                 actions=[
                     PostbackTemplateAction(
@@ -580,7 +580,7 @@ def ask_user_favorite_travel(user_key):
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                title="中國、東南亞、南北亞旅遊",
+                title="中國、東南亞旅遊",
                 text="東南亞旅遊景點泰國、柬埔寨，或是南北亞旅遊景點印度、斯里蘭卡等、或是喜愛中國旅遊",
                 actions=[
                     PostbackTemplateAction(
