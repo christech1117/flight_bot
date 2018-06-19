@@ -7,7 +7,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FollowEvent,ImageSendMessage,TemplateSendMessage,ButtonsTemplate,PostbackTemplateAction,PostbackEvent,MessageTemplateAction,URITemplateAction,DatetimePickerTemplateAction,
-ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,StickerMessage,StickerSendMessage
+ImagemapSendMessage,MessageImagemapAction,ImagemapArea,URIImagemapAction,BaseSize,StickerMessage,StickerSendMessage,CarouselTemplate,CarouselColumn
 )
 import os
 import sys
@@ -36,6 +36,7 @@ db = client.get_default_database()
 session_dict = {}
 #session_second_list = []
 ask_member_Info_session_dict = {}
+ask_user_favorite_session_dict ={}
 region_list = ["台北","TPE","首爾","SEL","ICN",'東京成田','NRT']
 type_of_return = "type = return" 
 type_of_depart = "type = depart"
@@ -119,7 +120,9 @@ def handle_FollowEvent(event):
         message_text_tmp +="可以打#教學，即可秀出教學畫面唷\n\n"
         message_text_tmp +="為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
-        ask_member_Info_session_dict[user_key] = []
+        tmp_list = []
+        tmp_list.append("ask_session_start")
+        ask_member_Info_session_dict[user_key] = list(tmp_list)
         message_slicker = StickerSendMessage(package_id = 1,sticker_id = 4)
         replay_event(event, [message,message_slicker])
         ask_paper_memberInfo(event)
@@ -130,7 +133,8 @@ def handle_message(event):
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
     if(user_key in ask_member_Info_session_dict):
-        ask_paper_memberInfo(event)
+        if(ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
+            ask_paper_memberInfo(event)
     elif ("廣告" == event.message.text):
         push_ads(user_key)
     elif (user_key not in session_dict):
@@ -152,6 +156,8 @@ def search_air_info_session(event):
         message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event,message)
+    elif("喜好問卷" in event.message.text):
+        ask_user_favorite_travel(user_key)
     elif (user_key not in session_dict) :
         if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
             session_second_list = []
@@ -417,17 +423,21 @@ def share_link_info(user_id):
     }
     link_url_json =json.dumps(link_url)
     push_message(user_id, link_url_json)
+def save_memberInfo_data(phoneNumbe,mEmail,gender):
+    #將會員資料傳到後端，讓後端進行儲存
+    return True
+
 def ask_paper_memberInfo(event):
     global ask_member_Info_session_dict
     user_key = event.source.user_id
-    if(len(ask_member_Info_session_dict[user_key]) ==0):
+    if(len(ask_member_Info_session_dict[user_key]) ==1):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
         tmp_list.append("ask_session_start")
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
-    elif (len(ask_member_Info_session_dict[user_key]) == 1):
+    elif (len(ask_member_Info_session_dict[user_key]) == 2):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         pattern = '\d+'
@@ -440,7 +450,7 @@ def ask_paper_memberInfo(event):
             tickets_text = "輸入的電話號碼有錯，請重新輸入"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
-    elif (len(ask_member_Info_session_dict[user_key]) == 2):
+    elif (len(ask_member_Info_session_dict[user_key]) == 3):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         str_tmp2 = "^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$"
@@ -472,7 +482,7 @@ def ask_paper_memberInfo(event):
             tickets_text = "輸入的電子信箱有誤，請重新輸入"
             push_tickets_info = TextSendMessage(text=tickets_text)
             push_message(user_key, push_tickets_info)
-    elif (len(ask_member_Info_session_dict[user_key]) == 3):
+    elif (len(ask_member_Info_session_dict[user_key]) == 4):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         if(string == '男性') or (string == '女性'):
@@ -482,10 +492,11 @@ def ask_paper_memberInfo(event):
             push_tickets_info = TextSendMessage(text=tickets_text)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=125)
             push_message(user_key, [push_tickets_info,message_slicker])
-            ask_member_Info_session_dict = {}
+            save_memberInfo_data(ask_member_Info_session_dict[user_key][2],ask_member_Info_session_dict[user_key][3],ask_member_Info_session_dict[user_key][4])
+            ask_member_Info_session_dict[user_key] = []
         else:
-            tickets_text = "輸入性別錯誤，請重新輸入"
-            push_tickets_info = TextSendMessage(text=tickets_text)
+            tickets_text_string = "輸入性別錯誤，請重新輸入"
+            push_tickets_info = TextSendMessage(text=tickets_text_string)
             tickets_text = TemplateSendMessage(
                 alt_text='Buttons template',
                 template=ButtonsTemplate(
@@ -506,6 +517,46 @@ def ask_paper_memberInfo(event):
                 )
             )
             push_message(user_key, [push_tickets_info,tickets_text])
+def ask_user_favorite_travel(user_key):
+    if user_key not in ask_user_favorite_session_dict:
+        ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
+    if (len(ask_user_favorite_session_dict[user_key]) == 1):
+        tickets_text ="請選擇你喜歡的旅遊類型"
+        push_tickets_info = TextSendMessage(text=tickets_text)
+        columns_list = []
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="images/SIVbanner.jpg",
+                title="島嶼度假",
+                text="喜愛島嶼度假",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛島嶼度假',
+                        text = "島嶼度假",
+                        data="Islands"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="images/Gala-2-1200x648.jpg",
+                title="郵輪旅遊",
+                text="喜愛郵輪旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛郵輪旅遊',
+                        text="郵輪旅遊",
+                        data="Cruiseship"
+                    )
+                ]
+            )
+        )
+        carousel_template_message = TemplateSendMessage(
+            alt_text='喜好旅遊類型',
+            template=CarouselTemplate(columns=columns_list))
+        push_message(user_key, [push_tickets_info, carousel_template_message])
+
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
