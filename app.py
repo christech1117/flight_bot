@@ -529,6 +529,7 @@ def ask_user_favorite_travel(user_key):
         tickets_text ="請選擇你喜歡的旅遊類型，可以複選"
         push_tickets_info = TextSendMessage(text=tickets_text)
         columns_list = []
+        columns_list_2= []
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/SIVbanner.jpg?raw=true",
@@ -552,23 +553,6 @@ def ask_user_favorite_travel(user_key):
                     PostbackTemplateAction(
                         label='喜愛日韓旅遊',
                         data="travel,JP_Korea"
-                    )
-                ]
-            )
-        )
-        columns_list.append(
-            CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                title="中國、東南亞旅遊",
-                text="東南亞旅遊景點泰國、柬埔寨，或是南北亞旅遊景點印度、斯里蘭卡等、或是喜愛中國旅遊",
-                actions=[
-                    PostbackTemplateAction(
-                        label='喜愛東南亞旅遊',
-                        data="travel,southeast_asia"
-                    ),
-                    PostbackTemplateAction(
-                        label='喜愛南北亞旅遊',
-                        data="travel,south_asia"
                     )
                 ]
             )
@@ -603,8 +587,52 @@ def ask_user_favorite_travel(user_key):
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list))
         push_message(user_key, [push_tickets_info , carousel_template_message])
-
-
+        columns_list_2.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
+                title="中國、東南亞、南北亞旅遊",
+                text="東南亞旅遊景點泰國、柬埔寨，或是南北亞旅遊景點印度、斯里蘭卡等、或是喜愛中國旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛東南亞旅遊',
+                        data="travel,southeast_asia"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛南北亞旅遊',
+                        data="travel,south_asia"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛中國旅遊',
+                        data="travel,china"
+                    )
+                ]
+            )
+        )
+        columns_list_2.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
+                title="歐洲、美國加拿大旅遊",
+                text="喜愛歐洲 德國、捷克奧地利，或是美國、加拿大旅遊，或是紐西蘭、澳洲等大洋洲線",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛歐洲線旅遊',
+                        data="travel,Europe"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛美國加拿大旅遊',
+                        data="travel,America_Canada"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛紐西蘭、澳洲旅遊',
+                        data="travel,Oceania"
+                    )
+                ]
+            )
+        )
+        carousel_template_message2 = TemplateSendMessage(
+            alt_text='喜好旅遊類型',
+            template=CarouselTemplate(columns=columns_list_2))
+        push_message(user_key,  carousel_template_message2)
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
