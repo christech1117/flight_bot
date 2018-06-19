@@ -34,6 +34,8 @@ client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 
 # ======================parameter==================
+PROVIDER = 'LINE'
+VENDOR = ['雄獅', '可樂', '山富']
 session_dict = {}
 #session_second_list = []
 ask_member_Info_session_dict = {}
@@ -242,7 +244,7 @@ def search_air_info_session(event):
 
 
 def other_session(event):
-    print ('#other_session')
+    print('#other_session')
     message_slicker = StickerSendMessage(package_id=2, sticker_id=34)
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
     replay_message(event, [message, message_slicker])
@@ -257,7 +259,7 @@ def is_first_Login(event):
 def replay_message(event, message):
     print('#replay_message')
     print(event)
-    save_message(event)
+    save_message(event, message)
     line_bot_api.reply_message(
         event.reply_token, message)
 
@@ -274,21 +276,30 @@ def push_message(user_id, message):
         message)
 
 
-def save_message(event):
+def save_message(event, message):
     print('#save_message')
     print(type(event))
     data = {
-        'replyToken': event.reply_token,
-        'type': event.type,
-        'timestamp': event.timestamp,
-        'source_type': event.source.type,
-        'source_user_id': event.source.user_id,
-        'message_id': event.message.id,
-        'mesage_type': event.message.type,
-        'message_text': event.message.text
+        'ask': {
+            'user_id': event.source.user_id,
+            'replyToken': event.reply_token,
+            'type': event.type,
+            'timestamp': event.timestamp,
+            'source_type': event.source.type,
+            'source_user_id': event.source.user_id,
+            'message_id': event.message.id,
+            'mesage_type': event.message.type,
+            'message_text': event.message.text,
+            'vendor': VENDOR[2]  # e.g 山富
+        },
+        'reply': {
+            'from': 'flightgo', # it may from flightgo OR vendor name
+            'type': message.type,
+            'txt': message.txt
+        }
     },
     # collection; it is created automatically when we insert.
-    session_collection = db['session']
+    session_collection = db['line_session']
     # Note that the insert method can take either an array or a single dict.
     session_collection.insert_many(data)
 
