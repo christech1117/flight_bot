@@ -545,6 +545,61 @@ def ask_user_favorite_travel(user_key):
         )
         columns_list.append(
             CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
+                title="日韓旅遊",
+                text="喜愛日韓旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛日韓旅遊',
+                        data="travel,JP_Korea"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
+                title="歐洲線、美國加拿大、大洋洲",
+                text="喜愛歐洲 德國、捷克奧地利，或是美國、加拿大旅遊，或是紐西蘭、澳洲等大洋洲線",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛歐洲線旅遊',
+                        data="travel,Europe"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛美國加拿大旅遊',
+                        data="travel,America_Canada"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛紐西蘭、澳洲旅遊',
+                        data="travel,Oceania"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
+                title="中國、東南亞、南北亞旅遊",
+                text="東南亞旅遊景點泰國、柬埔寨，或是南北亞旅遊景點印度、斯里蘭卡等、或是喜愛中國旅遊",
+                actions=[
+                    PostbackTemplateAction(
+                        label='喜愛東南亞旅遊',
+                        data="travel,southeast_asia"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛南北亞旅遊',
+                        data="travel,south_asia"
+                    ),
+                    PostbackTemplateAction(
+                        label='喜愛中國旅遊',
+                        data="travel,china"
+                    )
+                ]
+            )
+        )
+        columns_list.append(
+            CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/Gala-2-1200x648.jpg?raw=true",
                 title="郵輪旅遊",
                 text="喜愛郵輪旅遊",
@@ -560,63 +615,11 @@ def ask_user_favorite_travel(user_key):
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
                 title="中東非旅遊",
-                text="喜愛中東非旅遊",
+                text="喜愛中東非旅遊景點土耳其、杜拜、埃及等景點",
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛中東非旅遊',
                         data="travel,Central_Eastern_Africa"
-                    )
-                ]
-            )
-        )
-        columns_list.append(
-            CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
-                title="歐洲線旅遊",
-                text="喜愛歐洲線旅遊",
-                actions=[
-                    PostbackTemplateAction(
-                        label='喜愛歐洲線旅遊',
-                        data="travel,Europe"
-                    )
-                ]
-            )
-        )
-        columns_list.append(
-            CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
-                title="日韓旅遊",
-                text="喜愛日韓旅遊",
-                actions=[
-                    PostbackTemplateAction(
-                        label='喜愛日韓旅遊',
-                        data="travel,JP_Korea"
-                    )
-                ]
-            )
-        )
-        columns_list.append(
-            CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                title="東南亞旅遊",
-                text="喜愛東南亞旅遊",
-                actions=[
-                    PostbackTemplateAction(
-                        label='喜愛東南亞旅遊',
-                        data="travel,southeast_asia"
-                    )
-                ]
-            )
-        )
-        columns_list.append(
-            CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
-                title="美國加拿大旅遊",
-                text="美國航線與加拿大航線旅遊",
-                actions=[
-                    PostbackTemplateAction(
-                        label='喜愛美國加拿大旅遊',
-                        data="travel,America_Canada"
                     )
                 ]
             )
