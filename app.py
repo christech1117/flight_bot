@@ -559,7 +559,7 @@ def ask_user_favorite_travel(user_key):
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                title="中國 東南亞旅遊",
+                title="中國、東南亞",
                 text="東南亞旅遊景點泰國、柬埔寨，或是南北亞旅遊景點印度、斯里蘭卡等、或是喜愛中國旅遊",
                 actions=[
                     PostbackTemplateAction(
