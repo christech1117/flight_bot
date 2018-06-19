@@ -256,6 +256,7 @@ def is_first_Login(event):
 
 def replay_message(event, message):
     print('#replay_message')
+    print(event)
     save_message(event)
     line_bot_api.reply_message(
         event.reply_token, message)
@@ -277,7 +278,7 @@ def save_message(event):
     print('#save_message')
     print(type(event))
     data = {
-        'replyToken': event.replyToken,
+        'replyToken': event.reply_token,
         'type': event.type,
         'timstamp': event.timstamp,
         'source_type': event.source.type,
