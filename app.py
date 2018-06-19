@@ -19,6 +19,7 @@ import re
 from linotravel_air_ticket_info import find_air_ticket_info
 from travel4_craw_airticket_info import main_search_airticket_info, get_airticket_title_Info
 
+from models.User import LineUser
 
 app = Flask(__name__)
 
@@ -135,7 +136,7 @@ def handle_FollowEvent(event):
         tmp_list.append("ask_session_start")
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
-        replay_event(event, [message, message_slicker])
+        reply_event(event, [message, message_slicker])
         ask_paper_memberInfo(event)
 
 
@@ -257,7 +258,8 @@ def replay_message(event, message):
         event.reply_token, message)
 
 
-def replay_event(event, message):
+def reply_event(event, message):
+    save_message(event)
     line_bot_api.reply_message(
         event.reply_token, message)
 
@@ -271,16 +273,41 @@ def push_message(user_id, message):
 def save_message(event):
     print(type(event))
     data = {
-        'user_id': event.source.user_id,
-        'id': event.message.id,
-        'type': event.message.type,
-        'text': event.message.text,
-        't': json.dumps(event.message.__dict__)
+        'replyToken': event.replyToken,
+        'type': event.type,
+        'timstamp': event.timstamp,
+        'source_type': event.source.type,
+        'source_user_id': event.source.user_id,
+        'message_id': event.message.id,
+        'mesage_type': event.message.type,
+        'message_text': event.message.text
     },
     # collection; it is created automatically when we insert.
-    message_collection = db['message']
+    session_collection = db['session']
     # Note that the insert method can take either an array or a single dict.
-    message_collection.insert_many(data)
+    session_collection.insert_many(data)
+
+
+def save_memberInfo_data(user_id, phoneNumber, email, gender):
+    # 將會員資料傳到後端，讓後端進行儲存
+    profile = line_bot_api.get_profile(user_id)
+    name = profile.display_name
+    picture = profile.picture_url
+    print(user_id)
+    print(name)
+    print(email)
+    print(gender)
+    print(phoneNumber)
+    print(picture)
+    user = LineUser(user_id, name, email, gender, phoneNumber, picture)
+
+    # collection; it is created automatically when we insert.
+    
+    # Note that the insert method can take either an array or a single dict.
+    json_str = json.dumps(user, ensure_ascii=False).encode('utf8')
+    session_collection = db['member']
+    session_collection.insert_many(json_str)
+    return True
 
 
 def choice_datatime(type):
@@ -465,11 +492,6 @@ def share_link_info(user_id):
     push_message(user_id, link_url_json)
 
 
-def save_memberInfo_data(phoneNumbe, mEmail, gender):
-    # 將會員資料傳到後端，讓後端進行儲存
-    return True
-
-
 def ask_paper_memberInfo(event):
     global ask_member_Info_session_dict
     user_key = event.source.user_id
@@ -496,8 +518,8 @@ def ask_paper_memberInfo(event):
     elif (len(ask_member_Info_session_dict[user_key]) == 3):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
-        str_tmp2 = "^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$"
-        re_string = re.match(str_tmp2, string)
+        reg_match = "^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$"
+        re_string = re.match(reg_match, string)
         if(re_string != None):
             tmp_list.append(string)
             tickets_text = TemplateSendMessage(
@@ -536,7 +558,10 @@ def ask_paper_memberInfo(event):
             message_slicker = StickerSendMessage(package_id=1, sticker_id=125)
             push_message(user_key, [push_tickets_info, message_slicker])
             save_memberInfo_data(
-                ask_member_Info_session_dict[user_key][2], ask_member_Info_session_dict[user_key][3], ask_member_Info_session_dict[user_key][4])
+                user_key,
+                ask_member_Info_session_dict[user_key][2],
+                ask_member_Info_session_dict[user_key][3],
+                ask_member_Info_session_dict[user_key][4])
             ask_member_Info_session_dict[user_key] = []
         else:
             tickets_text_string = "輸入性別錯誤，請重新輸入"
