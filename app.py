@@ -559,20 +559,12 @@ def ask_user_favorite_travel(user_key):
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                title="中國、東南亞",
+                title="中國、東南亞旅遊",
                 text="東南亞旅遊景點泰國、柬埔寨，或是南北亞旅遊景點印度、斯里蘭卡等、或是喜愛中國旅遊",
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛東南亞旅遊',
                         data="travel,southeast_asia"
-                    ),
-                    PostbackTemplateAction(
-                        label='喜愛南北亞旅遊',
-                        data="travel,south_asia"
-                    ),
-                    PostbackTemplateAction(
-                        label='喜愛中國旅遊',
-                        data="travel,china"
                     )
                 ]
             )
