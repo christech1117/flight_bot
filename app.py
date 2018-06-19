@@ -281,8 +281,8 @@ def save_message(event, message):
     print (message[0])
     print (message[0].text)
     data = {
+        'user_id': event.source.user_id,
         'ask': {
-            'user_id': event.source.user_id,
             'replyToken': event.reply_token,
             'type': event.type,
             'timestamp': event.timestamp,
