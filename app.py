@@ -310,7 +310,7 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender):
     data = {user:user}
     
     session_collection = db['member']
-    session_collection.insert_many(data)
+    session_collection.insert_one(data)
     return True
 
 
