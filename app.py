@@ -734,6 +734,7 @@ def ask_user_favorite_travel(user_key):
                 ]
             )
         )
+        
         columns_list_2.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/top_01.jpg?raw=true",
@@ -752,7 +753,7 @@ def ask_user_favorite_travel(user_key):
             template=CarouselTemplate(columns=columns_list_2))
         push_message(user_key,  carousel_template_message2)
 
- 
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
