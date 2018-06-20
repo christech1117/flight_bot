@@ -21,6 +21,7 @@ from travel4_craw_airticket_info import main_search_airticket_info, get_airticke
 
 from linebot_config import linebotConfig
 from models.User import LineUser
+from save_db import (is_first_Login,save_memberInfo_data,save_favorite_questionnaire)
 
 app = Flask(__name__)
 
@@ -83,6 +84,7 @@ def handle_Postback(event):
             message = TextSendMessage(text=message_text_tmp)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=134)
             push_message(user_key, [message,message_slicker])
+            save_favorite_questionnaire(user_key,ask_user_favorite_session_dict[user_key])
         elif ("ask" in event.postback.data):
             ask_user_favorite_travel(user_key)
         else:
@@ -287,13 +289,6 @@ def other_session(event):
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
     replay_message(event, [message, message_slicker])
 
-
-def is_first_Login(event):
-    # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
-    isfirst = True
-    return isfirst
-
-
 def replay_message(event, message):
     print('#replay_message')
     print(event)
@@ -342,25 +337,6 @@ def save_message(event, message):
     # Note that the insert method can take either an array or a single dict.
     session_collection.insert_many(data)
 
-
-def save_memberInfo_data(user_id, phoneNumber, email, gender):
-    # 將會員資料傳到後端，讓後端進行儲存
-    profile = line_bot_api.get_profile(user_id)
-    name = profile.display_name
-    picture = profile.picture_url
-    user = LineUser(user_id, name, email, gender, phoneNumber, picture)
-
-    # collection; it is created automatically when we insert.
-
-    # Note that the insert method can take either an array or a single dict.
-    #json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
-    #data = {'user': user.__dict__}
-    session_collection = db['line_member']
-    inserted_id = session_collection.insert_one(user.__dict__).inserted_id
-    if inserted_id:
-        return True
-    else:
-        return False
 
 
 def choice_datatime(type):
@@ -615,7 +591,8 @@ def ask_paper_memberInfo(event):
                 user_key,
                 ask_member_Info_session_dict[user_key][2],
                 ask_member_Info_session_dict[user_key][3],
-                ask_member_Info_session_dict[user_key][4])
+                ask_member_Info_session_dict[user_key][4],
+                LineBotApi.get_profile(user_key))
             ask_member_Info_session_dict[user_key][0] = 'ask_session_stop'
         else:
             tickets_text_string = "輸入性別錯誤，請重新輸入"
@@ -640,8 +617,6 @@ def ask_paper_memberInfo(event):
                 )
             )
             push_message(user_key, [push_tickets_info, tickets_text])
-
-
 def ask_user_favorite_travel(user_key):
     if user_key not in ask_user_favorite_session_dict:
         ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
