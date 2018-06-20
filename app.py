@@ -25,9 +25,10 @@ from models.User import LineUser
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api =LineBotApi(linebotConfig.token)
+config = linebotConfig()
+line_bot_api =LineBotApi(config.token)
 # Channel Secret
-handler = WebhookHandler(linebotConfig.screct)
+handler = WebhookHandler(config.screct)
 
 # Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n'
