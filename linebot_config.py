@@ -4,7 +4,7 @@ from linebot import (
 )
 import os
 
-class linebotConfig():
+class linebotConfig:
     '''config 使用說明
         可自己git clone到本機端之後，使用Ngrok
         並將自己設定的Dev Line bot  token 跟  channel screct 填到
