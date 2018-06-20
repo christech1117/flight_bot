@@ -19,14 +19,15 @@ import re
 from linotravel_air_ticket_info import find_air_ticket_info
 from travel4_craw_airticket_info import main_search_airticket_info, get_airticket_title_Info
 
+from linebot_config import linebotConfig
 from models.User import LineUser
 
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api = LineBotApi(os.environ['linetoken'])
+line_bot_api =linebotConfig.get_LineBotAoi()
 # Channel Secret
-handler = WebhookHandler(os.environ['linechannel'])
+handler = linebotConfig.get_Handler()
 
 # Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n'
@@ -77,7 +78,7 @@ def handle_Postback(event):
     if("travel" in event.postback.data):
         if("Done" in event.postback.data):
             print(ask_user_favorite_session_dict[user_key])
-            message_text_tmp = "完成喜好旅遊類型問卷。"
+            message_text_tmp = "太好了，已經完成喜好旅遊類型問卷囉。"
             message = TextSendMessage(text=message_text_tmp)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=134)
             push_message(user_key, [message,message_slicker])
@@ -89,7 +90,7 @@ def handle_Postback(event):
             print("favorite is "+content_tmp[-1])
             tmp_list.append(content_tmp[-1])
             ask_user_favorite_session_dict[user_key] = list(tmp_list)
-            message_text_tmp = "選擇喜好旅遊類型:"+travel_kind_dict[content_tmp[-1]]+"\n"
+            message_text_tmp = "選擇喜好旅遊類型:"+travel_kind_dict[content_tmp[-1]]+"\n\n"
             message_text_tmp += "可繼續點選喜好的旅遊類型，也可點擊完成問卷按鈕"
             message = TextSendMessage(text=message_text_tmp)
             tickets_text = TemplateSendMessage(
