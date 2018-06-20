@@ -5,3 +5,4 @@ jsonschema
 beautifulsoup4
 requests
 lxml
+re
