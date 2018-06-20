@@ -7,7 +7,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FollowEvent, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, PostbackEvent, MessageTemplateAction, URITemplateAction, DatetimePickerTemplateAction,
-    ImagemapSendMessage, MessageImagemapAction, ImagemapArea, URIImagemapAction, BaseSize, StickerMessage, StickerSendMessage, CarouselTemplate, CarouselColumn
+    ImagemapSendMessage, MessageImagemapAction, ImagemapArea, URIImagemapAction, BaseSize, StickerMessage, StickerSendMessage, CarouselTemplate, CarouselColumn,ConfirmTemplate
 )
 import os
 import sys
@@ -73,11 +73,37 @@ def handle_Postback(event):
     print(event)
     print(event.postback.data)
     if("travel" in event.postback.data):
-        tmp_list = list(ask_user_favorite_session_dict[user_key])
-        content_tmp = event.postback.data.split(",")
-        print("favorite is "+content_tmp[-1])
-        tmp_list.append(content_tmp[-1])
-        ask_user_favorite_session_dict[user_key] = list(tmp_list)
+        if("Done" in event.postback.data):
+            print(ask_user_favorite_session_dict[user_key])
+        elif ("ask" in event.postback.data):
+            ask_user_favorite_travel(user_key)
+        else:
+            tmp_list = list(ask_user_favorite_session_dict[user_key])
+            content_tmp = event.postback.data.split(",")
+            print("favorite is "+content_tmp[-1])
+            tmp_list.append(content_tmp[-1])
+            ask_user_favorite_session_dict[user_key] = list(tmp_list)
+            message_text_tmp = "選擇喜好旅遊類型:"+content_tmp[-1]+"\n"
+            message_text_tmp += "可繼續點選喜好的旅遊類型，也可點擊完成問卷按鈕"
+            message = TextSendMessage(text=message_text_tmp)
+            tickets_text = TemplateSendMessage(
+                alt_text='確認按鈕',
+                template=ConfirmTemplate(
+                    title='是否完成喜好旅遊問卷',
+                    text='如完成喜好問卷，請點選已完成，如還未選完可繼續點擊喜好旅遊類型',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='已完成',
+                            data='travel Done'
+                        ),
+                        PostbackTemplateAction(
+                            label='喜好旅遊類型',
+                            data='travel ask'
+                        )
+                    ]
+                )
+            )
+            push_message(user_key,[message,tickets_text])
     else:
         if(event.postback.data == 'reSearch = true'):
             session_dict[user_key] = ['重新搜尋航班']
@@ -620,7 +646,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛島嶼度假',
-                        text="島嶼度假",
+                        displayText="選擇島嶼度假",
                         data="travel,Islands"
                     )
                 ]
@@ -697,7 +723,7 @@ def ask_user_favorite_travel(user_key):
         )
         columns_list_2.append(
             CarouselColumn(
-                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
+                thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/06f8c3ea-553b-4129-8ed7-d8fc8c07fb3e.jpg?raw=true",
                 title="中國旅遊",
                 text="喜愛中國旅遊，石家莊、張家界、江南等旅遊景點",
                 actions=[
@@ -734,7 +760,7 @@ def ask_user_favorite_travel(user_key):
                 ]
             )
         )
-        
+
         columns_list_2.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/top_01.jpg?raw=true",
