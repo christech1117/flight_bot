@@ -36,6 +36,8 @@ db = client.get_default_database()
 # ======================parameter==================
 PROVIDER = 'LINE'
 VENDOR = ['雄獅', '可樂', '山富']
+travel_kind_dict = {'china':'中國旅遊','Oceania':'紐澳旅遊','America_Canada':'美加旅遊','Europe':'歐洲旅遊','south_asia':'南北亞旅遊',
+                    'southeast_asia':'東南亞旅遊','Central_Eastern_Africa':'中東非旅遊','Cruiseship':'郵輪旅遊','JP_Korea':'日韓旅遊','Islands':'島嶼度假'}
 session_dict = {}
 #session_second_list = []
 ask_member_Info_session_dict = {}
@@ -75,6 +77,10 @@ def handle_Postback(event):
     if("travel" in event.postback.data):
         if("Done" in event.postback.data):
             print(ask_user_favorite_session_dict[user_key])
+            message_text_tmp = "完成喜好旅遊類型問卷。"
+            message = TextSendMessage(text=message_text_tmp)
+            message_slicker = StickerSendMessage(package_id=1, sticker_id=134)
+            push_message(user_key, [message,message_slicker])
         elif ("ask" in event.postback.data):
             ask_user_favorite_travel(user_key)
         else:
@@ -83,7 +89,7 @@ def handle_Postback(event):
             print("favorite is "+content_tmp[-1])
             tmp_list.append(content_tmp[-1])
             ask_user_favorite_session_dict[user_key] = list(tmp_list)
-            message_text_tmp = "選擇喜好旅遊類型:"+content_tmp[-1]+"\n"
+            message_text_tmp = "選擇喜好旅遊類型:"+travel_kind_dict[content_tmp[-1]]+"\n"
             message_text_tmp += "可繼續點選喜好的旅遊類型，也可點擊完成問卷按鈕"
             message = TextSendMessage(text=message_text_tmp)
             tickets_text = TemplateSendMessage(
@@ -267,6 +273,10 @@ def search_air_info_session(event):
         replay_message(event, message)
     else:
         other_session(event)
+        message_id = event.message.id
+        message_content = line_bot_api.get_message_content(message_id)
+        for chunk in message_content.iter_content():
+            print(chunk)
 
 
 def other_session(event):
@@ -633,7 +643,7 @@ def ask_paper_memberInfo(event):
 def ask_user_favorite_travel(user_key):
     if user_key not in ask_user_favorite_session_dict:
         ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
-    if (len(ask_user_favorite_session_dict[user_key]) == 1):
+    if (len(ask_user_favorite_session_dict[user_key]) >= 1):
         tickets_text = "請選擇你喜歡的旅遊類型，可以複選"
         push_tickets_info = TextSendMessage(text=tickets_text)
         columns_list = []
