@@ -15,6 +15,7 @@ class linebotConfig():
         self.token = os.environ['linetoken']
         self.screct = os.environ['linechannel']
     def get_LineBotAoi(self):
+        print(self.token)
         return LineBotApi(self.token)
     def get_Handler(self):
         return WebhookHandler(self.screct)
