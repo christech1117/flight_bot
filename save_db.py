@@ -21,7 +21,7 @@ def save_memberInfo_data(user_id, phoneNumber, email, gender,profile):
     # Note that the insert method can take either an array or a single dict.
     #json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
     #data = {'user': user.__dict__}
-    session_collection = db['line_member']
+    session_collection = db['members']
     inserted_id = session_collection.insert_one(user.__dict__).inserted_id
     if inserted_id:
         return True

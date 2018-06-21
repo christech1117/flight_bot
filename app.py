@@ -184,7 +184,7 @@ def handle_message(event):
     print ('#MessageEvent#')
     print(event)
     user_key = event.source.user_id
-    profile = line_bot_api.get_profile(user_key)
+    #profile = line_bot_api.get_profile(user_key)
     
     print (ask_member_Info_session_dict)
     if(user_key in ask_member_Info_session_dict and ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
@@ -529,7 +529,7 @@ def ask_paper_memberInfo(event):
     if(len(ask_member_Info_session_dict[user_key]) == 1):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
-        tmp_list.append("ask_session_start")
+        #tmp_list.append("ask_session_start")
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
