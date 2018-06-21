@@ -523,7 +523,7 @@ def share_link_info(user_id):
 
 
 def ask_paper_memberInfo(event):
-    print('#ask_paper_memberInfo')
+    print('#ask_paper_memberInfo1')
     global ask_member_Info_session_dict
     user_key = event.source.user_id
     if(len(ask_member_Info_session_dict[user_key]) == 1):
