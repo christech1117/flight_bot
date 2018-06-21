@@ -21,7 +21,7 @@ from travel4_craw_airticket_info import main_search_airticket_info, get_airticke
 
 from linebot_config import linebotConfig
 from models.User import LineUser
-from save_db import (is_first_Login,save_memberInfo_data,save_favorite_questionnaire)
+from save_db import (is_first_Login,save_memberInfo_data,save_favorite_questionnaire,save_message)
 
 app = Flask(__name__)
 
@@ -303,42 +303,14 @@ def replay_message(event, message):
 def reply_event(event, message):
     # save_message(event)
     line_bot_api.reply_message(
-        event.reply_token, message)
+        event.reply_token, 
+        message)
 
 
 def push_message(user_id, message):
     line_bot_api.push_message(
         user_id,
         message)
-
-
-def save_message(event, message):
-    print('#save_message')
-    print (message)
-    print (message.text)
-    data = {
-        'user_id': event.source.user_id,
-        'ask': {
-            'replyToken': event.reply_token,
-            'type': event.type,
-            'timestamp': event.timestamp,
-            'source_type': event.source.type,
-            'source_user_id': event.source.user_id,
-            'message_id': event.message.id,
-            'mesage_type': event.message.type,
-            'message_text': event.message.text,
-            'vendor': VENDOR[2]  # e.g 山富
-        },
-        'reply': {
-            'from': 'flightgo', # it may from flightgo OR vendor name
-            'type': message.type,
-            'text': message.text
-        }
-    },
-    # collection; it is created automatically when we insert.
-    session_collection = db['sessions']
-    # Note that the insert method can take either an array or a single dict.
-    session_collection.insert_many(data)
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
