@@ -172,7 +172,7 @@ def handle_FollowEvent(event):
         message_text_tmp += "為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
         tmp_list = []
-        tmp_list.append("ask_session_start")
+        #tmp_list.append("ask_session_start")
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
         reply_event(event, [message, message_slicker])
@@ -525,11 +525,12 @@ def share_link_info(user_id):
 def ask_paper_memberInfo(event):
     print('#ask_paper_memberInfo1')
     global ask_member_Info_session_dict
+
     user_key = event.source.user_id
     if(len(ask_member_Info_session_dict[user_key]) == 1):
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
-        #tmp_list.append("ask_session_start")
+        tmp_list.append("ask_session_start")
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
@@ -594,7 +595,11 @@ def ask_paper_memberInfo(event):
                 ask_member_Info_session_dict[user_key][3],
                 ask_member_Info_session_dict[user_key][4],
                 LineBotApi.get_profile(user_key))
+            
+            print(ask_member_Info_session_dict)
+            print('change ask_session_stop')
             ask_member_Info_session_dict[user_key][0] = 'ask_session_stop'
+            print(ask_member_Info_session_dict)
         else:
             tickets_text_string = "輸入性別錯誤，請重新輸入"
             push_tickets_info = TextSendMessage(text=tickets_text_string)
