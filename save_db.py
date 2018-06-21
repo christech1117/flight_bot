@@ -5,7 +5,8 @@ import pymongo
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n'
 client = pymongo.MongoClient(uri)
 db = client.get_default_database()
-
+PROVIDER = 'LINE'
+VENDOR = ['雄獅', '可樂', '山富']
 def is_first_Login(event):
     # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
     isfirst = True

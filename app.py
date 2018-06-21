@@ -37,8 +37,7 @@ client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 
 # ======================parameter==================
-PROVIDER = 'LINE'
-VENDOR = ['雄獅', '可樂', '山富']
+
 travel_kind_dict = {'china':'中國旅遊','Oceania':'紐澳旅遊','America_Canada':'美加旅遊','Europe':'歐洲旅遊','south_asia':'南北亞旅遊',
                     'southeast_asia':'東南亞旅遊','Central_Eastern_Africa':'中東非旅遊','Cruiseship':'郵輪旅遊','JP_Korea':'日韓旅遊','Islands':'島嶼度假'}
 session_dict = {}
