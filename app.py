@@ -524,7 +524,7 @@ def share_link_info(user_id):
 
 def ask_paper_memberInfo(event):
     print('#ask_paper_memberInfo')
-    global ask_member_Info_session_dict
+    #global ask_member_Info_session_dict
     user_key = event.source.user_id
     if(len(ask_member_Info_session_dict[user_key]) == 1):
         tmp_list = list(ask_member_Info_session_dict[user_key])
