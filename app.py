@@ -594,11 +594,11 @@ def ask_paper_memberInfo(event):
                 ask_member_Info_session_dict[user_key][2],
                 ask_member_Info_session_dict[user_key][3],
                 ask_member_Info_session_dict[user_key][4],
-                LineBotApi.get_profile(user_key))
+                line_bot_api.get_profile(user_key))
             
             print(ask_member_Info_session_dict)
             print('change ask_session_stop')
-            ask_member_Info_session_dict[user_key][0] = 'ask_session_stop'
+            ask_member_Info_session_dict[user_key][0] = 'ask_session_close'
             print(ask_member_Info_session_dict)
         else:
             tickets_text_string = "輸入性別錯誤，請重新輸入"
