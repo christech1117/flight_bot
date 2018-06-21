@@ -181,9 +181,12 @@ def handle_FollowEvent(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    print ('#MessageEvent#')
     print(event)
     user_key = event.source.user_id
     profile = line_bot_api.get_profile(user_key)
+    
+    print (ask_member_Info_session_dict)
     if(user_key in ask_member_Info_session_dict and ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
         ask_paper_memberInfo(event)
     elif("喜好問卷" in event.message.text):
@@ -333,11 +336,9 @@ def save_message(event, message):
         }
     },
     # collection; it is created automatically when we insert.
-    session_collection = db['line_session']
+    session_collection = db['sessions']
     # Note that the insert method can take either an array or a single dict.
     session_collection.insert_many(data)
-
-
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
