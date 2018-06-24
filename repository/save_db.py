@@ -46,7 +46,6 @@ def save_favorite_questionnaire(user_key, favorite_list):
     # 將每位user 做的喜好旅遊類型問卷答案往後端儲存
     print(favorite_list[0])
 
-
 def save_message(event, message):
     print('#save_message')
 
@@ -76,9 +75,4 @@ def save_message(event, message):
     print(json.dumps(data))
     response = requests.request(
         "POST", config.ENDPOINT + "api/session", data=json.dumps(data), headers=headers)
-
     print(response.text)
-    # collection; it is created automatically when we insert.
-    #session_collection = db['sessions']
-    # Note that the insert method can take either an array or a single dict.
-    # session_collection.insert_many(data)

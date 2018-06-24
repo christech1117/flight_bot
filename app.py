@@ -33,13 +33,7 @@ line_bot_api = LineBotApi(config.token)
 # Channel Secret
 handler = WebhookHandler(config.screct)
 
-# Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
-uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n'
-client = pymongo.MongoClient(uri)
-db = client.get_default_database()
-
 # ======================parameter==================
-
 travel_kind_dict = {'china': '中國旅遊', 'Oceania': '紐澳旅遊', 'America_Canada': '美加旅遊', 'Europe': '歐洲旅遊', 'south_asia': '南北亞旅遊',
                     'southeast_asia': '東南亞旅遊', 'Central_Eastern_Africa': '中東非旅遊', 'Cruiseship': '郵輪旅遊', 'JP_Korea': '日韓旅遊', 'Islands': '島嶼度假'}
 session_dict = {}
@@ -297,6 +291,7 @@ def search_air_info_session(event):
         message_content = line_bot_api.get_message_content(message_id)
         for chunk in message_content.iter_content():
             print(chunk)
+
 
 
 def other_session(event):
