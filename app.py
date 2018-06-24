@@ -176,7 +176,15 @@ def handle_FollowEvent(event):
         message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
         reply_event(event, [message, message_slicker])
         ask_paper_memberInfo(event)
-
+    else:
+        message_text_tmp = "Hi " + profile.display_name + "\n"
+        message_text_tmp += "歡迎再次使用FlightGo!!\n"
+        message_text_tmp += "我等您好久啦。\n\n"
+        message_text_tmp += "可以使用FlightGo 來查詢機票。\n有任何問題也可直接詢問客服，FlightGo會立即通知真人客服來為您服務喔\n\n"
+        message_text_tmp += "可以打#教學，即可秀出教學畫面唷\n\n"
+        message = TextSendMessage(text=message_text_tmp)
+        message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
+        reply_event(event, [message, message_slicker])
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
