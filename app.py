@@ -7,7 +7,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FollowEvent, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, PostbackEvent, MessageTemplateAction, URITemplateAction, DatetimePickerTemplateAction,
-    ImagemapSendMessage, MessageImagemapAction, ImagemapArea, URIImagemapAction, BaseSize, StickerMessage, StickerSendMessage, CarouselTemplate, CarouselColumn,ConfirmTemplate
+    ImagemapSendMessage, MessageImagemapAction, ImagemapArea, URIImagemapAction, BaseSize, StickerMessage, StickerSendMessage, CarouselTemplate, CarouselColumn, ConfirmTemplate
 )
 import os
 import sys
@@ -21,13 +21,15 @@ from travel4_craw_airticket_info import main_search_airticket_info, get_airticke
 
 from linebot_config import linebotConfig
 from models.User import LineUser
-from save_db import (is_first_Login,save_memberInfo_data,save_favorite_questionnaire,save_message)
+from save_db import (is_first_Login, save_memberInfo_data,
+                     save_favorite_questionnaire, save_message)
 
 app = Flask(__name__)
 
 # Channel Access Token
 config = linebotConfig()
-line_bot_api =LineBotApi(config.token)
+line_bot_api = LineBotApi(config.token)
+
 # Channel Secret
 handler = WebhookHandler(config.screct)
 
@@ -38,8 +40,8 @@ db = client.get_default_database()
 
 # ======================parameter==================
 
-travel_kind_dict = {'china':'中國旅遊','Oceania':'紐澳旅遊','America_Canada':'美加旅遊','Europe':'歐洲旅遊','south_asia':'南北亞旅遊',
-                    'southeast_asia':'東南亞旅遊','Central_Eastern_Africa':'中東非旅遊','Cruiseship':'郵輪旅遊','JP_Korea':'日韓旅遊','Islands':'島嶼度假'}
+travel_kind_dict = {'china': '中國旅遊', 'Oceania': '紐澳旅遊', 'America_Canada': '美加旅遊', 'Europe': '歐洲旅遊', 'south_asia': '南北亞旅遊',
+                    'southeast_asia': '東南亞旅遊', 'Central_Eastern_Africa': '中東非旅遊', 'Cruiseship': '郵輪旅遊', 'JP_Korea': '日韓旅遊', 'Islands': '島嶼度假'}
 session_dict = {}
 #session_second_list = []
 ask_member_Info_session_dict = {}
@@ -53,6 +55,7 @@ datetime_type = {type_of_depart: 'depart_date', type_of_return: 'return_date'}
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
+    print ("IN")
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -82,8 +85,9 @@ def handle_Postback(event):
             message_text_tmp = "太好了，已經完成喜好旅遊類型問卷囉。"
             message = TextSendMessage(text=message_text_tmp)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=134)
-            push_message(user_key, [message,message_slicker])
-            save_favorite_questionnaire(user_key,ask_user_favorite_session_dict[user_key])
+            push_message(user_key, [message, message_slicker])
+            save_favorite_questionnaire(
+                user_key, ask_user_favorite_session_dict[user_key])
         elif ("ask" in event.postback.data):
             ask_user_favorite_travel(user_key)
         else:
@@ -92,7 +96,8 @@ def handle_Postback(event):
             print("favorite is "+content_tmp[-1])
             tmp_list.append(content_tmp[-1])
             ask_user_favorite_session_dict[user_key] = list(tmp_list)
-            message_text_tmp = "選擇喜好旅遊類型:"+travel_kind_dict[content_tmp[-1]]+"\n\n"
+            message_text_tmp = "選擇喜好旅遊類型:" + \
+                travel_kind_dict[content_tmp[-1]]+"\n\n"
             message_text_tmp += "可繼續點選喜好的旅遊類型，也可點擊完成問卷按鈕"
             message = TextSendMessage(text=message_text_tmp)
             tickets_text = TemplateSendMessage(
@@ -112,7 +117,7 @@ def handle_Postback(event):
                     ]
                 )
             )
-            push_message(user_key,[message,tickets_text])
+            push_message(user_key, [message, tickets_text])
     else:
         if(event.postback.data == 'reSearch = true'):
             session_dict[user_key] = ['重新搜尋航班']
@@ -153,6 +158,7 @@ def handle_Postback(event):
 
 @handler.add(FollowEvent)
 def handle_FollowEvent(event):
+    print ("IN")
     print("Follow event")
     print(event)
     global ask_member_Info_session_dict
@@ -180,12 +186,12 @@ def handle_FollowEvent(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print ('#MessageEvent#')
+    print('#MessageEvent#')
     print(event)
     user_key = event.source.user_id
     #profile = line_bot_api.get_profile(user_key)
-    
-    print (ask_member_Info_session_dict)
+
+    print(ask_member_Info_session_dict)
     if(user_key in ask_member_Info_session_dict and ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
         ask_paper_memberInfo(event)
     elif("喜好問卷" in event.message.text):
@@ -291,6 +297,7 @@ def other_session(event):
     message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
     replay_message(event, [message, message_slicker])
 
+
 def replay_message(event, message):
     print('#replay_message')
     print(event)
@@ -302,7 +309,7 @@ def replay_message(event, message):
 def reply_event(event, message):
     # save_message(event)
     line_bot_api.reply_message(
-        event.reply_token, 
+        event.reply_token,
         message)
 
 
@@ -310,6 +317,7 @@ def push_message(user_id, message):
     line_bot_api.push_message(
         user_id,
         message)
+
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -566,7 +574,7 @@ def ask_paper_memberInfo(event):
                 ask_member_Info_session_dict[user_key][3],
                 ask_member_Info_session_dict[user_key][4],
                 line_bot_api.get_profile(user_key))
-            
+
             print(ask_member_Info_session_dict)
             print('change ask_session_stop')
             ask_member_Info_session_dict[user_key][0] = 'ask_session_close'
@@ -594,6 +602,8 @@ def ask_paper_memberInfo(event):
                 )
             )
             push_message(user_key, [push_tickets_info, tickets_text])
+
+
 def ask_user_favorite_travel(user_key):
     if user_key not in ask_user_favorite_session_dict:
         ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
