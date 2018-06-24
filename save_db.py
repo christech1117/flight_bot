@@ -3,7 +3,6 @@ import requests
 import pymongo
 from linebot_config import APIConfig
 from models.User import LineUser
-
 config = APIConfig()
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n'
 client = pymongo.MongoClient(uri)
@@ -14,23 +13,27 @@ PROVIDER = 'LINE'
 VENDOR = ['雄獅', '可樂', '山富']
 
 
-def is_first_Login(event):
-    # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
-    isfirst = True
-    return isfirst
+def get_html(url):
+    response = requests.request("GET", url)
+    return response
 
+def is_first_Login(user_key):
+
+    # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
+    url = "https://flightgo-dashboard.herokuapp.com/api/lineuser/"+user_key
+
+    response = get_html(url)
+    if(response.status_code == 200):
+        isfirst = False
+    else:
+        isfirst = True
+    return isfirst
 
 def save_memberInfo_data(user_id, phoneNumber, email, gender, profile):
     # 將會員資料傳到後端，讓後端進行儲存
     name = profile.display_name
     picture = profile.picture_url
     user = LineUser(user_id, name, email, gender, phoneNumber, picture)
-
-    # collection; it is created automatically when we insert.
-
-    # Note that the insert method can take either an array or a single dict.
-    #json_str = json.dumps(user.__dict__, ensure_ascii=False).encode('utf8')
-    #data = {'user': user.__dict__}
     session_collection = db['members']
     inserted_id = session_collection.insert_one(user.__dict__).inserted_id
     if inserted_id:
@@ -69,6 +72,7 @@ def save_message(event, message):
             'text': message[0].text
         }
     },
+    print (config.ENDPOINT + "api/session")
     response = requests.request(
         "POST", config.ENDPOINT + "api/session", data=data, headers=headers)
 
