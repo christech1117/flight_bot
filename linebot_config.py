@@ -24,7 +24,6 @@ class linebotConfig:
         return WebhookHandler(self.screct)
 
 class APIConfig:
-
     def __init__(self):
         self.ENDPOINT = "https://flightgo-dashboard.herokuapp.com/"
         #self.ENDPOINT = "http://localhost:3000/"

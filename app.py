@@ -16,12 +16,12 @@ import datetime
 import json
 import re
 # import custom function
-from linotravel_air_ticket_info import find_air_ticket_info
-from travel4_craw_airticket_info import main_search_airticket_info, get_airticket_title_Info
+from flight_bot.linotravel_air_ticket_info import find_air_ticket_info
+from flight_bot.travel4_craw_airticket_info import main_search_airticket_info, get_airticket_title_Info
 
-from linebot_config import linebotConfig
-from models.User import LineUser
-from save_db import (is_first_Login, save_memberInfo_data,
+from flight_bot.linebot_config import linebotConfig
+from flight_bot.models.User import LineUser
+from flight_bot.repository.save_db import (is_first_Login, save_memberInfo_data,
                      save_favorite_questionnaire, save_message)
 
 app = Flask(__name__)
