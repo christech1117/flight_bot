@@ -162,7 +162,7 @@ def handle_FollowEvent(event):
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
-    if (is_first_Login(event)):
+    if (is_first_Login(user_key)):
         print("First Login" + user_key)
         message_text_tmp = "Hi "+profile.display_name+"\n"
         message_text_tmp += "歡迎加入FlightGo!!\n\n"
