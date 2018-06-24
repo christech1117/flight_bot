@@ -17,6 +17,7 @@ def get_html(url):
     response = requests.request("GET", url)
     return response
 
+
 def is_first_Login(user_key):
 
     # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
@@ -28,6 +29,7 @@ def is_first_Login(user_key):
     else:
         isfirst = True
     return isfirst
+
 
 def save_memberInfo_data(user_id, phoneNumber, email, gender, profile):
     # 將會員資料傳到後端，讓後端進行儲存
@@ -49,7 +51,7 @@ def save_favorite_questionnaire(user_key, favorite_list):
 
 def save_message(event, message):
     print('#save_message')
-    print(message)
+
     headers = {
         'Content-Type': "application/json",
     }
@@ -72,7 +74,8 @@ def save_message(event, message):
             'text': message[0].text
         }
     },
-    print (config.ENDPOINT + "api/session")
+    print(config.ENDPOINT + "api/session")
+    print(data)
     response = requests.request(
         "POST", config.ENDPOINT + "api/session", data=data, headers=headers)
 
@@ -80,4 +83,4 @@ def save_message(event, message):
     # collection; it is created automatically when we insert.
     #session_collection = db['sessions']
     # Note that the insert method can take either an array or a single dict.
-    #session_collection.insert_many(data)
+    # session_collection.insert_many(data)
