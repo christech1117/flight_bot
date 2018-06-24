@@ -1,6 +1,7 @@
 
 import requests
 import pymongo
+import json
 from linebot_config import APIConfig
 from models.User import LineUser
 config = APIConfig()
@@ -77,7 +78,7 @@ def save_message(event, message):
     print(config.ENDPOINT + "api/session")
     print(data)
     response = requests.request(
-        "POST", config.ENDPOINT + "api/session", data=data, headers=headers)
+        "POST", config.ENDPOINT + "api/session", data=json.dumps(data), headers=headers)
 
     print(response.text)
     # collection; it is created automatically when we insert.
