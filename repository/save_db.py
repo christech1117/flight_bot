@@ -2,8 +2,9 @@ import requests
 import pymongo
 import json
 import sys
-from flight_bot.linebot_config import APIConfig
-from flight_bot.models.User import LineUser
+from models.User import LineUser
+from linebot_config import APIConfig
+
 
 config = APIConfig()
 uri = 'mongodb://heroku_g4mqlp4n:b2fuh42r8dvlnaofkcrv97sv93@ds225010.mlab.com:25010/heroku_g4mqlp4n'
