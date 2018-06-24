@@ -74,11 +74,9 @@ def save_message(event, message):
             'type': message[0].type,
             'text': message[0].text
         }
-    },
+    }
     print(config.ENDPOINT + "api/session")
-    print("====")
     print(json.dumps(data))
-    print("====")
     response = requests.request(
         "POST", config.ENDPOINT + "api/session", data=json.dumps(data), headers=headers)
 
