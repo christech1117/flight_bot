@@ -304,7 +304,10 @@ def other_session(event):
 def replay_message(event, message):
     print('#replay_message')
     print(event)
-    save_message(event, message)
+    if(type(message) == type([]) ):
+        save_message(event, message)
+    else:
+        save_message(event, [message])
     line_bot_api.reply_message(
         event.reply_token, message)
 
