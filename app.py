@@ -331,9 +331,11 @@ def other_session(event):
 
 
 def customer_service_button(user_key):
+    picture_link = 'https: // github.com / housekeepbao / flight_bot / blob / master / images / 1757dc66be93ccb.jpg?raw = true'
     confirm_template = TemplateSendMessage(
         alt_text='確認按鈕',
         template=ConfirmTemplate(
+            thumbnail_image_url=picture_link,
             title='轉接線上客服人員',
             text='是否轉接線上客服人員，客服人員服務時間 早上 09:00 ~ 晚上 19:00',
             actions=[
