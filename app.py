@@ -6,9 +6,28 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FollowEvent, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, PostbackEvent, MessageTemplateAction, URITemplateAction, DatetimePickerTemplateAction,
-    ImagemapSendMessage, MessageImagemapAction, ImagemapArea, URIImagemapAction, BaseSize, StickerMessage, StickerSendMessage, CarouselTemplate, CarouselColumn, ConfirmTemplate
-)
+    MessageEvent,
+    TextMessage,
+    TextSendMessage,
+    FollowEvent,
+    ImageSendMessage,
+    TemplateSendMessage,
+    ButtonsTemplate,
+    PostbackTemplateAction,
+    PostbackEvent,
+    MessageTemplateAction,
+    URITemplateAction,
+    DatetimePickerTemplateAction,
+    ImagemapSendMessage,
+    MessageImagemapAction,
+    ImagemapArea,
+    URIImagemapAction,
+    BaseSize,
+    StickerMessage,
+    StickerSendMessage,
+    CarouselTemplate,
+    CarouselColumn,
+    ConfirmTemplate)
 import os
 import sys
 import pymongo
@@ -21,8 +40,8 @@ from travel4_craw_airticket_info import main_search_airticket_info, get_airticke
 
 from linebot_config import linebotConfig
 from models.User import LineUser
-from repository.save_db import (is_first_Login, save_memberInfo_data,
-                     save_favorite_questionnaire, save_message)
+from repository.save_db import (is_first_login, save_member_info_data,
+                                save_favorite_questionnaire, save_message)
 
 app = Flask(__name__)
 
@@ -34,8 +53,17 @@ line_bot_api = LineBotApi(config.token)
 handler = WebhookHandler(config.screct)
 
 # ======================parameter==================
-travel_kind_dict = {'china': '中國旅遊', 'Oceania': '紐澳旅遊', 'America_Canada': '美加旅遊', 'Europe': '歐洲旅遊', 'south_asia': '南北亞旅遊',
-                    'southeast_asia': '東南亞旅遊', 'Central_Eastern_Africa': '中東非旅遊', 'Cruiseship': '郵輪旅遊', 'JP_Korea': '日韓旅遊', 'Islands': '島嶼度假'}
+travel_kind_dict = {
+    'china': '中國旅遊',
+    'Oceania': '紐澳旅遊',
+    'America_Canada': '美加旅遊',
+    'Europe': '歐洲旅遊',
+    'south_asia': '南北亞旅遊',
+    'southeast_asia': '東南亞旅遊',
+    'Central_Eastern_Africa': '中東非旅遊',
+    'Cruiseship': '郵輪旅遊',
+    'JP_Korea': '日韓旅遊',
+    'Islands': '島嶼度假'}
 session_dict = {}
 #session_second_list = []
 ask_member_Info_session_dict = {}
@@ -49,7 +77,7 @@ datetime_type = {type_of_depart: 'depart_date', type_of_return: 'return_date'}
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
-    print ("IN")
+    print("IN")
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -73,8 +101,9 @@ def handle_Postback(event):
     user_key = event.source.user_id
     print(event)
     print(event.postback.data)
-    if("travel" in event.postback.data):
-        if("Done" in event.postback.data):
+    data_content = event.postback.data
+    if"travel" in data_content:
+        if"Done" in data_content:
             print(ask_user_favorite_session_dict[user_key])
             message_text_tmp = "太好了，已經完成喜好旅遊類型問卷囉。"
             message = TextSendMessage(text=message_text_tmp)
@@ -82,16 +111,16 @@ def handle_Postback(event):
             push_message(user_key, [message, message_slicker])
             save_favorite_questionnaire(
                 user_key, ask_user_favorite_session_dict[user_key])
-        elif ("ask" in event.postback.data):
+        elif "ask" in data_content:
             ask_user_favorite_travel(user_key)
         else:
             tmp_list = list(ask_user_favorite_session_dict[user_key])
             content_tmp = event.postback.data.split(",")
-            print("favorite is "+content_tmp[-1])
+            print("favorite is " + content_tmp[-1])
             tmp_list.append(content_tmp[-1])
             ask_user_favorite_session_dict[user_key] = list(tmp_list)
             message_text_tmp = "選擇喜好旅遊類型:" + \
-                travel_kind_dict[content_tmp[-1]]+"\n\n"
+                travel_kind_dict[content_tmp[-1]] + "\n\n"
             message_text_tmp += "可繼續點選喜好的旅遊類型，也可點擊完成問卷按鈕"
             message = TextSendMessage(text=message_text_tmp)
             tickets_text = TemplateSendMessage(
@@ -113,25 +142,25 @@ def handle_Postback(event):
             )
             push_message(user_key, [message, tickets_text])
     else:
-        if(event.postback.data == 'reSearch = true'):
+        if data_content == 'reSearch = true':
             session_dict[user_key] = ['重新搜尋航班']
             session_second_list = list(session_dict[user_key])
-        elif(event.postback.data == type_of_depart):
+        elif data_content == type_of_depart:
             time = event.postback.params
             session_second_list = list(session_dict[user_key])
             time_tmp = {datetime_type[type_of_depart]: time['date']}
             session_second_list.append(time_tmp)
             session_dict[user_key] = list(session_second_list)
-            message_text_tmp = "你選擇的日期為:"+time['date']
+            message_text_tmp = "你選擇的日期為:" + time['date']
             message = TextSendMessage(text=message_text_tmp)
             push_message(user_key, message)
             push_message(event.source.user_id, choice_datatime(type_of_return))
-        elif(event.postback.data == type_of_return):
+        elif data_content == type_of_return:
             time = event.postback.params
             session_second_list = list(session_dict[user_key])
             time_tmp = {datetime_type[type_of_return]: time['date']}
             print(session_dict[user_key])
-            if(time['date'] >= session_dict[user_key][-1][datetime_type[type_of_depart]]):
+            if time['date'] >= session_dict[user_key][-1][datetime_type[type_of_depart]]:
                 session_second_list.append(time_tmp)
                 session_dict[user_key] = list(session_second_list)
                 message_text_tmp = "你選擇的回國日期為:" + time['date']
@@ -141,7 +170,7 @@ def handle_Postback(event):
                 message = TextSendMessage(text=message_text_tmp)
                 push_message(event.source.user_id, message)
                 # search_air_tickest(event)
-                search_airticket_in_travel4(session_dict, user_key)
+                search_air_ticket_in_travel4(session_dict, user_key)
             else:
                 message_text_tmp = "你選擇的回國日期小於出國日期，請重新選擇"
                 message = TextSendMessage(text=message_text_tmp)
@@ -151,8 +180,8 @@ def handle_Postback(event):
 
 
 @handler.add(FollowEvent)
-def handle_FollowEvent(event):
-    print ("IN")
+def handle_followevent(event):
+    print("IN")
     print("Follow event")
     print(event)
     global ask_member_Info_session_dict
@@ -162,16 +191,15 @@ def handle_FollowEvent(event):
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
-    if (is_first_Login(user_key)):
+    if is_first_login(user_key):
         print("First Login" + user_key)
-        message_text_tmp = "Hi "+profile.display_name+"\n"
+        message_text_tmp = "Hi " + profile.display_name + "\n"
         message_text_tmp += "歡迎加入FlightGo!!\n\n"
         message_text_tmp += "可以使用FlightGo 來查詢機票。\n有任何問題也可直接詢問客服，FlightGo會立即通知真人客服來為您服務喔\n\n"
         message_text_tmp += "可以打#教學，即可秀出教學畫面唷\n\n"
         message_text_tmp += "為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
-        tmp_list = []
-        tmp_list.append("ask_session_start")
+        tmp_list = ["ask_session_start"]
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
         reply_event(event, [message, message_slicker])
@@ -186,6 +214,7 @@ def handle_FollowEvent(event):
         message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
         reply_event(event, [message, message_slicker])
 
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print('#MessageEvent#')
@@ -194,43 +223,44 @@ def handle_message(event):
     #profile = line_bot_api.get_profile(user_key)
 
     print(ask_member_Info_session_dict)
-    if(user_key in ask_member_Info_session_dict and ask_member_Info_session_dict[user_key][0] == "ask_session_start"):
+    if user_key in ask_member_Info_session_dict and ask_member_Info_session_dict[user_key][0] == "ask_session_start":
         ask_paper_memberInfo(event)
-    elif("喜好問卷" in event.message.text):
+    elif "喜好問卷" in event.message.text:
         ask_user_favorite_travel(user_key)
-    elif ("廣告" == event.message.text):
+    elif "廣告" == event.message.text:
         push_ads(user_key)
     elif (user_key not in session_dict) and ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text):
         search_air_info_session(event)
-    elif(user_key in session_dict and len(session_dict[user_key]) >= 1):
+    elif user_key in session_dict and len(session_dict[user_key]) >= 1:
         search_air_info_session(event)
+    elif "客服問卷" in event.message.text:
+        customer_questionnaire(user_key )
     else:
         other_session(event)
 
 
 def search_air_info_session(event):
     user_key = event.source.user_id
-    if ('重新搜尋航班' in event.message.text):
+    if '重新搜尋航班' in event.message.text:
         session_dict[user_key] = []
         session_second_list = list(session_dict[user_key])
         session_second_list.append(event.message.text)
-        print("輸入重新搜尋，user text is :"+str(event.message.text))
+        print("輸入重新搜尋，user text is :" + str(event.message.text))
         session_dict[user_key] = list(session_second_list)
         message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event, message)
-    elif (user_key not in session_dict):
-        if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
-            session_second_list = []
-            session_second_list.append(event.message.text)
+    elif user_key not in session_dict:
+        if ('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text):
+            session_second_list = [event.message.text]
             session_dict[user_key] = list(session_second_list)
             message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         else:
             message_text_tmp = "抱歉目前僅提供搜尋機票功能，可打 搜尋機票 即可搜尋機票"
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event, message)
-    elif (len(session_dict[user_key]) == 1):
-        if(event.message.text in region_list):
+    elif len(session_dict[user_key]) == 1:
+        if event.message.text in region_list:
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
@@ -239,8 +269,8 @@ def search_air_info_session(event):
             message_text_tmp = "很抱歉，請輸入正確的出發地點，如機場或是國家"
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event, message)
-    elif (len(session_dict[user_key]) == 2):
-        if(event.message.text in region_list):
+    elif len(session_dict[user_key]) == 2:
+        if event.message.text in region_list:
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
@@ -250,8 +280,8 @@ def search_air_info_session(event):
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event, message)
         push_message(event.source.user_id, choice_datatime(type_of_depart))
-    elif (len(session_dict[user_key]) == 3):
-        if(event.message.text == '20180531'):
+    elif len(session_dict[user_key]) == 3:
+        if event.message.text == '20180531':
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
@@ -261,8 +291,8 @@ def search_air_info_session(event):
         message = TextSendMessage(text=message_text_tmp)
         replay_message(event, message)
         push_message(event.source.user_id, choice_datatime(type_of_return))
-    elif (len(session_dict[user_key]) == 4):
-        if(event.message.text == '20180608'):
+    elif len(session_dict[user_key]) == 4:
+        if event.message.text == '20180608':
             session_second_list = list(session_dict[user_key])
             session_second_list.append(event.message.text)
             session_dict[user_key] = list(session_second_list)
@@ -270,15 +300,14 @@ def search_air_info_session(event):
             message = TextSendMessage(text=message_text_tmp)
             replay_message(event, message)
             # search_air_tickest(event)
-            search_airticket_in_travel4(session_dict, user_key)
+            search_air_ticket_in_travel4(session_dict, user_key)
         else:
             message_text_tmp = "很抱歉，請輸入正確的日期格式，:例如2018年5月1號 請打 20180501"
             message = TextSendMessage(text=message_text_tmp)
             replay_message(event, message)
     elif (user_key in session_dict) and (len(session_dict[user_key]) == 0):
-        if(('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text)):
-            session_second_list = []
-            session_second_list.append(event.message.text)
+        if ('搜尋機票' in event.message.text) or ('查詢機票' in event.message.text):
+            session_second_list = [event.message.text]
             session_dict[user_key] = list(session_second_list)
             message_text_tmp = "請問出發地點 ?  (例如:台北、TPE)"
         else:
@@ -293,18 +322,38 @@ def search_air_info_session(event):
             print(chunk)
 
 
-
 def other_session(event):
     print('#other_session')
     message_slicker = StickerSendMessage(package_id=2, sticker_id=34)
-    message = TextSendMessage(text="目前程式尚未開發出對應功能，有任何問題將交由真人客服為您服務")
+    message = TextSendMessage(text="請問是否有其他問題? \n 有任何問題將交由真人客服為您服務")
     replay_message(event, [message, message_slicker])
+    customer_service_button(event.source.user_id)
 
+
+def customer_service_button(user_key):
+    confirm_template = TemplateSendMessage(
+        alt_text='確認按鈕',
+        template=ConfirmTemplate(
+            title='轉接線上客服人員',
+            text='是否轉接線上客服人員，客服人員服務時間 早上 09:00 ~ 晚上 19:00',
+            actions=[
+                PostbackTemplateAction(
+                    label='是',
+                    data='customer_service,Yes'
+                ),
+                PostbackTemplateAction(
+                    label='否',
+                    data='customer_service,No'
+                )
+            ]
+        )
+    )
+    push_message(user_key, confirm_template)
 
 def replay_message(event, message):
     print('#replay_message')
     print(event)
-    if(type(message) == type([]) ):
+    if isinstance(message, type([])):
         save_message(event, message)
     else:
         save_message(event, [message])
@@ -327,11 +376,11 @@ def push_message(user_id, message):
 
 def choice_datatime(type):
     now_time = datetime.datetime.now().strftime("%Y-%m-%d")
-    max_time_tmp = datetime.datetime.now()+datetime.timedelta(days=365)
+    max_time_tmp = datetime.datetime.now() + datetime.timedelta(days=365)
     max_time = max_time_tmp.strftime("%Y-%m-%d")
     print(now_time)
     print(max_time)
-    if(type == type_of_return):
+    if type == type_of_return:
         title_string = " 請選擇回國日期"
         text_string = "選擇日期"
     else:
@@ -364,31 +413,31 @@ def search_air_tickest(event):
     tickets_info = find_air_ticket_info()
     min_price = 100000
     user_id = event.source.user_id
-    print("user_id is "+user_id)
+    print("user_id is " + user_id)
     for item in tickets_info.keys():
         tickets_text = ""
         tickets_text += "====去程====\n"
         tickets_text += "出發地點:" + \
-            tickets_info[item][keys_list[0]]['TPE']['DepartAirport']+'\n'
+            tickets_info[item][keys_list[0]]['TPE']['DepartAirport'] + '\n'
         tickets_text += "出發時間:" + \
-            tickets_info[item][keys_list[0]]['TPE']['DepartDate']+'\n'
+            tickets_info[item][keys_list[0]]['TPE']['DepartDate'] + '\n'
         tickets_text += "抵達地點:" + \
-            tickets_info[item][keys_list[0]]['TPE']['ArriveAirport']+'\n'
+            tickets_info[item][keys_list[0]]['TPE']['ArriveAirport'] + '\n'
         tickets_text += "抵達時間:" + \
-            tickets_info[item][keys_list[0]]['TPE']['ArriveDate']+'\n'
+            tickets_info[item][keys_list[0]]['TPE']['ArriveDate'] + '\n'
         tickets_text += "====回程====\n"
         tickets_text += "出發地點:" + \
-            tickets_info[item][keys_list[1]]['ICN']['DepartAirport']+'\n'
+            tickets_info[item][keys_list[1]]['ICN']['DepartAirport'] + '\n'
         tickets_text += "出發時間:" + \
-            tickets_info[item][keys_list[1]]['ICN']['DepartDate']+'\n'
+            tickets_info[item][keys_list[1]]['ICN']['DepartDate'] + '\n'
         tickets_text += "抵達地點:" + \
-            tickets_info[item][keys_list[1]]['ICN']['ArriveAirport']+'\n'
+            tickets_info[item][keys_list[1]]['ICN']['ArriveAirport'] + '\n'
         tickets_text += "抵達時間:" + \
-            tickets_info[item][keys_list[1]]['ICN']['ArriveDate']+'\n'
+            tickets_info[item][keys_list[1]]['ICN']['ArriveDate'] + '\n'
         tickets_text += "====票價====\n"
         tickets_text += "每人含稅價格: NT" + \
-            str(tickets_info[item][keys_list[1]]['ICN']['TotalFare'])+'\n'
-        if(min_price > tickets_info[item][keys_list[1]]['ICN']['TotalFare']):
+            str(tickets_info[item][keys_list[1]]['ICN']['TotalFare']) + '\n'
+        if min_price > tickets_info[item][keys_list[1]]['ICN']['TotalFare']:
             min_price = tickets_info[item][keys_list[1]]['ICN']['TotalFare']
             push_tickets_info = TextSendMessage(text=tickets_text)
             push_message(user_id, push_tickets_info)
@@ -418,28 +467,34 @@ def search_air_tickest(event):
     push_message(user_id, buttons_template_message)
 
 
-def search_airticket_in_travel4(session_dict, user_key):
+def search_air_ticket_in_travel4(session_dict, user_key):
     print(session_dict[user_key])
     print(session_dict[user_key][3]
           [datetime_type[type_of_depart]].replace("-", "/"))
     print(session_dict[user_key][4]
           [datetime_type[type_of_return]].replace("-", "/"))
 
-    airplane_all_detal_info_dict = main_search_airticket_info(session_dict[user_key][1], session_dict[user_key][2], session_dict[user_key][3][datetime_type[type_of_depart]].replace("-", "/"),
-                                                              session_dict[user_key][4][datetime_type[type_of_return]].replace("-", "/"), 'Y', '5')
+    airplane_all_details_info_dict = main_search_airticket_info(session_dict[user_key][1],
+                                                              session_dict[user_key][2],
+                                                              session_dict[user_key][3][datetime_type[type_of_depart]].replace("-",
+                                                                                                                               "/"),
+                                                              session_dict[user_key][4][datetime_type[type_of_return]].replace("-",
+                                                                                                                               "/"),
+                                                              'Y',
+                                                              '5')
     titlename = get_airticket_title_Info()
     count_limit = 5
     count_tmp = 0
-    for keys in airplane_all_detal_info_dict:
-        print(airplane_all_detal_info_dict[keys])
+    for keys in airplane_all_details_info_dict:
+        print(airplane_all_details_info_dict[keys])
         tickets_text = ""
-        if(count_tmp >= count_limit):
+        if count_tmp >= count_limit:
             break
         for list_tmp in titlename:
             for keys_i in list_tmp:
-                tickets_text += list_tmp[keys_i] + ":"+"\n" + \
-                    airplane_all_detal_info_dict[keys][keys_i]+"\n"
-                if (keys_i == 'TakeTime'):
+                tickets_text += list_tmp[keys_i] + ":" + "\n" + \
+                                airplane_all_details_info_dict[keys][keys_i] + "\n"
+                if keys_i == 'TakeTime':
                     tickets_text += "=================\n"
         tickets_text += "================="
         push_tickets_info = TextSendMessage(text=tickets_text)
@@ -474,8 +529,6 @@ def get_ads_info():
 
 
 def push_ads(user_id):
-    #photo_url = 'https://github.com/housekeepbao/flight_bot/blob/master/images/travel_test_img.png?raw=true'
-    #link_url = 'https://www.google.com.tw/maps/place/%E5%8F%A4%E6%97%A9%E5%91%B3%E5%B0%8F%E5%90%83%E5%BA%97/@25.0629705,121.5012555,23.8z/data=!4m8!1m2!2m1!1z5Y-w5YyX5qmLIOe-jumjnw!3m4!1s0x3442a92298613293:0xcff4aac1356b306!8m2!3d25.0629585!4d121.50107?hl=zh-TW'
     photo_url, link_url, action_list = get_ads_info()
     imagemap_message = ImagemapSendMessage(
         base_url=photo_url,
@@ -512,19 +565,19 @@ def ask_paper_memberInfo(event):
     #global ask_member_Info_session_dict
 
     user_key = event.source.user_id
-    if(len(ask_member_Info_session_dict[user_key]) == 1):
+    if len(ask_member_Info_session_dict[user_key]) == 1:
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
         tmp_list.append("ask_session_start")
         ask_member_Info_session_dict[user_key] = list(tmp_list)
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
-    elif (len(ask_member_Info_session_dict[user_key]) == 2):
+    elif len(ask_member_Info_session_dict[user_key]) == 2:
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         pattern = '\d+'
         re_string = re.match(pattern, string)
-        if(re_string != None):
+        if re_string is not None:
             tmp_list.append(string)
             tickets_text = "請輸入您的電子信箱 例如:mymail@gmail.com"
             ask_member_Info_session_dict[user_key] = list(tmp_list)
@@ -532,12 +585,12 @@ def ask_paper_memberInfo(event):
             tickets_text = "輸入的電話號碼有錯，請重新輸入"
         push_tickets_info = TextSendMessage(text=tickets_text)
         push_message(user_key, push_tickets_info)
-    elif (len(ask_member_Info_session_dict[user_key]) == 3):
+    elif len(ask_member_Info_session_dict[user_key]) == 3:
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         reg_match = "^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$"
         re_string = re.match(reg_match, string)
-        if(re_string != None):
+        if re_string is not None:
             tmp_list.append(string)
             tickets_text = TemplateSendMessage(
                 alt_text='Buttons template',
@@ -564,7 +617,7 @@ def ask_paper_memberInfo(event):
             tickets_text = "輸入的電子信箱有誤，請重新輸入"
             push_tickets_info = TextSendMessage(text=tickets_text)
             push_message(user_key, push_tickets_info)
-    elif (len(ask_member_Info_session_dict[user_key]) == 4):
+    elif len(ask_member_Info_session_dict[user_key]) == 4:
         tmp_list = list(ask_member_Info_session_dict[user_key])
         string = event.message.text
         if(string == '男性') or (string == '女性'):
@@ -574,7 +627,7 @@ def ask_paper_memberInfo(event):
             push_tickets_info = TextSendMessage(text=tickets_text)
             message_slicker = StickerSendMessage(package_id=1, sticker_id=125)
             push_message(user_key, [push_tickets_info, message_slicker])
-            save_memberInfo_data(
+            save_member_info_data(
                 user_key,
                 ask_member_Info_session_dict[user_key][2],
                 ask_member_Info_session_dict[user_key][3],
@@ -610,10 +663,60 @@ def ask_paper_memberInfo(event):
             push_message(user_key, [push_tickets_info, tickets_text])
 
 
+def customer_questionnaire(user_key):
+    profile = line_bot_api.get_profile(user_key)
+    tickets_text = "Hi "+profile.display_name+"\n"
+    tickets_text += "您每一次的使用體驗我們都非常重視"+"\n"
+    tickets_text += "請問這次客服體驗滿意度為 "
+    buttons_template = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            title='服務滿意度',
+            text='請問這次服務滿意度',
+            actions=[
+                PostbackTemplateAction(
+                    label='非常不滿意',
+                    data='Experience,totally disagree'
+                ),
+                PostbackTemplateAction(
+                    label='普通',
+                    data='Experience,no comment '
+                ),
+                PostbackTemplateAction(
+                    label='滿意',
+                    data='Experience,totally agree'
+                )
+            ]
+        )
+    )
+    buttons_template_second = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            title='是否有解決問題',
+            text='請問這次服務滿意度',
+            actions=[
+                PostbackTemplateAction(
+                    label='是',
+                    data='Solve_problem,Yes'
+                ),
+                PostbackTemplateAction(
+                    label='否',
+                    data='Solve_problem,No'
+                ),
+                PostbackTemplateAction(
+                    label='其他',
+                    data='Solve_problem,other'
+                )
+            ]
+        )
+    )
+    push_tickets_info = TextSendMessage(text=tickets_text)
+    push_message(user_key, [push_tickets_info,buttons_template,buttons_template_second])
+
 def ask_user_favorite_travel(user_key):
     if user_key not in ask_user_favorite_session_dict:
         ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
-    if (len(ask_user_favorite_session_dict[user_key]) >= 1):
+    if len(ask_user_favorite_session_dict[user_key]) >= 1:
         tickets_text = "請選擇你喜歡的旅遊類型，可以複選"
         push_tickets_info = TextSendMessage(text=tickets_text)
         columns_list = []
@@ -627,11 +730,7 @@ def ask_user_favorite_travel(user_key):
                     PostbackTemplateAction(
                         label='喜愛島嶼度假',
                         displayText="選擇島嶼度假",
-                        data="travel,Islands"
-                    )
-                ]
-            )
-        )
+                        data="travel,Islands")]))
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
@@ -640,11 +739,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛日韓旅遊',
-                        data="travel,JP_Korea"
-                    )
-                ]
-            )
-        )
+                        data="travel,JP_Korea")]))
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/Gala-2-1200x648.jpg?raw=true",
@@ -653,11 +748,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛郵輪旅遊',
-                        data="travel,Cruiseship"
-                    )
-                ]
-            )
-        )
+                        data="travel,Cruiseship")]))
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
@@ -666,11 +757,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛中東非旅遊',
-                        data="travel,Central_Eastern_Africa"
-                    )
-                ]
-            )
-        )
+                        data="travel,Central_Eastern_Africa")]))
         columns_list.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
@@ -679,11 +766,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛東南亞旅遊',
-                        data="travel,southeast_asia"
-                    )
-                ]
-            )
-        )
+                        data="travel,southeast_asia")]))
         carousel_template_message = TemplateSendMessage(
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list))
@@ -696,11 +779,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛南北亞旅遊',
-                        data="travel,south_asia"
-                    )
-                ]
-            )
-        )
+                        data="travel,south_asia")]))
         columns_list_2.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/06f8c3ea-553b-4129-8ed7-d8fc8c07fb3e.jpg?raw=true",
@@ -722,11 +801,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛歐洲線旅遊',
-                        data="travel,Europe"
-                    )
-                ]
-            )
-        )
+                        data="travel,Europe")]))
         columns_list_2.append(
             CarouselColumn(
                 thumbnail_image_url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
@@ -735,11 +810,7 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛美國加拿大旅遊',
-                        data="travel,America_Canada"
-                    )
-                ]
-            )
-        )
+                        data="travel,America_Canada")]))
 
         columns_list_2.append(
             CarouselColumn(
@@ -749,15 +820,11 @@ def ask_user_favorite_travel(user_key):
                 actions=[
                     PostbackTemplateAction(
                         label='喜愛紐西蘭、澳洲旅遊',
-                        data="travel,Oceania"
-                    )
-                ]
-            )
-        )
+                        data="travel,Oceania")]))
         carousel_template_message2 = TemplateSendMessage(
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list_2))
-        push_message(user_key,  carousel_template_message2)
+        push_message(user_key, carousel_template_message2)
 
 
 if __name__ == "__main__":
