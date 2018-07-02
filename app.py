@@ -668,7 +668,7 @@ def customer_questionnaire(user_key):
     tickets_text = "Hi "+profile.display_name+"\n"
     tickets_text += "您每一次的使用體驗我們都非常重視"+"\n"
     tickets_text += "請問這次客服體驗滿意度為 "
-    picture_link = 'https: // github.com / housekeepbao / flight_bot / blob / master / images / 1757dc66be93ccb.jpg?raw = true'
+    picture_link = 'https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/1757dc66be93ccb.jpg'
     buttons_template = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
