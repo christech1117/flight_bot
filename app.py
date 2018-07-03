@@ -857,6 +857,12 @@ def line_flex_example(user_key):
             footer ='#CCCCFF'
         ),
         direction='ltr',
+        header = BoxComponent(
+            layout ='vertical',
+            contents =[
+                TextComponent(text='航空機票', weight='bold', size='xl'),
+            ]
+        ),
         hero=ImageComponent(
             url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/usa-in-2.jpg',
             size='full',
