@@ -39,7 +39,8 @@ from linebot.models import (
     FlexSendMessage,
     SpacerComponent,
     BubbleStyle,
-    BlockStyle)
+    BlockStyle,
+    CarouselContainer)
 import os
 import sys
 import pymongo
@@ -1099,7 +1100,13 @@ def line_flex_example(user_key):
             ]
         ),
     )
-    message = FlexSendMessage(alt_text="hello", contents=bubble)
+    carousel_message = CarouselContainer(
+        contents=[
+            bubble,
+            bubble
+        ]
+    )
+    message = FlexSendMessage(alt_text="hello", contents=carousel_message)
     push_message(user_key, message)
 
 
