@@ -1109,6 +1109,431 @@ def line_flex_example(user_key):
     message = FlexSendMessage(alt_text="hello", contents=carousel_message)
     push_message(user_key, message)
 
+def line_flex_example_01(user_key):
+    bubble = BubbleContainer(
+        styles = BubbleStyle(
+            header = BlockStyle(
+                background_color ='#DDDDDD',
+                separator_color = '#000000',
+                separator =True),
+            hero =BlockStyle(
+                background_color ='#FF44AA',
+                separator_color = '#000000',
+                separator =True),
+            body =BlockStyle(
+                background_color ='#FFFFFF',
+                separator_color = '#000000',
+                separator =True),
+            footer =BlockStyle(
+                background_color ='#CCEEFF',
+                separator_color = '#000000',
+                separator =True)
+        ),
+        direction='ltr',
+        header = BoxComponent(
+            layout ='vertical',
+            contents =[
+                TextComponent(text='大興旅行社', weight='bold', size='lg'),
+            ]
+        ),
+        hero=ImageComponent(
+            url='/images/ngo_a014.jpg',
+            size='full',
+            aspect_ratio='20:13',
+            aspect_mode='cover',
+            action=URIAction(uri='http://app.tahsintour.com.tw/page/Itinerary/ItineraryTH.aspx?ItnNo=180425JKK5BR-A', label='label')
+        ),
+        body=BoxComponent(
+            layout='vertical',
+            contents=[
+                # title
+                TextComponent(text='北陸立山黑部．世界遺產合掌村．上高地仙境．溫泉飛驒牛五日', weight='bold', size='xl'),
+                BoxComponent(
+                    layout='baseline',
+                    spacing='sm',
+                    contents=[
+                        TextComponent(
+                            text='售價:  ',
+                            color='#aaaaaa',
+                            size='md',
+                            flex=0
+                        ),
+                        TextComponent(
+                            text="369,00元起",
+                            wrap=True,
+                            color='#FF0000',
+                            size='md',
+                            flex=5,
+                        ),
+                    ],
+                ),
+                # info
+                BoxComponent(
+                    layout='vertical',
+                    margin='lg',
+                    spacing='sm',
+                    contents=[
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                IconComponent(size='sm', url='/images/icon1.GIF'),
+                                TextComponent(
+                                    text='天 數:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text='5天4夜',
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=5
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='國 家:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="日本",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='地區:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text='北陸.小松.立山.名古屋',
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=5
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='出發地:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="桃園機場",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='航空公司:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="長榮航空",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='最少成行人數:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="16人",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=5,
+                                ),
+                            ],
+                        )
+                    ]
+                ),
+            ],
+        ),
+        footer=BoxComponent(
+            layout='vertical',
+            spacing='sm',
+            contents=[
+                # callAction, separator, websiteAction
+                SpacerComponent(size='sm'),
+                # callAction
+                ButtonComponent(
+                    style='link',
+                    color='#000000',
+                    height='sm',
+                    action=URIAction(label='出發日及報名', uri='http://b2c.tahsintour.com.tw/page/tahsin/grolist.aspx?homepage=180425JKK5BR-A'),
+                ),
+                # separator
+                SeparatorComponent(),
+                # websiteAction
+                ButtonComponent(
+                    style='link',
+                    color ='#000000',
+                    height='sm',
+                    action=URIAction(label='查看更多相關行程', uri="http://b2c.tahsintour.com.tw/page/tahsin/grolist.aspx?area=%E6%9D%B1%E5%8C%97%E4%BA%9E&city=%E5%8C%97%E9%99%B8")
+                )
+            ]
+        ),
+    )
+    bubble01 = BubbleContainer(
+        styles=BubbleStyle(
+            header=BlockStyle(
+                background_color='#DDDDDD',
+                separator_color='#000000',
+                separator=True),
+            hero=BlockStyle(
+                background_color='#FF44AA',
+                separator_color='#000000',
+                separator=True),
+            body=BlockStyle(
+                background_color='#FFFFFF',
+                separator_color='#000000',
+                separator=True),
+            footer=BlockStyle(
+                background_color='#CCEEFF',
+                separator_color='#000000',
+                separator=True)
+        ),
+        direction='ltr',
+        header=BoxComponent(
+            layout='vertical',
+            contents=[
+                TextComponent(text='雄獅旅行社', weight='bold', size='lg'),
+            ]
+        ),
+        hero=ImageComponent(
+            url='/images/index_01.jpg',
+            size='full',
+            aspect_ratio='20:13',
+            aspect_mode='cover',
+            action=URIAction(uri='https://travel.liontravel.com/detail?NormGroupID=58ea86f3-576a-460d-9fd2-cc111437d14d&GroupID=18EA816CI-T',
+                             label='label')
+        ),
+        body=BoxComponent(
+            layout='vertical',
+            contents=[
+                # title
+                TextComponent(text='奧地利單國~百水設計、金色大廳、設計旅店、中央咖啡館、鹽礦冰洞10天', weight='bold', size='xl'),
+                BoxComponent(
+                    layout='baseline',
+                    spacing='sm',
+                    contents=[
+                        TextComponent(
+                            text='售價:  ',
+                            color='#aaaaaa',
+                            size='md',
+                            flex=0
+                        ),
+                        TextComponent(
+                            text="135,900元起",
+                            wrap=True,
+                            color='#FF0000',
+                            size='md',
+                            flex=5,
+                        ),
+                    ],
+                ),
+                # info
+                BoxComponent(
+                    layout='vertical',
+                    margin='lg',
+                    spacing='sm',
+                    contents=[
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                IconComponent(size='sm', url='/images/icon1.GIF'),
+                                TextComponent(
+                                    text='天 數:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text='10天',
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='md',
+                                    flex=5
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='國 家:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="奧地利",
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='地區:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text='維也納 Vienna',
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='md',
+                                    flex=5
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='出發地:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="桃園機場",
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='航空公司:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="中華航空",
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='最少成行人數:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="16人",
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        )
+                    ]
+                ),
+            ],
+        ),
+        footer=BoxComponent(
+            layout='vertical',
+            spacing='sm',
+            contents=[
+                # callAction, separator, websiteAction
+                SpacerComponent(size='sm'),
+                # callAction
+                ButtonComponent(
+                    style='link',
+                    color='#000000',
+                    height='sm',
+                    action=URIAction(label='出發日及報名',uri='https://travel.liontravel.com/order/choose?NormGroupID=58ea86f3-576a-460d-9fd2-cc111437d14d&GroupID=18EA816CI-T&Status=1'),
+                ),
+                # separator
+                SeparatorComponent(),
+                # websiteAction
+                ButtonComponent(
+                    style='link',
+                    color='#000000',
+                    height='sm',
+                    action=URIAction(label='查看更多相關行程',
+                                     uri="https://travel.liontravel.com/detail?NormGroupID=58ea86f3-576a-460d-9fd2-cc111437d14d&GroupID=18EA816CI-T")
+                )
+            ]
+        ),
+    )
+    carousel_message = CarouselContainer(
+        contents=[
+            bubble,
+            bubble
+        ]
+    )
+    message = FlexSendMessage(alt_text="hello", contents=carousel_message)
+    push_message(user_key, message)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
