@@ -249,7 +249,7 @@ def handle_message(event):
     elif "客服問卷" in event.message.text:
         customer_questionnaire(user_key)
     elif "Flex" in event.message.text:
-        line_flex_example(user_key)
+        line_flex_example_01(user_key)
     else:
         other_session(event)
 
@@ -1529,7 +1529,7 @@ def line_flex_example_01(user_key):
     carousel_message = CarouselContainer(
         contents=[
             bubble,
-            bubble
+            bubble01
         ]
     )
     message = FlexSendMessage(alt_text="hello", contents=carousel_message)
