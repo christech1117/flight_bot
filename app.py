@@ -37,7 +37,9 @@ from linebot.models import (
     SeparatorComponent,
     ButtonComponent,
     FlexSendMessage,
-    SpacerComponent)
+    SpacerComponent,
+    BubbleStyle,
+    BlockStyle)
 import os
 import sys
 import pymongo
@@ -845,6 +847,15 @@ def ask_user_favorite_travel(user_key):
 
 def line_flex_example(user_key):
     bubble = BubbleContainer(
+        styles = BubbleStyle(
+            header = BlockStyle(
+                background_color ='#DDDDDD',
+                separator_color = '#000000',
+                separator =True),
+            hero ='#FF44AA',
+            body ="#DDDDDD",
+            footer ='#CCCCFF'
+        ),
         direction='ltr',
         hero=ImageComponent(
             url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/usa-in-2.jpg',
