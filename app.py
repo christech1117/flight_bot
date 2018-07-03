@@ -852,15 +852,24 @@ def line_flex_example(user_key):
                 background_color ='#DDDDDD',
                 separator_color = '#000000',
                 separator =True),
-            hero ='#FF44AA',
-            body ="#DDDDDD",
-            footer ='#CCCCFF'
+            hero =BlockStyle(
+                background_color ='#FF44AA',
+                separator_color = '#000000',
+                separator =True),
+            body =BlockStyle(
+                background_color ='#DDDDDD',
+                separator_color = '#000000',
+                separator =True),
+            footer =BlockStyle(
+                background_color ='#CCEEFF',
+                separator_color = '#000000',
+                separator =True)
         ),
         direction='ltr',
         header = BoxComponent(
             layout ='vertical',
             contents =[
-                TextComponent(text='航空機票', weight='bold', size='xl'),
+                TextComponent(text='航空機票資訊', weight='bold', size='xl'),
             ]
         ),
         hero=ImageComponent(
@@ -899,18 +908,18 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='Place',
+                                    text='出發城市',
                                     color='#aaaaaa',
-                                    size='sm',
+                                    size='md',
                                     flex=1
                                 ),
                                 TextComponent(
-                                    text='Shinjuku, Tokyo',
+                                    text='台灣中正機場',
                                     wrap=True,
                                     color='#666666',
-                                    size='sm',
-                                    flex=5
-                                )
+                                    size='md',
+                                    flex=3
+                                ),
                             ],
                         ),
                         BoxComponent(
@@ -918,13 +927,128 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='Time',
+                                    text='起飛時間',
                                     color='#aaaaaa',
-                                    size='sm',
+                                    size='md',
                                     flex=1
                                 ),
                                 TextComponent(
-                                    text="10:00 - 23:00",
+                                    text="18:00",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='抵達機場',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=1
+                                ),
+                                TextComponent(
+                                    text='日本成田',
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=3
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='抵達時間',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=1
+                                ),
+                                TextComponent(
+                                    text="22:00",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        SeparatorComponent(),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='出發機場',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=1
+                                ),
+                                TextComponent(
+                                    text='成田機場',
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=3
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='起飛時間',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=1
+                                ),
+                                TextComponent(
+                                    text="07:00",
+                                    wrap=True,
+                                    color='#666666',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='抵達機場',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=1
+                                ),
+                                TextComponent(
+                                    text='桃園中正機場',
+                                    wrap=True,
+                                    color='#666666',
+                                    size='md',
+                                    flex=3
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='抵達時間',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=1
+                                ),
+                                TextComponent(
+                                    text="09:00",
                                     wrap=True,
                                     color='#666666',
                                     size='sm',
@@ -945,6 +1069,7 @@ def line_flex_example(user_key):
                 # callAction
                 ButtonComponent(
                     style='link',
+                    color='#000000',
                     height='sm',
                     action=URIAction(label='CALL', uri='tel:000000'),
                 ),
@@ -953,6 +1078,7 @@ def line_flex_example(user_key):
                 # websiteAction
                 ButtonComponent(
                     style='link',
+                    color ='#000000',
                     height='sm',
                     action=URIAction(label='WEBSITE', uri="http://www.flightgoai.com/")
                 )
