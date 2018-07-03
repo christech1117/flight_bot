@@ -1,4 +1,4 @@
-line-bot-sdk
+line-bot-sdk==1.7.2
 flask
 pymongo
 jsonschema
