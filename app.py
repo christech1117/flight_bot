@@ -883,17 +883,13 @@ def line_flex_example(user_key):
             layout='vertical',
             contents=[
                 # title
-                TextComponent(text='Brown Cafe', weight='bold', size='xl'),
+                TextComponent(text='啟程機票資訊', weight='bold', size='xl'),
                 # review
                 BoxComponent(
                     layout='baseline',
                     margin='md',
                     contents=[
-                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/SIVbanner.jpg'),
-                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/U12164P31DT20150203074403.jpg'),
-                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/center.jpg'),
-                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/images.jpg'),
-                        TextComponent(text='4.0', size='sm', color='#999999', margin='md',
+                        TextComponent(text='中華航空公司', size='md', color='#0000FF', margin='md',
                                       flex=0)
                     ]
                 ),
@@ -908,7 +904,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='出發城市',
+                                    text='出發城市:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -927,7 +923,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='起飛時間',
+                                    text='起飛時間:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -946,7 +942,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='抵達機場',
+                                    text='抵達機場:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -965,7 +961,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='抵達時間',
+                                    text='抵達時間:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -978,14 +974,32 @@ def line_flex_example(user_key):
                                     flex=5,
                                 ),
                             ],
-                        ),
-                        SeparatorComponent(),
+                        )
+                    ]
+                ),
+                SeparatorComponent(),
+                TextComponent(text='回程機票資訊', weight='bold', size='xl'),
+                # review
+                BoxComponent(
+                    layout='baseline',
+                    margin='md',
+                    contents=[
+                        TextComponent(text='中華航空公司', size='md', color='#0000FF', margin='md',
+                                      flex=0)
+                    ]
+                ),
+                # info
+                BoxComponent(
+                    layout='vertical',
+                    margin='lg',
+                    spacing='sm',
+                    contents=[
                         BoxComponent(
                             layout='baseline',
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='出發機場',
+                                    text='出發機場:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -1004,7 +1018,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='起飛時間',
+                                    text='起飛時間:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -1023,7 +1037,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='抵達機場',
+                                    text='抵達機場:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -1042,7 +1056,7 @@ def line_flex_example(user_key):
                             spacing='sm',
                             contents=[
                                 TextComponent(
-                                    text='抵達時間',
+                                    text='抵達時間:  ',
                                     color='#aaaaaa',
                                     size='md',
                                     flex=0
@@ -1071,7 +1085,7 @@ def line_flex_example(user_key):
                     style='link',
                     color='#000000',
                     height='sm',
-                    action=URIAction(label='CALL', uri='tel:000000'),
+                    action=URIAction(label='撥打電話', uri='tel:000000'),
                 ),
                 # separator
                 SeparatorComponent(),
@@ -1080,7 +1094,7 @@ def line_flex_example(user_key):
                     style='link',
                     color ='#000000',
                     height='sm',
-                    action=URIAction(label='WEBSITE', uri="http://www.flightgoai.com/")
+                    action=URIAction(label='網站', uri="http://www.flightgoai.com/")
                 )
             ]
         ),
