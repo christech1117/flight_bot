@@ -857,7 +857,7 @@ def line_flex_example(user_key):
                 separator_color = '#000000',
                 separator =True),
             body =BlockStyle(
-                background_color ='#DDDDDD',
+                background_color ='#FFFFFF',
                 separator_color = '#000000',
                 separator =True),
             footer =BlockStyle(
@@ -911,14 +911,14 @@ def line_flex_example(user_key):
                                     text='出發城市',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text='台灣中正機場',
                                     wrap=True,
                                     color='#666666',
                                     size='md',
-                                    flex=3
+                                    flex=5
                                 ),
                             ],
                         ),
@@ -930,7 +930,7 @@ def line_flex_example(user_key):
                                     text='起飛時間',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text="18:00",
@@ -949,14 +949,14 @@ def line_flex_example(user_key):
                                     text='抵達機場',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text='日本成田',
                                     wrap=True,
                                     color='#666666',
                                     size='md',
-                                    flex=3
+                                    flex=5
                                 ),
                             ],
                         ),
@@ -968,7 +968,7 @@ def line_flex_example(user_key):
                                     text='抵達時間',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text="22:00",
@@ -988,14 +988,14 @@ def line_flex_example(user_key):
                                     text='出發機場',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text='成田機場',
                                     wrap=True,
                                     color='#666666',
                                     size='md',
-                                    flex=3
+                                    flex=5
                                 ),
                             ],
                         ),
@@ -1007,7 +1007,7 @@ def line_flex_example(user_key):
                                     text='起飛時間',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text="07:00",
@@ -1026,14 +1026,14 @@ def line_flex_example(user_key):
                                     text='抵達機場',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text='桃園中正機場',
                                     wrap=True,
                                     color='#666666',
                                     size='md',
-                                    flex=3
+                                    flex=5
                                 ),
                             ],
                         ),
@@ -1045,7 +1045,7 @@ def line_flex_example(user_key):
                                     text='抵達時間',
                                     color='#aaaaaa',
                                     size='md',
-                                    flex=1
+                                    flex=0
                                 ),
                                 TextComponent(
                                     text="09:00",
