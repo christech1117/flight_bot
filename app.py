@@ -1137,7 +1137,7 @@ def line_flex_example_01(user_key):
             ]
         ),
         hero=ImageComponent(
-            url='/images/ngo_a014.jpg',
+            url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/ngo_a014.jpg',
             size='full',
             aspect_ratio='20:13',
             aspect_mode='cover',
@@ -1177,7 +1177,7 @@ def line_flex_example_01(user_key):
                             layout='baseline',
                             spacing='sm',
                             contents=[
-                                IconComponent(size='sm', url='/images/icon1.GIF'),
+                                IconComponent(size='md', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/icon1.GIF'),
                                 TextComponent(
                                     text='天 數:  ',
                                     color='#aaaaaa',
@@ -1344,7 +1344,7 @@ def line_flex_example_01(user_key):
             ]
         ),
         hero=ImageComponent(
-            url='/images/index_01.jpg',
+            url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/index_01.jpg',
             size='full',
             aspect_ratio='20:13',
             aspect_mode='cover',
@@ -1385,7 +1385,7 @@ def line_flex_example_01(user_key):
                             layout='baseline',
                             spacing='sm',
                             contents=[
-                                IconComponent(size='sm', url='/images/icon1.GIF'),
+                                IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/icon1.GIF'),
                                 TextComponent(
                                     text='天 數:  ',
                                     color='#aaaaaa',
