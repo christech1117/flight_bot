@@ -1125,7 +1125,7 @@ def line_flex_example_01(user_key):
                 separator_color = '#000000',
                 separator =True),
             footer =BlockStyle(
-                background_color ='#CCEEFF',
+                background_color ='#F0F8FF',
                 separator_color = '#000000',
                 separator =True)
         ),
@@ -1332,7 +1332,7 @@ def line_flex_example_01(user_key):
                 separator_color='#000000',
                 separator=True),
             footer=BlockStyle(
-                background_color='#CCEEFF',
+                background_color='#F0F8FF',
                 separator_color='#000000',
                 separator=True)
         ),
