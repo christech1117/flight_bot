@@ -847,11 +847,11 @@ def line_flex_example(user_key):
     bubble = BubbleContainer(
         direction='ltr',
         hero=ImageComponent(
-            url='https://example.com/cafe.jpg',
+            url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/usa-in-2.jpg',
             size='full',
             aspect_ratio='20:13',
             aspect_mode='cover',
-            action=URIAction(uri='http://example.com', label='label')
+            action=URIAction(uri='http://www.flightgoai.com/', label='label')
         ),
         body=BoxComponent(
             layout='vertical',
@@ -863,11 +863,10 @@ def line_flex_example(user_key):
                     layout='baseline',
                     margin='md',
                     contents=[
-                        IconComponent(size='sm', url='https://example.com/gold_star.png'),
-                        IconComponent(size='sm', url='https://example.com/grey_star.png'),
-                        IconComponent(size='sm', url='https://example.com/gold_star.png'),
-                        IconComponent(size='sm', url='https://example.com/gold_star.png'),
-                        IconComponent(size='sm', url='https://example.com/grey_star.png'),
+                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/SIVbanner.jpg'),
+                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/U12164P31DT20150203074403.jpg'),
+                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/center.jpg'),
+                        IconComponent(size='sm', url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/images.jpg'),
                         TextComponent(text='4.0', size='sm', color='#999999', margin='md',
                                       flex=0)
                     ]
@@ -938,7 +937,7 @@ def line_flex_example(user_key):
                 ButtonComponent(
                     style='link',
                     height='sm',
-                    action=URIAction(label='WEBSITE', uri="https://example.com")
+                    action=URIAction(label='WEBSITE', uri="http://www.flightgoai.com/")
                 )
             ]
         ),
