@@ -1542,8 +1542,6 @@ def line_flex_example_01(user_key):
     push_message(user_key, message)
 
 def get_rich_id(user_key):
-    rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
-    print("rich menu id :"+rich_menu_id)
     rich_menu_to_create = RichMenu(
         size=RichMenuSize(width=2500, height=843),
         selected=False,
@@ -1553,12 +1551,14 @@ def get_rich_id(user_key):
             bounds=RichMenuBounds(x=0, y=0, width=2500, height=843),
             action=URIAction(label='Go to line.me', uri='https://line.me'))]
     )
-    rich_menu = line_bot_api.get_rich_menu(rich_menu_id)
-    print("rich menu :"+rich_menu.rich_menu_id)
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
     print("rich menu id :"+rich_menu_id)
     line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
-
+    rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
+    print("rich menu id :" + rich_menu_id)
+    rich_menu = line_bot_api.get_rich_menu(rich_menu_id)
+    print("rich menu :"+rich_menu.rich_menu_id)
+    
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
