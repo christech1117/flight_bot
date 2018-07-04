@@ -1544,12 +1544,31 @@ def line_flex_example_01(user_key):
 def get_rich_id(user_key):
     rich_menu_to_create = RichMenu(
         size=RichMenuSize(width=2500, height=843),
-        selected=False,
+        selected=True,
         name="Nice richmenu",
-        chat_bar_text="Tap here",
-        areas=[RichMenuArea(
-            bounds=RichMenuBounds(x=0, y=0, width=2500, height=843),
-            action=URIAction(label='Go to line.me', uri='https://line.me'))]
+        chat_bar_text="更多功能",
+        areas=[
+            RichMenuArea(
+                bounds=RichMenuBounds(x=0, y=0, width=833, height=421),
+                action=URIAction(label='Go to line.me', uri='https://line.me')),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=833, y=0, width=833, height=421),
+                action=URIAction(label='區域2', uri='https://line.me')),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=1666, y=0, width=833, height=421),
+                action=URIAction(label='區域3', uri='https://line.me')),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=0, y=421, width=833, height=421),
+                action=URIAction(label='區域4', uri='https://line.me')),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=833, y=421, width=833, height=421),
+                action=URIAction(label='區域5', uri='https://line.me')),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=1666, y=421, width=833, height=421),
+                action=URIAction(label='區域6', uri='https://line.me'))
+        ]
+
+
     )
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
     print("rich menu id :"+rich_menu_id)
