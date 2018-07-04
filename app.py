@@ -60,6 +60,7 @@ from linebot_config import linebotConfig
 from models.User import LineUser
 from repository.save_db import (is_first_login, save_member_info_data,
                                 save_favorite_questionnaire, save_message)
+import urllib
 
 app = Flask(__name__)
 
@@ -1549,6 +1550,8 @@ def line_flex_example_01(user_key):
     push_message(user_key, message)
 
 def get_rich_id(user_key):
+    share_string = '不是好東西，就不會跟你分享，這FlightGO超好用的，聰明又貼心，快加它玩看看。\n FlightGO:line://ti/p/@bee6285z'
+    share_string_encode =urllib.quote(share_string)
     rich_menu_to_create = RichMenu(
         size=RichMenuSize(width=2500, height=1686),
         selected=True,
@@ -1587,7 +1590,7 @@ def get_rich_id(user_key):
                     data="menu,customer_service")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=883, width=833, height=421),
-                action=URIAction(label='share_friend', uri="line://msg/text/?%e9%80%99%e6%98%af%e4%b8%80%e5%80%8b%e5%88%86%e4%ba%ab%e6%b8%ac%e8%a9%a6"))
+                action=URIAction(label='share_friend', uri="line://msg/text/?"+share_string_encode))
         ]
 
 
