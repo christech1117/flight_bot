@@ -1587,7 +1587,7 @@ def get_rich_id(user_key):
                     data="menu,customer_service")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=883, width=833, height=421),
-                action=URIAction(label='share_friend', uri="line://nv/recommendOA/@bee6285z"))
+                action=URIAction(label='share_friend', uri="line://msg/text/?'這是一個分享測試'"))
         ]
 
 
