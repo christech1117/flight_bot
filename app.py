@@ -1553,19 +1553,19 @@ def get_rich_id(user_key):
                 action=URIAction(label='Go to line.me', uri='https://line.me')),
             RichMenuArea(
                 bounds=RichMenuBounds(x=833, y=0, width=833, height=421),
-                action=URIAction(label='區域2', uri='https://line.me')),
+                action=URIAction(label='區域2', uri='https://www.google.com.tw/webhp?authuser=1')),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=0, width=833, height=421),
-                action=URIAction(label='區域3', uri='https://line.me')),
+                action=URIAction(label='區域3', uri='https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image')),
             RichMenuArea(
                 bounds=RichMenuBounds(x=0, y=421, width=833, height=421),
-                action=URIAction(label='區域4', uri='https://line.me')),
+                action=URIAction(label='區域4', uri='https://github.com/line/line-bot-sdk-python/blob/master/linebot/models/rich_menu.py')),
             RichMenuArea(
                 bounds=RichMenuBounds(x=833, y=421, width=833, height=421),
-                action=URIAction(label='區域5', uri='https://line.me')),
+                action=URIAction(label='區域5', uri='https://ck101.com/forum.php?mod=forumdisplay&fid=237&filter=heat&orderby=heats')),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=421, width=833, height=421),
-                action=URIAction(label='區域6', uri='https://line.me'))
+                action=URIAction(label='區域6', uri='https://www.youtube.com/?gl=TW&hl=zh-tw'))
         ]
 
 
@@ -1574,7 +1574,7 @@ def get_rich_id(user_key):
     print("rich menu id :"+rich_menu_id)
     print("path is "+os.getcwd())
     content_type = 'image/jpeg'
-    with open("images/tbbanner1.jpg", 'rb') as f:
+    with open("images/richmenu_example01.jpg", 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, content_type, f)
     line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
     rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
