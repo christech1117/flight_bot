@@ -1556,38 +1556,38 @@ def get_rich_id(user_key):
         chat_bar_text="更多功能",
         areas=[
             RichMenuArea(
-                bounds=RichMenuBounds(x=0, y=883, width=800, height=840),
+                bounds=RichMenuBounds(x=0, y=0, width=800, height=840),
                 action=PostbackTemplateAction(
                     label='專屬優惠',
                     text="[menu]專屬優惠",
                     data="menu,preferential_information")),
             RichMenuArea(
-                bounds=RichMenuBounds(x=833, y=883, width=800, height=840),
+                bounds=RichMenuBounds(x=833, y=0, width=800, height=840),
                 action=PostbackTemplateAction(
                     label='活動抽獎',
                     text="[menu]活動抽獎",
                     data="menu,activity")),
             RichMenuArea(
-                bounds=RichMenuBounds(x=1666, y=883, width=800, height=840),
+                bounds=RichMenuBounds(x=1666, y=0, width=800, height=840),
                 action=PostbackTemplateAction(
                     label='使用教學',
                     text="[menu]使用教學",
                     data="menu,teaching")),
             RichMenuArea(
-                bounds=RichMenuBounds(x=0, y=0, width=800, height=840),
+                bounds=RichMenuBounds(x=0, y=883, width=800, height=840),
                 action=PostbackTemplateAction(
                     label='會員資料',
                     text="[menu]會員資料",
                     data="menu,member_info")),
             RichMenuArea(
-                bounds=RichMenuBounds(x=833, y=0, width=833, height=421),
+                bounds=RichMenuBounds(x=833, y=883, width=833, height=421),
                 action=PostbackTemplateAction(
                     label='轉接客服',
                     text="[menu]轉接客服",
                     data="menu,customer_service")),
             RichMenuArea(
-                bounds=RichMenuBounds(x=1666, y=0, width=833, height=421),
-                action=URIAction(label='share_friend', uri="line://msg/text/?"+'這FlightGO超好用的，聰明又貼心，快加它好友玩看看'))
+                bounds=RichMenuBounds(x=1666, y=883, width=833, height=421),
+                action=URIAction(label='share_friend', uri="line://msg/text/?這FlightGO超好用的，聰明又貼心，快加它好友玩看看\n"+"FlightGo:line:\/\/ti\/p\/@bee6285z"))
         ]
 
 
