@@ -40,7 +40,11 @@ from linebot.models import (
     SpacerComponent,
     BubbleStyle,
     BlockStyle,
-    CarouselContainer)
+    CarouselContainer,
+    RichMenu,
+    RichMenuSize,
+    RichMenuArea,
+    RichMenuBounds)
 import os
 import sys
 import pymongo
@@ -250,6 +254,8 @@ def handle_message(event):
         customer_questionnaire(user_key)
     elif "Flex" in event.message.text:
         line_flex_example_01(user_key)
+    elif "選單" in event.message.text:
+        get_rich_id(user_key)
     else:
         other_session(event)
 
@@ -1534,6 +1540,24 @@ def line_flex_example_01(user_key):
     )
     message = FlexSendMessage(alt_text="hello", contents=carousel_message)
     push_message(user_key, message)
+
+def get_rich_id(user_key):
+    rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
+    print("rich menu id :"+rich_menu_id)
+    rich_menu_to_create = RichMenu(
+        size=RichMenuSize(width=2500, height=843),
+        selected=False,
+        name="Nice richmenu",
+        chat_bar_text="Tap here",
+        areas=[RichMenuArea(
+            bounds=RichMenuBounds(x=0, y=0, width=2500, height=843),
+            action=URIAction(label='Go to line.me', uri='https://line.me'))]
+    )
+    rich_menu = line_bot_api.get_rich_menu(rich_menu_id)
+    print("rich menu :"+rich_menu.rich_menu_id)
+    rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+    print("rich menu id :"+rich_menu_id)
+    line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
