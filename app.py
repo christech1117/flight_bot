@@ -260,7 +260,7 @@ def handle_message(event):
     elif "選單" in event.message.text:
         get_rich_id(user_key)
     elif "[menu]使用教學" == event.message.text:
-
+        teaching_step(user_key)
     else:
         other_session(event)
 
