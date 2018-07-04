@@ -44,7 +44,8 @@ from linebot.models import (
     RichMenu,
     RichMenuSize,
     RichMenuArea,
-    RichMenuBounds)
+    RichMenuBounds,
+    AccountLinkEvent)
 import os
 import sys
 import pymongo
@@ -258,6 +259,12 @@ def handle_message(event):
         get_rich_id(user_key)
     else:
         other_session(event)
+
+
+@handler.add(AccountLinkEvent)
+def handle_account_link_evnet(event):
+    print("Enter AccountLinkEvent")
+    print("AccountLinkEvent"+event)
 
 
 def search_air_info_session(event):
@@ -1543,29 +1550,44 @@ def line_flex_example_01(user_key):
 
 def get_rich_id(user_key):
     rich_menu_to_create = RichMenu(
-        size=RichMenuSize(width=2500, height=843),
+        size=RichMenuSize(width=2500, height=1686),
         selected=True,
         name="Nice richmenu",
         chat_bar_text="更多功能",
         areas=[
             RichMenuArea(
-                bounds=RichMenuBounds(x=0, y=0, width=833, height=421),
-                action=URIAction(label='Go to line.me', uri='https://line.me')),
+                bounds=RichMenuBounds(x=0, y=883, width=800, height=840),
+                action=PostbackTemplateAction(
+                    label='專屬優惠',
+                    text="[menu]專屬優惠",
+                    data="menu,preferential_information")),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=833, y=883, width=800, height=840),
+                action=PostbackTemplateAction(
+                    label='活動抽獎',
+                    text="[menu]活動抽獎",
+                    data="menu,activity")),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=1666, y=883, width=800, height=840),
+                action=PostbackTemplateAction(
+                    label='使用教學',
+                    text="[menu]使用教學",
+                    data="menu,teaching")),
+            RichMenuArea(
+                bounds=RichMenuBounds(x=0, y=0, width=800, height=840),
+                action=PostbackTemplateAction(
+                    label='會員資料',
+                    text="[menu]會員資料",
+                    data="menu,member_info")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=833, y=0, width=833, height=421),
-                action=URIAction(label='區域2', uri='https://www.google.com.tw/webhp?authuser=1')),
+                action=PostbackTemplateAction(
+                    label='轉接客服',
+                    text="[menu]轉接客服",
+                    data="menu,customer_service")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=0, width=833, height=421),
-                action=URIAction(label='區域3', uri='https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image')),
-            RichMenuArea(
-                bounds=RichMenuBounds(x=0, y=421, width=833, height=421),
-                action=URIAction(label='區域4', uri='https://github.com/line/line-bot-sdk-python/blob/master/linebot/models/rich_menu.py')),
-            RichMenuArea(
-                bounds=RichMenuBounds(x=833, y=421, width=833, height=421),
-                action=URIAction(label='區域5', uri='https://ck101.com/forum.php?mod=forumdisplay&fid=237&filter=heat&orderby=heats')),
-            RichMenuArea(
-                bounds=RichMenuBounds(x=1666, y=421, width=833, height=421),
-                action=URIAction(label='區域6', uri='https://www.youtube.com/?gl=TW&hl=zh-tw'))
+                action=URIAction(label='share_friend', uri='line://msg/text/?這FlightGO超好用的，聰明又貼心，快加它好友玩看看\n line://nv/recommendOA/@bee6285z'))
         ]
 
 
@@ -1574,7 +1596,7 @@ def get_rich_id(user_key):
     print("rich menu id :"+rich_menu_id)
     print("path is "+os.getcwd())
     content_type = 'image/jpeg'
-    with open("images/richmenu_example01.jpg", 'rb') as f:
+    with open("images/rich_background.png", 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, content_type, f)
     line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
     rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
