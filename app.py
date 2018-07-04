@@ -259,6 +259,8 @@ def handle_message(event):
         line_flex_example_01(user_key)
     elif "選單" in event.message.text:
         get_rich_id(user_key)
+    elif "[menu]使用教學" == event.message.text:
+
     else:
         other_session(event)
 
@@ -1549,6 +1551,38 @@ def line_flex_example_01(user_key):
     )
     message = FlexSendMessage(alt_text="hello", contents=carousel_message)
     push_message(user_key, message)
+
+
+def teaching_step(user_key):
+    message_text="目前功能有:"
+    buttons_template_message = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://example.com/image.jpg',
+            title='目前功能',
+            text='目前有以下功能，可直接點擊，也可打出文字',
+            actions=[
+                MessageTemplateAction(
+                    label='廣告',
+                    text='廣告'
+                ),
+                MessageTemplateAction(
+                    label='搜尋機票',
+                    text='搜尋機票'
+                ),
+                MessageTemplateAction(
+                    label='客服問卷',
+                    text='客服問卷'
+                ),
+                MessageTemplateAction(
+                    label='Flex',
+                    text='Flex'
+                )
+            ]
+        )
+    )
+    message = TextSendMessage(text=message_text)
+    push_message(user_key, [message,buttons_template_message])
 
 def get_rich_id(user_key):
     share_string = '不是好東西，就不會跟你分享，這FlightGO超好用的，聰明又貼心，快加它玩看看。\n FlightGO:line://ti/p/@bee6285z'
