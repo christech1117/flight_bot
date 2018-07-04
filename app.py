@@ -1556,7 +1556,7 @@ def get_rich_id(user_key):
     print("path is "+os.getcwd())
     content_type = 'image/png'
     with open("images/airplane.png", 'rb') as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id, content_type, f)
+        line_bot_api.set_rich_menu_image(rich_menu_id, content_type, 'https://obs.line-scdn.net/r/public/richmenu/chatroom_richmenu_ic_bellt024f0968')
     line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
     rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
     print("rich menu id :" + rich_menu_id)
