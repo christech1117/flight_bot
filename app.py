@@ -1558,7 +1558,7 @@ def teaching_step(user_key):
     buttons_template_message = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
-            thumbnail_image_url='https://example.com/image.jpg',
+            thumbnail_image_url='images/FLIGHTGO_test.jpg',
             title='目前功能',
             text='目前有以下功能，可直接點擊，也可打出文字',
             actions=[
