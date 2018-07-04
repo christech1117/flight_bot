@@ -1554,7 +1554,7 @@ def get_rich_id(user_key):
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
     print("rich menu id :"+rich_menu_id)
     content_type = 'image/png'
-    with open("/images/Airline-Mode-icon.png", 'rb') as f:
+    with open("images/Airline-Mode-icon.png", 'rb') as f:
         line_bot_api.set_rich_menu_image(rich_menu_id, content_type, f)
     line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
     rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
