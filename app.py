@@ -1553,12 +1553,15 @@ def get_rich_id(user_key):
     )
     rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
     print("rich menu id :"+rich_menu_id)
+    content_type = 'image/png'
+    with open("/images/Airline-Mode-icon.png", 'rb') as f:
+        line_bot_api.set_rich_menu_image(rich_menu_id, content_type, f)
     line_bot_api.link_rich_menu_to_user(user_key, rich_menu_id)
     rich_menu_id = line_bot_api.get_rich_menu_id_of_user(user_key)
     print("rich menu id :" + rich_menu_id)
     rich_menu = line_bot_api.get_rich_menu(rich_menu_id)
     print("rich menu :"+rich_menu.rich_menu_id)
-    
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
