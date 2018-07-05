@@ -59,7 +59,7 @@ from travel4_craw_airticket_info import main_search_airticket_info, get_airticke
 from linebot_config import linebotConfig
 from models.User import LineUser
 from repository.save_db import (is_first_login, save_member_info_data,
-                                save_favorite_questionnaire, save_message)
+                                save_favorite_questionnaire, save_message,get_member_info)
 
 from urllib.parse import quote
 
@@ -261,6 +261,8 @@ def handle_message(event):
         get_rich_id(user_key)
     elif "[menu]使用教學" == event.message.text:
         teaching_step(user_key)
+    elif "[menu]會員資料" == event.message.text:
+        member_info(user_key)
     else:
         other_session(event)
 
@@ -1550,6 +1552,152 @@ def line_flex_example_01(user_key):
         ]
     )
     message = FlexSendMessage(alt_text="hello", contents=carousel_message)
+    push_message(user_key, message)
+
+
+def member_info(user_key):
+    profile = line_bot_api.get_profile(user_key)
+    bubble01 = BubbleContainer(
+        styles=BubbleStyle(
+            header=BlockStyle(
+                background_color='#DDDDDD',
+                separator_color='#000000',
+                separator=True),
+            hero=BlockStyle(
+                background_color='#FF44AA',
+                separator_color='#000000',
+                separator=True),
+            body=BlockStyle(
+                background_color='#FFFFFF',
+                separator_color='#000000',
+                separator=True),
+            footer=BlockStyle(
+                background_color='#F0F8FF',
+                separator_color='#000000',
+                separator=True)
+        ),
+        direction='ltr',
+        header=BoxComponent(
+            layout='horizontal',
+            contents=[
+                TextComponent(text='會員中心', weight='bold', size='lg',align="center"),
+            ]
+        ),
+        body=BoxComponent(
+            layout='vertical',
+            contents=[
+                # title
+                TextComponent(text='會員資料', weight='bold', size='lg'),
+                BoxComponent(
+                    layout='baseline',
+                    spacing='sm',
+                    contents=[
+                        TextComponent(
+                            text='姓名:  ',
+                            color='#aaaaaa',
+                            size='md',
+                            flex=0
+                        ),
+                        TextComponent(
+                            text=profile.display_name,
+                            wrap=True,
+                            color='#FF0000',
+                            size='md',
+                            flex=5,
+                        ),
+                    ],
+                ),
+                # info
+                BoxComponent(
+                    layout='vertical',
+                    margin='lg',
+                    spacing='sm',
+                    contents=[
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                IconComponent(size='sm',
+                                              url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/icon1.GIF'),
+                                TextComponent(
+                                    text='mail:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text='aaa@gmail.com',
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='md',
+                                    flex=5
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='電話:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text="09123456",
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='sm',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
+                                TextComponent(
+                                    text='性別:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text='男',
+                                    wrap=True,
+                                    color='#00FFFF',
+                                    size='md',
+                                    flex=5
+                                ),
+                            ],
+                        ),
+                    ]
+                ),
+            ],
+        ),
+        footer=BoxComponent(
+            layout='vertical',
+            spacing='sm',
+            contents=[
+                # callAction, separator, websiteAction
+                SpacerComponent(size='sm'),
+                # callAction
+                ButtonComponent(
+                    style='link',
+                    color='#000000',
+                    height='sm',
+                    action=MessageTemplateAction(
+                            label='修改會員資料',
+                            text='修改會員資料'
+                            )
+                )
+            ]
+        ),
+    )
+    member_info_cotent = get_member_info(user_key)
+    print(member_info_cotent[0])
+    message = FlexSendMessage(alt_text="會員資料", contents=bubble01)
     push_message(user_key, message)
 
 
