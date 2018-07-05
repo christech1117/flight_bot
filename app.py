@@ -1744,10 +1744,7 @@ def get_rich_id(user_key):
         areas=[
             RichMenuArea(
                 bounds=RichMenuBounds(x=0, y=0, width=800, height=840),
-                action=PostbackTemplateAction(
-                    label='專屬優惠',
-                    text="[menu]專屬優惠",
-                    data="menu,preferential_information")),
+                action=URIAction(label='專屬優惠', uri="http://www.flightgoai.com/")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=833, y=0, width=800, height=840),
                 action=PostbackTemplateAction(
