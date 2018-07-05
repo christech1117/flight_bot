@@ -81,6 +81,6 @@ def save_message(event, message):
 
 
 def get_member_info(user_key):
-    url = "https://flightg -dashboard.herokuapp.com/api/lineuser/" + user_key
+    url = "https://flightg-dashboard.herokuapp.com/api/lineuser/" + user_key
     response = get_html(url)
     return response
