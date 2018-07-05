@@ -1696,7 +1696,7 @@ def member_info(user_key):
         ),
     )
     member_info_cotent = get_member_info(user_key)
-    print(member_info_cotent[0])
+    print(member_info_cotent)
     message = FlexSendMessage(alt_text="會員資料", contents=bubble01)
     push_message(user_key, message)
 
