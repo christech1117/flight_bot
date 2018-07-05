@@ -78,3 +78,9 @@ def save_message(event, message):
     response = requests.request(
         "POST", config.ENDPOINT + "api/session", data=json.dumps(data), headers=headers)
     print(response.text)
+
+
+def get_member_info(user_key):
+    url = "https://flightg -dashboard.herokuapp.com/api/lineuser/" + user_key
+    response = get_html(url)
+    return response
