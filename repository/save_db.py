@@ -25,8 +25,8 @@ def is_first_login(user_key):
     response = get_html(url)
     if response.status_code == 200:
         print(response.text == [])
-        print(response.text == None)
-        if response.text == [] :
+        print(len(response.text) == 0)
+        if len(response.text) == 0 :
             isfirst = True
         else:
             isfirst = False
