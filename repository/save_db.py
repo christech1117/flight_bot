@@ -26,7 +26,10 @@ def is_first_login(user_key):
     if response.status_code == 200:
         isfirst = False
     else:
-        isfirst = True
+        if response.text != [] :
+            isfirst = True
+        else:
+            isfirst = False
     return isfirst
 
 
