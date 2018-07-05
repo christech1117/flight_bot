@@ -263,6 +263,8 @@ def handle_message(event):
         teaching_step(user_key)
     elif "[menu]會員資料" == event.message.text:
         member_info(user_key)
+    elif "修改會員資料" == event.message.text:
+        ask_paper_memberInfo(event)
     else:
         other_session(event)
 
@@ -1587,7 +1589,7 @@ def member_info(user_key):
             layout='vertical',
             contents=[
                 # title
-                TextComponent(text='會員資料', weight='bold', size='lg'),
+                TextComponent(text='會員資料', weight='bold', size='xl'),
 
                 # info
                 BoxComponent(
@@ -1601,15 +1603,15 @@ def member_info(user_key):
                             contents=[
                                 TextComponent(
                                     text='姓名:  ',
-                                    color='#aaaaaa',
-                                    size='md',
+                                    color='#000000',
+                                    size='lg',
                                     flex=0
                                 ),
                                 TextComponent(
                                     text=profile.display_name,
                                     wrap=True,
                                     color='#000000',
-                                    size='md',
+                                    size='lg',
                                     flex=5,
                                 ),
                             ],
@@ -1620,15 +1622,15 @@ def member_info(user_key):
                             contents=[
                                 TextComponent(
                                     text='mail:  ',
-                                    color='#aaaaaa',
-                                    size='md',
+                                    color='#000000',
+                                    size='lg',
                                     flex=0
                                 ),
                                 TextComponent(
                                     text='aaa@gmail.com',
                                     wrap=True,
                                     color='#000000',
-                                    size='md',
+                                    size='lg',
                                     flex=5
                                 ),
                             ],
@@ -1639,15 +1641,15 @@ def member_info(user_key):
                             contents=[
                                 TextComponent(
                                     text='電話:  ',
-                                    color='#aaaaaa',
-                                    size='md',
+                                    color='#000000',
+                                    size='lg',
                                     flex=0
                                 ),
                                 TextComponent(
                                     text="09123456",
                                     wrap=True,
                                     color='#000000',
-                                    size='sm',
+                                    size='lg',
                                     flex=5,
                                 ),
                             ],
@@ -1659,14 +1661,14 @@ def member_info(user_key):
                                 TextComponent(
                                     text='性別:  ',
                                     color='#000000',
-                                    size='md',
+                                    size='lg',
                                     flex=0
                                 ),
                                 TextComponent(
                                     text='男',
                                     wrap=True,
                                     color='#000000',
-                                    size='md',
+                                    size='lg',
                                     flex=5
                                 ),
                             ],
