@@ -216,7 +216,7 @@ def handle_followevent(event):
         message_text_tmp = "Hi " + profile.display_name + "\n"
         message_text_tmp += "歡迎加入FlightGo!!\n\n"
         message_text_tmp += "可以使用FlightGo 來查詢機票。\n有任何問題也可直接詢問客服，FlightGo會立即通知真人客服來為您服務喔\n\n"
-        message_text_tmp += "可以打#教學，即可秀出教學畫面唷\n\n"
+        message_text_tmp += "可以從選單內點選如何使用來獲取功能說明喔\n\n"
         message_text_tmp += "為了提供更好的服務，請先填入以下基本資訊~"
         message = TextSendMessage(text=message_text_tmp)
         tmp_list = ["ask_session_start"]
@@ -229,7 +229,7 @@ def handle_followevent(event):
         message_text_tmp += "歡迎再次使用FlightGo!!\n"
         message_text_tmp += "我等您好久啦。\n\n"
         message_text_tmp += "可以使用FlightGo 來查詢機票。\n有任何問題也可直接詢問客服，FlightGo會立即通知真人客服來為您服務喔\n\n"
-        message_text_tmp += "可以打#教學，即可秀出教學畫面唷\n\n"
+        message_text_tmp += "可以從選單內點選如何使用來獲取功能說明喔\n\n"
         message = TextSendMessage(text=message_text_tmp)
         message_slicker = StickerSendMessage(package_id=1, sticker_id=4)
         reply_event(event, [message, message_slicker])
