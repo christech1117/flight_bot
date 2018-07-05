@@ -1588,25 +1588,7 @@ def member_info(user_key):
             contents=[
                 # title
                 TextComponent(text='會員資料', weight='bold', size='lg'),
-                BoxComponent(
-                    layout='baseline',
-                    spacing='sm',
-                    contents=[
-                        TextComponent(
-                            text='姓名:  ',
-                            color='#aaaaaa',
-                            size='md',
-                            flex=0
-                        ),
-                        TextComponent(
-                            text=profile.display_name,
-                            wrap=True,
-                            color='#FF0000',
-                            size='md',
-                            flex=5,
-                        ),
-                    ],
-                ),
+
                 # info
                 BoxComponent(
                     layout='vertical',
@@ -1617,8 +1599,25 @@ def member_info(user_key):
                             layout='baseline',
                             spacing='sm',
                             contents=[
-                                IconComponent(size='sm',
-                                              url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/icon1.GIF'),
+                                TextComponent(
+                                    text='姓名:  ',
+                                    color='#aaaaaa',
+                                    size='md',
+                                    flex=0
+                                ),
+                                TextComponent(
+                                    text=profile.display_name,
+                                    wrap=True,
+                                    color='#000000',
+                                    size='md',
+                                    flex=5,
+                                ),
+                            ],
+                        ),
+                        BoxComponent(
+                            layout='baseline',
+                            spacing='sm',
+                            contents=[
                                 TextComponent(
                                     text='mail:  ',
                                     color='#aaaaaa',
@@ -1628,7 +1627,7 @@ def member_info(user_key):
                                 TextComponent(
                                     text='aaa@gmail.com',
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#000000',
                                     size='md',
                                     flex=5
                                 ),
@@ -1647,7 +1646,7 @@ def member_info(user_key):
                                 TextComponent(
                                     text="09123456",
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#000000',
                                     size='sm',
                                     flex=5,
                                 ),
@@ -1659,14 +1658,14 @@ def member_info(user_key):
                             contents=[
                                 TextComponent(
                                     text='性別:  ',
-                                    color='#aaaaaa',
+                                    color='#000000',
                                     size='md',
                                     flex=0
                                 ),
                                 TextComponent(
                                     text='男',
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#000000',
                                     size='md',
                                     flex=5
                                 ),
@@ -1695,8 +1694,8 @@ def member_info(user_key):
             ]
         ),
     )
-    member_info_cotent = get_member_info(user_key)
-    print(member_info_cotent)
+    member_info_content = get_member_info(user_key)
+    print(member_info_content)
     message = FlexSendMessage(alt_text="會員資料", contents=bubble01)
     push_message(user_key, message)
 
