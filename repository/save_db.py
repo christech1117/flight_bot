@@ -24,12 +24,12 @@ def is_first_login(user_key):
 
     response = get_html(url)
     if response.status_code == 200:
-        isfirst = False
-    else:
         if response.text == None :
             isfirst = True
         else:
             isfirst = False
+    else:
+        isfirst = True
     return isfirst
 
 
