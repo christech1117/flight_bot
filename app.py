@@ -600,8 +600,9 @@ def share_link_info(user_id):
 def ask_paper_memberInfo(event):
     print('#ask_paper_memberInfo1')
     #global ask_member_Info_session_dict
-
     user_key = event.source.user_id
+    if user_key not in ask_member_Info_session_dict:
+        ask_member_Info_session_dict[user_key] = []
     if len(ask_member_Info_session_dict[user_key]) == 1:
         tmp_list = list(ask_member_Info_session_dict[user_key])
         tickets_text = "請輸入您的行動電話號碼 例如:09123456789"
