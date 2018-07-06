@@ -90,4 +90,6 @@ def save_message(event, message):
 def get_member_info(user_key):
     url = url_head + user_key
     response = get_html(url)
+    print("response.text type :"+type(response.text))
+    print("response type :"+type(response))
     return response.text
