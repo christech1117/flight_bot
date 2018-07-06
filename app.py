@@ -1559,6 +1559,12 @@ def line_flex_example_01(user_key):
 
 def member_info(user_key):
     profile = line_bot_api.get_profile(user_key)
+    member_info_content = json.loads(get_member_info(user_key))
+    print(member_info_content)
+    print(member_info_content['name'])
+    print(member_info_content['email'])
+    print(member_info_content['gender'])
+    print(member_info_content['phone_number'])
     bubble01 = BubbleContainer(
         styles=BubbleStyle(
             header=BlockStyle(
@@ -1608,7 +1614,7 @@ def member_info(user_key):
                                     flex=0
                                 ),
                                 TextComponent(
-                                    text=profile.display_name,
+                                    text=member_info_content['name'],
                                     wrap=True,
                                     color='#000000',
                                     size='lg',
@@ -1627,7 +1633,7 @@ def member_info(user_key):
                                     flex=0
                                 ),
                                 TextComponent(
-                                    text='aaa@gmail.com',
+                                    text=member_info_content['email'],
                                     wrap=True,
                                     color='#000000',
                                     size='lg',
@@ -1646,7 +1652,7 @@ def member_info(user_key):
                                     flex=0
                                 ),
                                 TextComponent(
-                                    text="09123456",
+                                    text=str(member_info_content['phone_number']),
                                     wrap=True,
                                     color='#000000',
                                     size='lg',
@@ -1665,7 +1671,7 @@ def member_info(user_key):
                                     flex=0
                                 ),
                                 TextComponent(
-                                    text='男',
+                                    text=member_info_content['gender'],
                                     wrap=True,
                                     color='#000000',
                                     size='lg',
@@ -1696,12 +1702,6 @@ def member_info(user_key):
             ]
         ),
     )
-    member_info_content = json.loads(get_member_info(user_key))
-    print(member_info_content)
-    print(member_info_content['name'])
-    print(member_info_content['email'])
-    print(member_info_content['gender'])
-    print(member_info_content['phone_number'])
     message = FlexSendMessage(alt_text="會員資料", contents=bubble01)
     push_message(user_key, message)
 
