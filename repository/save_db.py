@@ -12,6 +12,7 @@ client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 PROVIDER = 'LINE'
 VENDOR = ['雄獅', '可樂', '山富']
+url_head = "https://flightgo-dashboard-dev.herokuapp.com/api/lineuser/"
 
 def get_html(url):
     response = requests.request("GET", url)
@@ -20,7 +21,7 @@ def get_html(url):
 
 def is_first_login(user_key):
     # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
-    url = "https://flightgo-dashboard.herokuapp.com/api/lineuser/"+user_key
+    url = url_head+user_key
 
     response = get_html(url)
     if response.status_code == 200:
@@ -87,6 +88,6 @@ def save_message(event, message):
 
 
 def get_member_info(user_key):
-    url = "https://flightg-dashboard.herokuapp.com/api/lineuser/" + user_key
+    url = url_head + user_key
     response = get_html(url)
     return response.text
