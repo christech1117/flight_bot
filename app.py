@@ -1696,7 +1696,7 @@ def member_info(user_key):
             ]
         ),
     )
-    member_info_content = get_member_info(user_key)
+    member_info_content = json.loads(get_member_info(user_key))
     print(member_info_content)
     print(member_info_content['name'])
     print(member_info_content['email'])
