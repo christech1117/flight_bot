@@ -7,7 +7,7 @@ from linebot_config import APIConfig
 
 
 config = APIConfig()
-uri = 'mongodb://heroku_ericbot:asus#1234@ds123181.mlab.com:23181/heroku_ptss9tm3'
+uri = 'mongodb://heroku_ttbot:!QAZ1234@ds123181.mlab.com:23181/heroku_ptss9tm3'
 client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 PROVIDER = 'LINE'
