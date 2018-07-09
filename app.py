@@ -1748,13 +1748,13 @@ def get_rich_id(user_key):
         areas=[
             RichMenuArea(
                 bounds=RichMenuBounds(x=0, y=0, width=800, height=840),
-                action=URIAction(label='專屬優惠', uri="http://www.flightgoai.com/")),
+                action=PostbackTemplateAction(
+                    label='專屬優惠',
+                    text="[menu]專屬優惠",
+                    data="menu,benefits")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=833, y=0, width=800, height=840),
-                action=PostbackTemplateAction(
-                    label='活動抽獎',
-                    text="[menu]活動抽獎",
-                    data="menu,activity")),
+                action=URIAction(label='網站連結', uri="line://app/1580838292-MaDpx0AP")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=0, width=800, height=840),
                 action=PostbackTemplateAction(
