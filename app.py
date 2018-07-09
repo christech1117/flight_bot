@@ -259,12 +259,8 @@ def handle_message(event):
         line_flex_example_01(user_key)
     elif "選單" in event.message.text:
         get_rich_id(user_key)
-    elif "[menu]使用教學" == event.message.text:
-        teaching_step(user_key)
-    elif "[menu]會員資料" == event.message.text:
-        member_info(user_key)
-    elif "修改會員資料" == event.message.text:
-        ask_paper_memberInfo(event)
+    elif "[menu]" in event.message.text:
+        menu_feature(event)
     else:
         other_session(event)
 
@@ -365,6 +361,27 @@ def other_session(event):
     replay_message(event, [message, message_slicker])
     customer_service_button(event.source.user_id)
 
+
+def menu_feature(event):
+    user_key = event.source.user_id
+    profile = line_bot_api.get_profile(user_key)
+    if "[menu]使用教學" == event.message.text:
+        teaching_step(user_key)
+    elif "[menu]會員資料" == event.message.text:
+        member_info(user_key)
+    elif "[menu]修改會員資料" == event.message.text:
+        ask_paper_memberInfo(event)
+    elif "[menu]轉接客服" == event.message.text:
+        message = TextSendMessage(text="轉接客服中，請稍後...")
+        message_slicker = StickerSendMessage(package_id=1, sticker_id=124)
+        replay_message(event, [message, message_slicker])
+    elif "[menu]專屬優惠" == event.message.text:
+        message_content = "Hi"+profile.display_name+"\n"
+        message_content += "這是專屬於您的優惠，日本旅遊線，所有行程第二人折2000元!!\n"
+        message_content += "直接按下方選單，轉接客服，線上下單折2000元"
+        message = TextSendMessage(text=message_content)
+        message_slicker = StickerSendMessage(package_id=2, sticker_id=166)
+        replay_message(event, [message, message_slicker])
 
 def customer_service_button(user_key):
     confirm_template = TemplateSendMessage(
@@ -1696,7 +1713,7 @@ def member_info(user_key):
                     height='sm',
                     action=MessageTemplateAction(
                             label='修改會員資料',
-                            text='修改會員資料'
+                            text='[menu]修改會員資料'
                             )
                 )
             ]
