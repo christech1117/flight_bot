@@ -376,7 +376,7 @@ def menu_feature(event):
         message_slicker = StickerSendMessage(package_id=1, sticker_id=124)
         replay_message(event, [message, message_slicker])
     elif "[menu]專屬優惠" == event.message.text:
-        message_content = "Hi"+profile.display_name+"\n"
+        message_content = "Hi "+profile.display_name+"\n"
         message_content += "這是專屬於您的優惠，日本旅遊線，所有行程第二人折2000元!!\n"
         message_content += "直接按下方選單，轉接客服，線上下單折2000元"
         message = TextSendMessage(text=message_content)
