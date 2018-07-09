@@ -25,5 +25,5 @@ class linebotConfig:
 
 class APIConfig:
     def __init__(self):
-         self.ENDPOINT = "https://flightgo-dashboard.herokuapp.com/"
+         self.ENDPOINT = "https://flightgo-dashboard-dev.herokuapp.com/"
         #self.ENDPOINT = "http://localhost:3000/"

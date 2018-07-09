@@ -671,7 +671,6 @@ def ask_paper_memberInfo(event):
                 ask_member_Info_session_dict[user_key][3],
                 ask_member_Info_session_dict[user_key][4],
                 line_bot_api.get_profile(user_key))
-
             print(ask_member_Info_session_dict)
             print('change ask_session_stop')
             ask_member_Info_session_dict[user_key][0] = 'ask_session_close'
