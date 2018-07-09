@@ -47,7 +47,7 @@ def get_user(user_key):
     response = get_html(url)
 
 
-def save_memberInfo_data(user_id, phoneNumber, email, gender, profile):
+def save_member_info_data(user_id, phoneNumber, email, gender, profile):
     # 將會員資料傳到後端，讓後端進行儲存
     # url = "http://localhost:3000/api/lineuser/"+user_id
     print("#save_memberInfo_data")
