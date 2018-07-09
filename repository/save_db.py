@@ -43,7 +43,7 @@ def get_user(user_key):
     # 先把method開出來，到時候去搜尋FlightGo會員資料庫，確認會員是不是第一次使用
     # url = "https://flightgo-dashboard-dev.herokuapp.com/api/lineuser/"+user_key
     # we use localhost in dev env now rather then remote
-    url = "http://localhost:3000/api/lineuser/"+user_key
+    url = url_head+user_key
     response = get_html(url)
 
 
