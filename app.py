@@ -883,6 +883,176 @@ def ask_user_favorite_travel(user_key):
             alt_text='喜好旅遊類型',
             template=CarouselTemplate(columns=columns_list_2))
         push_message(user_key, carousel_template_message2)
+        bubble = BubbleContainer(
+            styles=BubbleStyle(
+                header=BlockStyle(
+                    background_color='#DDDDDD',
+                    separator_color='#000000',
+                    separator=True),
+                hero=BlockStyle(
+                    background_color='#FF44AA',
+                    separator_color='#000000',
+                    separator=True),
+                body=BlockStyle(
+                    background_color='#FFFFFF',
+                    separator_color='#000000',
+                    separator=True),
+                footer=BlockStyle(
+                    background_color='#CCEEFF',
+                    separator_color='#000000',
+                    separator=True)
+            ),
+            direction='ltr',
+            header=BoxComponent(
+                layout='vertical',
+                contents=[
+                    TextComponent(text='旅遊喜好問卷', weight='bold', size='xl'),
+                ]
+            ),
+            hero=ImageComponent(
+                url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/usa-in-2.jpg',
+                size='full',
+                aspect_ratio='20:13',
+                aspect_mode='cover',
+                action=URIAction(uri='http://www.flightgoai.com/', label='label')
+            ),
+            body=BoxComponent(
+                layout='vertical',
+                contents=[
+                    # title
+                    TextComponent(text='啟程機票資訊', weight='bold', size='xl'),
+                    # review
+                    BoxComponent(
+                        layout='baseline',
+                        margin='md',
+                        contents=[
+                            TextComponent(text='中華航空公司', size='md', color='#0000FF', margin='md',
+                                          flex=0)
+                        ]
+                    ),
+                    # info
+                    BoxComponent(
+                        layout='vertical',
+                        margin='lg',
+                        spacing='sm',
+                        contents=[
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                            ButtonComponent(
+                                style='link',
+                                color='#000000',
+                                height='sm',
+                                action=PostbackTemplateAction(
+                                    label='喜愛紐西蘭、澳洲旅遊',
+                                    data="travel,Oceania")
+                            ),
+                        ]
+                    )
+                ],
+            ),
+            footer=BoxComponent(
+                layout='vertical',
+                spacing='sm',
+                contents=[
+                    # callAction, separator, websiteAction
+                    SpacerComponent(size='sm'),
+                    # callAction
+                    ButtonComponent(
+                        style='link',
+                        color='#000000',
+                        height='sm',
+                        action=URIAction(label='撥打電話', uri='tel:000000'),
+                    ),
+                    # separator
+                    SeparatorComponent(),
+                    # websiteAction
+                    ButtonComponent(
+                        style='link',
+                        color='#000000',
+                        height='sm',
+                        action=URIAction(label='網站', uri="http://www.flightgoai.com/")
+                    )
+                ]
+            ),
+        )
+        carousel_message = CarouselContainer(
+            contents=[
+                bubble,
+                bubble
+            ]
+        )
+        message = FlexSendMessage(alt_text="hello", contents=carousel_message)
+        push_message(user_key, message)
 
 def line_flex_example(user_key):
     bubble = BubbleContainer(
