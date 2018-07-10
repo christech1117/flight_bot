@@ -931,7 +931,7 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/SIVbanner.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                                 ),
@@ -946,13 +946,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛日韓旅遊',
@@ -961,13 +961,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/Gala-2-1200x648.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛郵輪旅遊',
@@ -976,13 +976,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛中東非旅遊',
@@ -991,13 +991,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛東南亞旅遊',
@@ -1080,7 +1080,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛南北亞旅遊',
@@ -1089,13 +1089,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/06f8c3ea-553b-4129-8ed7-d8fc8c07fb3e.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛中國旅遊',
@@ -1104,13 +1104,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛歐洲線旅遊',
@@ -1119,13 +1119,13 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
-                                size='xl',
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛美國加拿大旅遊',
@@ -1133,14 +1133,14 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
-                                size='xl',
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/top_01.jpg?raw=true",
+                                size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
                                 style='secondary',
-                                color='#000000',
+                                color='#FFFFFF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛紐西蘭、澳洲旅遊',
