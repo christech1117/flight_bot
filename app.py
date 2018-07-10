@@ -936,8 +936,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                                 ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#000000',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛島嶼度假',
@@ -951,8 +951,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛日韓旅遊',
@@ -966,8 +966,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛郵輪旅遊',
@@ -981,8 +981,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛中東非旅遊',
@@ -996,8 +996,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛東南亞旅遊',
@@ -1079,8 +1079,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛南北亞旅遊',
@@ -1094,8 +1094,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛中國旅遊',
@@ -1109,8 +1109,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛歐洲線旅遊',
@@ -1124,8 +1124,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛美國加拿大旅遊',
@@ -1139,8 +1139,8 @@ def ask_user_favorite_travel(user_key):
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='secondary',
-                                color='#FFFFFF',
+                                style='link',
+                                color='#0000FF',
                                 height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛紐西蘭、澳洲旅遊',
