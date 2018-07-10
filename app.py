@@ -931,14 +931,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/SIVbanner.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                                 ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛島嶼度假',
                                     data="travel,Islands")
@@ -946,14 +946,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛日韓旅遊',
                                     data="travel,JP_Korea")
@@ -961,14 +961,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/Gala-2-1200x648.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛郵輪旅遊',
                                     data="travel,Cruiseship")
@@ -976,14 +976,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛中東非旅遊',
                                     data="travel,Central_Eastern_Africa")
@@ -991,29 +991,97 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛東南亞旅遊',
                                     data="travel,southeast_asia")
-                            ),
+                            )
+                        ]
+                    )
+                ],
+            ),
+            footer=BoxComponent(
+                layout='vertical',
+                spacing='sm',
+                contents=[
+                    # callAction, separator, websiteAction
+                    SpacerComponent(size='sm'),
+                    # callAction
+                    ButtonComponent(
+                        style='link',
+                        color='#000000',
+                        height='md',
+                        action=PostbackTemplateAction(
+                            label='已完成',
+                            data='travel Done'
+                        ),
+                    )
+                ]
+            ),
+        )
+        bubble01 = BubbleContainer(
+            styles=BubbleStyle(
+                header=BlockStyle(
+                    background_color='#DDDDDD',
+                    separator_color='#000000',
+                    separator=True),
+                hero=BlockStyle(
+                    background_color='#FF44AA',
+                    separator_color='#000000',
+                    separator=True),
+                body=BlockStyle(
+                    background_color='#FFFFFF',
+                    separator_color='#000000',
+                    separator=True),
+                footer=BlockStyle(
+                    background_color='#CCEEFF',
+                    separator_color='#000000',
+                    separator=True)
+            ),
+            direction='ltr',
+            header=BoxComponent(
+                layout='vertical',
+                contents=[
+                    TextComponent(text='旅遊喜好問卷', weight='bold', size='xl'),
+                ]
+            ),
+            hero=ImageComponent(
+                url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/usa-in-2.jpg',
+                size='full',
+                aspect_ratio='20:13',
+                aspect_mode='cover',
+                action=URIAction(uri='http://www.flightgoai.com/', label='label')
+            ),
+            body=BoxComponent(
+                layout='vertical',
+                contents=[
+                    # title
+                    TextComponent(text='選擇喜愛的旅遊類型', weight='bold', size='xl'),
+                    # review
+                    # info
+                    BoxComponent(
+                        layout='vertical',
+                        margin='lg',
+                        spacing='sm',
+                        contents=[
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/00007011.JPG?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛南北亞旅遊',
                                     data="travel,south_asia")
@@ -1021,14 +1089,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/06f8c3ea-553b-4129-8ed7-d8fc8c07fb3e.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛中國旅遊',
                                     data="travel,china")
@@ -1036,14 +1104,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛歐洲線旅遊',
                                     data="travel,Europe")
@@ -1051,14 +1119,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛美國加拿大旅遊',
                                     data="travel,America_Canada")
@@ -1066,14 +1134,14 @@ def ask_user_favorite_travel(user_key):
                             SeparatorComponent(),
                             ImageComponent(
                                 url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
-                                size='lg',
+                                size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='primary',
+                                style='secondary',
                                 color='#000000',
-                                height='md',
+                                height='sm',
                                 action=PostbackTemplateAction(
                                     label='喜愛紐西蘭、澳洲旅遊',
                                     data="travel,Oceania")
@@ -1090,7 +1158,7 @@ def ask_user_favorite_travel(user_key):
                     SpacerComponent(size='sm'),
                     # callAction
                     ButtonComponent(
-                        style='primary',
+                        style='link',
                         color='#000000',
                         height='md',
                         action=PostbackTemplateAction(
@@ -1104,7 +1172,7 @@ def ask_user_favorite_travel(user_key):
         carousel_message = CarouselContainer(
             contents=[
                 bubble,
-                bubble
+                bubble01
             ]
         )
         message = FlexSendMessage(alt_text="hello", contents=carousel_message)
