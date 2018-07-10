@@ -920,98 +920,160 @@ def ask_user_favorite_travel(user_key):
                 layout='vertical',
                 contents=[
                     # title
-                    TextComponent(text='啟程機票資訊', weight='bold', size='xl'),
+                    TextComponent(text='選擇喜愛的旅遊類型', weight='bold', size='xl'),
                     # review
-                    BoxComponent(
-                        layout='baseline',
-                        margin='md',
-                        contents=[
-                            TextComponent(text='中華航空公司', size='md', color='#0000FF', margin='md',
-                                          flex=0)
-                        ]
-                    ),
                     # info
                     BoxComponent(
                         layout='vertical',
                         margin='lg',
                         spacing='sm',
                         contents=[
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/SIVbanner.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
+                                ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛島嶼度假',
+                                    data="travel,Islands")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/%E4%B8%8B%E8%BC%89.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛日韓旅遊',
+                                    data="travel,JP_Korea")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/Gala-2-1200x648.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛郵輪旅遊',
+                                    data="travel,Cruiseship")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛中東非旅遊',
+                                    data="travel,Central_Eastern_Africa")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛東南亞旅遊',
+                                    data="travel,southeast_asia")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/00007011.JPG?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛南北亞旅遊',
+                                    data="travel,south_asia")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/06f8c3ea-553b-4129-8ed7-d8fc8c07fb3e.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛中國旅遊',
+                                    data="travel,china")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/images.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛歐洲線旅遊',
+                                    data="travel,Europe")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
-                                    label='喜愛紐西蘭、澳洲旅遊',
-                                    data="travel,Oceania")
+                                    label='喜愛美國加拿大旅遊',
+                                    data="travel,America_Canada")
+                            ),
+                            SeparatorComponent(),
+                            ImageComponent(
+                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/usa-in-2.jpg?raw=true",
+                                size='lg',
+                                aspect_ratio='20:13',
+                                aspect_mode='cover',
                             ),
                             ButtonComponent(
-                                style='link',
+                                style='primary',
                                 color='#000000',
-                                height='sm',
+                                height='md',
                                 action=PostbackTemplateAction(
                                     label='喜愛紐西蘭、澳洲旅遊',
                                     data="travel,Oceania")
@@ -1028,19 +1090,13 @@ def ask_user_favorite_travel(user_key):
                     SpacerComponent(size='sm'),
                     # callAction
                     ButtonComponent(
-                        style='link',
+                        style='primary',
                         color='#000000',
-                        height='sm',
-                        action=URIAction(label='撥打電話', uri='tel:000000'),
-                    ),
-                    # separator
-                    SeparatorComponent(),
-                    # websiteAction
-                    ButtonComponent(
-                        style='link',
-                        color='#000000',
-                        height='sm',
-                        action=URIAction(label='網站', uri="http://www.flightgoai.com/")
+                        height='md',
+                        action=PostbackTemplateAction(
+                            label='已完成',
+                            data='travel Done'
+                        ),
                     )
                 ]
             ),
