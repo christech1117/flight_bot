@@ -692,6 +692,7 @@ def ask_paper_memberInfo(event):
             print('change ask_session_stop')
             ask_member_Info_session_dict[user_key][0] = 'ask_session_close'
             print(ask_member_Info_session_dict)
+            ask_user_favorite_travel(user_key)
         else:
             tickets_text_string = "輸入性別錯誤，請重新輸入"
             push_tickets_info = TextSendMessage(text=tickets_text_string)
@@ -775,6 +776,10 @@ def ask_user_favorite_travel(user_key):
     if user_key not in ask_user_favorite_session_dict:
         ask_user_favorite_session_dict[user_key] = ["ask_session_start"]
     if len(ask_user_favorite_session_dict[user_key]) >= 1:
+        tickets_text = "我們關心您的喜好，以下是詢問您喜歡的旅遊類型，未來也僅會推播相關的旅遊情報給您喔"
+        push_tickets_info = TextSendMessage(text=tickets_text)
+        message_slicker = StickerSendMessage(package_id=1, sticker_id=407)
+        push_message(user_key, [push_tickets_info, message_slicker])
         bubble = BubbleContainer(
             styles=BubbleStyle(
                 header=BlockStyle(
