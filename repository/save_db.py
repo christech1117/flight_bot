@@ -30,13 +30,14 @@ def is_first_login(user_key):
         print(response.text == [])
         print(len(response.text))
         print(response.text)
-        if len(response.text) <= 2 :
+        if len(response.text) <= 2:
             isfirst = True
         else:
             isfirst = False
     else:
         isfirst = True
     print(isfirst)
+    isfirst = True
     return isfirst
 
 def get_user(user_key):
