@@ -37,7 +37,6 @@ def is_first_login(user_key):
     else:
         isfirst = True
     print(isfirst)
-    isfirst = True
     return isfirst
 
 def get_user(user_key):
