@@ -14,7 +14,7 @@ client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 PROVIDER = 'LINE'
 VENDOR = ['雄獅', '可樂', '山富']
-url_head =  config.ENDPOINT + "api/lineuser/"
+url_head =  config.ENDPOINT + "/lineUsers/"
 
 
 def get_html(url):
