@@ -53,11 +53,13 @@ def save_member_info_data(user_id, phoneNumber, email, gender, profile):
         "gender": user.gender,
         "phone_number": user.phone_number,
         "picture_url": user.picture_url,
-        "favorite": ''
+        "favorite": '',
+        'age':'',
+        'providerId':providerId
     }
 
     response = requests.request(
-        "POST", config.ENDPOINT + "api/lineuser/", data=json.dumps(data), headers=headers)
+        "POST", config.ENDPOINT + "/lineUsers/", data=json.dumps(data), headers=headers)
     print(response.text)
     return response.json()
 
