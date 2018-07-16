@@ -58,7 +58,7 @@ from travel4_craw_airticket_info import main_search_airticket_info, get_airticke
 
 from linebot_config import linebotConfig
 from models.User import LineUser
-from repository.save_db import (is_first_login, save_member_info_data,
+from flightgosdk.flightgoapi import (is_first_login, save_member_info_data,
                                 save_favorite_questionnaire, save_message,get_member_info)
 
 from urllib.parse import quote
