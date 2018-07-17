@@ -47,7 +47,7 @@ def save_member_info_data(user_id, phoneNumber, email, gender, profile):
     picture = profile.picture_url
     user = LineUser(user_id, name, email, gender, phoneNumber, picture)
     data = {
-        "user_id": user.user_id,
+        "userId": user.user_id,
         "name": user.name,
         "email": user.email,
         "gender": user.gender,
@@ -78,7 +78,7 @@ def save_favorite_questionnaire(user_key, favorite_list):
         'Content-Type': "application/json",
     }
     response = requests.request(
-        "POST", config.ENDPOINT + "/questionnaires" , data=json.dumps(data), headers=headers)
+        "POST", config.ENDPOINT + "/questionnaires", data=json.dumps(data), headers=headers)
     print(response)
 
 def save_message(event, message):
@@ -94,7 +94,6 @@ def save_message(event, message):
         "sender":event.source.user_id,
         "recipient":providerId
     }
-    print(config.ENDPOINT + "api/session")
     print(json.dumps(data))
     response = requests.request(
         "POST", config.ENDPOINT + "/chatmessages", data=json.dumps(data), headers=headers)
