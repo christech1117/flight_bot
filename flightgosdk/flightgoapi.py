@@ -51,8 +51,8 @@ def save_member_info_data(user_id, phoneNumber, email, gender, profile):
         "name": user.name,
         "email": user.email,
         "gender": user.gender,
-        "phone_number": user.phone_number,
-        "picture_url": user.picture_url,
+        "phoneNumber": user.phone_number,
+        "pictureUrl": user.picture_url,
         "favorite": '',
         'age':'',
         'providerId':providerId
