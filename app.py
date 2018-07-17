@@ -1772,7 +1772,7 @@ def member_info(user_key):
     print(member_info_content['name'])
     print(member_info_content['email'])
     print(member_info_content['gender'])
-    print(member_info_content['phone_number'])
+    print(member_info_content['phoneNumber'])
     bubble01 = BubbleContainer(
         styles=BubbleStyle(
             header=BlockStyle(
@@ -1860,7 +1860,7 @@ def member_info(user_key):
                                     flex=0
                                 ),
                                 TextComponent(
-                                    text=str(member_info_content['phone_number']),
+                                    text=str(member_info_content['phoneNumber']),
                                     wrap=True,
                                     color='#000000',
                                     size='lg',
