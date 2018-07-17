@@ -1773,6 +1773,10 @@ def member_info(user_key):
     print(member_info_content['email'])
     print(member_info_content['gender'])
     print(member_info_content['phoneNumber'])
+    if(member_info_content['gender']):
+        gender_Attributes = "男性"
+    else:
+        gender_Attributes = "女性"
     bubble01 = BubbleContainer(
         styles=BubbleStyle(
             header=BlockStyle(
@@ -1879,7 +1883,7 @@ def member_info(user_key):
                                     flex=0
                                 ),
                                 TextComponent(
-                                    text=member_info_content['gender'],
+                                    text=gender_Attributes,
                                     wrap=True,
                                     color='#000000',
                                     size='lg',
