@@ -211,6 +211,7 @@ def handle_followevent(event):
     print(profile.user_id)
     print(profile.picture_url)
     print(profile.status_message)
+    get_rich_id(user_key)
     if is_first_login(user_key):
         print("First Login" + user_key)
         message_text_tmp = "Hi " + profile.display_name + "\n"
@@ -248,7 +249,7 @@ def handle_message(event):
     elif "喜好問卷" in event.message.text:
         ask_user_favorite_travel(user_key)
     elif "廣告" == event.message.text:
-        push_ads(user_key)
+        get_ads_info_carousel(user_key)
     elif (user_key not in session_dict) and ('搜尋機票' == event.message.text) or ('重新搜尋航班' == event.message.text):
         search_air_info_session(event)
     elif user_key in session_dict and len(session_dict[user_key]) >= 1:
@@ -579,6 +580,73 @@ def get_ads_info():
         )
     ]
     return photo_url, link_url, actions
+
+def get_ads_info_carousel(user_key):
+    url_photo = 'https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/ngo_a014.jpg'
+    address_url = "https://travel.liontravel.com/detail?NormGroupID=08a2caee-3aa1-4d19-8290-10b06b639369&GroupID=18JPN12BRB-T&_ga=2.11776183.2039194849.1532414860-420242525.1528167229&_gac=1.150918596.1530605816.Cj0KCQjwvezZBRDkARIsADKQyPmypYDGYB3Y_SrQhDSpDP2ED3RhJ4sWii4We7cN93IDbxLdHIXXynEaAhw3EALw_wcB"
+    address_url_02 ="http://app.tahsintour.com.tw/page/Itinerary/ItineraryTH.aspx?ItnNo=180507JTT5BRN"
+    url_photo_02 = "http://www.tahsintour.com.tw/mobile_final/mobile/images/theme_travel/tyo/p1/tyo_a05_2.jpg"
+    address_url_03 = "http://www.ggogo.com/ggogoWeb/goProd.do?step=goStep1&mgrupCd=EFFD10"
+    url_photo_03 = "http://www.ggogo.com/img05/tour/eup/effd10/effd10_01.jpg"
+    columns_list = []
+    columns_list.append(
+        CarouselColumn(
+            thumbnail_image_url=url_photo,
+            title="立山黑部5天4夜",
+            text="立山黑部奇景．兼六園．合掌村．飛驒高山小京都散策．近江海鮮市場．溫泉五日",
+            actions=[
+                MessageTemplateAction(
+                    label="$28,500起"
+                ),
+                URITemplateAction(label='立即訂購', uri=address_url),
+                PostbackTemplateAction(
+                    label = '詢問詳細行程',
+                    text = "詢問詳細行程",
+                    data="ads,ask"
+                )
+            ]
+        )
+    )
+    columns_list.append(
+        CarouselColumn(
+            thumbnail_image_url=url_photo_02,
+            title="東京迪士尼5天4夜",
+            text="立山黑部奇景．兼六園．合掌村．飛驒高山小京都散策．近江海鮮市場．溫泉五日",
+            actions=[
+                MessageTemplateAction(
+                    label="$22,900起"
+                ),
+                URITemplateAction(label='立即訂購', uri=address_url_02),
+                PostbackTemplateAction(
+                    label='詢問詳細行程',
+                    text="詢問詳細行程",
+                    data="ads,ask"
+                )
+            ]
+        )
+    )
+    columns_list.append(
+        CarouselColumn(
+            thumbnail_image_url=url_photo_03,
+            title="捷奧旅遊十天",
+            text="神奇奧捷-仙境布拉格深度全覽阿爾卑斯童話世遺遊船饗宴十天",
+            actions=[
+                MessageTemplateAction(
+                    label="$41,999元起"
+                ),
+                URITemplateAction(label='立即訂購', uri=address_url_03),
+                PostbackTemplateAction(
+                    label='詢問詳細行程',
+                    text="詢問詳細行程",
+                    data="ads,ask"
+                )
+            ]
+        )
+    )
+    carousel_template_message = TemplateSendMessage(
+        alt_text='美食搜尋結果',
+        template=CarouselTemplate(columns=columns_list))
+    push_message(user_key,carousel_template_message)
 
 
 def push_ads(user_id):
@@ -1388,7 +1456,7 @@ def line_flex_example_01(user_key):
                             flex=0
                         ),
                         TextComponent(
-                            text="369,00元起",
+                            text="36,900元起",
                             wrap=True,
                             color='#FF0000',
                             size='md',
@@ -1598,7 +1666,7 @@ def line_flex_example_01(user_key):
                         TextComponent(
                             text="135,900元起",
                             wrap=True,
-                            color='#FF0000',
+                            color='#666666',
                             size='md',
                             flex=5,
                         ),
@@ -1624,7 +1692,7 @@ def line_flex_example_01(user_key):
                                 TextComponent(
                                     text='10天',
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#666666',
                                     size='md',
                                     flex=5
                                 ),
@@ -1643,7 +1711,7 @@ def line_flex_example_01(user_key):
                                 TextComponent(
                                     text="奧地利",
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#666666',
                                     size='sm',
                                     flex=5,
                                 ),
@@ -1662,7 +1730,7 @@ def line_flex_example_01(user_key):
                                 TextComponent(
                                     text='維也納 Vienna',
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#666666',
                                     size='md',
                                     flex=5
                                 ),
@@ -1681,7 +1749,7 @@ def line_flex_example_01(user_key):
                                 TextComponent(
                                     text="桃園機場",
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#666666',
                                     size='sm',
                                     flex=5,
                                 ),
@@ -1700,7 +1768,7 @@ def line_flex_example_01(user_key):
                                 TextComponent(
                                     text="中華航空",
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#666666',
                                     size='sm',
                                     flex=5,
                                 ),
@@ -1719,7 +1787,7 @@ def line_flex_example_01(user_key):
                                 TextComponent(
                                     text="16人",
                                     wrap=True,
-                                    color='#00FFFF',
+                                    color='#666666',
                                     size='sm',
                                     flex=5,
                                 ),
