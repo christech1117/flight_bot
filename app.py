@@ -596,7 +596,8 @@ def get_ads_info_carousel(user_key):
             text="立山黑部奇景．兼六園．合掌村．飛驒高山小京都散策．近江海鮮市場．溫泉五日",
             actions=[
                 MessageTemplateAction(
-                    label="$28,500起"
+                    label="$28,500元起",
+                    text = "立山黑部5天4夜 $28,500起"
                 ),
                 URITemplateAction(label='立即訂購', uri=address_url),
                 PostbackTemplateAction(
@@ -614,7 +615,8 @@ def get_ads_info_carousel(user_key):
             text="立山黑部奇景．兼六園．合掌村．飛驒高山小京都散策．近江海鮮市場．溫泉五日",
             actions=[
                 MessageTemplateAction(
-                    label="$22,900起"
+                    label="$22,900元起",
+                    text = "東京迪士尼5天4夜 $22,900起"
                 ),
                 URITemplateAction(label='立即訂購', uri=address_url_02),
                 PostbackTemplateAction(
@@ -632,7 +634,8 @@ def get_ads_info_carousel(user_key):
             text="神奇奧捷-仙境布拉格深度全覽阿爾卑斯童話世遺遊船饗宴十天",
             actions=[
                 MessageTemplateAction(
-                    label="$41,999元起"
+                    label="$41,999元起",
+                    text="捷奧旅遊十天 $41,999元起"
                 ),
                 URITemplateAction(label='立即訂購', uri=address_url_03),
                 PostbackTemplateAction(
