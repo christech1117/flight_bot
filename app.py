@@ -644,7 +644,7 @@ def get_ads_info_carousel(user_key):
         )
     )
     carousel_template_message = TemplateSendMessage(
-        alt_text='美食搜尋結果',
+        alt_text='專屬廣告優惠',
         template=CarouselTemplate(columns=columns_list))
     push_message(user_key,carousel_template_message)
 
