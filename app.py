@@ -585,9 +585,9 @@ def get_ads_info_carousel(user_key):
     url_photo = 'https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/ngo_a014.jpg'
     address_url = "https://travel.liontravel.com/detail?NormGroupID=08a2caee-3aa1-4d19-8290-10b06b639369&GroupID=18JPN12BRB-T&_ga=2.11776183.2039194849.1532414860-420242525.1528167229&_gac=1.150918596.1530605816.Cj0KCQjwvezZBRDkARIsADKQyPmypYDGYB3Y_SrQhDSpDP2ED3RhJ4sWii4We7cN93IDbxLdHIXXynEaAhw3EALw_wcB"
     address_url_02 ="http://app.tahsintour.com.tw/page/Itinerary/ItineraryTH.aspx?ItnNo=180507JTT5BRN"
-    url_photo_02 = "http://www.tahsintour.com.tw/mobile_final/mobile/images/theme_travel/tyo/p1/tyo_a05_2.jpg"
+    url_photo_02 = "https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/tyo_a05_2.jpg"
     address_url_03 = "http://www.ggogo.com/ggogoWeb/goProd.do?step=goStep1&mgrupCd=EFFD10"
-    url_photo_03 = "http://www.ggogo.com/img05/tour/eup/effd10/effd10_01.jpg"
+    url_photo_03 = "https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/effd10_01.jpg"
     columns_list = []
     columns_list.append(
         CarouselColumn(
