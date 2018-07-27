@@ -582,7 +582,7 @@ def get_ads_info():
     return photo_url, link_url, actions
 
 def get_ads_info_carousel(user_key):
-    url_photo = 'https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/imagses/kurobe-dam-2538514_1920.jpg'
+    url_photo = 'https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/kurobe-dam-2538514_1920.jpg'
     address_url = "https://travel.liontravel.com/detail?NormGroupID=08a2caee-3aa1-4d19-8290-10b06b639369&GroupID=18JPN12BRB-T&_ga=2.11776183.2039194849.1532414860-420242525.1528167229&_gac=1.150918596.1530605816.Cj0KCQjwvezZBRDkARIsADKQyPmypYDGYB3Y_SrQhDSpDP2ED3RhJ4sWii4We7cN93IDbxLdHIXXynEaAhw3EALw_wcB"
     address_url_02 ="http://app.tahsintour.com.tw/page/Itinerary/ItineraryTH.aspx?ItnNo=180507JTT5BRN"
     url_photo_02 = "https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/mickey-mause-832112_1920.jpg"
@@ -1644,7 +1644,7 @@ def line_flex_example_01(user_key):
             ]
         ),
         hero=ImageComponent(
-            url='https://raw.githubusercontent.com/housekeepbao/flight_bot/master/images/index_01.jpg',
+            url='https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/prague-1168302_1920.jpg',
             size='full',
             aspect_ratio='20:13',
             aspect_mode='cover',
@@ -2003,8 +2003,8 @@ def teaching_step(user_key):
                     text='廣告'
                 ),
                 MessageTemplateAction(
-                    label='搜尋機票',
-                    text='搜尋機票'
+                    label="喜好問卷",
+                    text="喜好問卷"
                 ),
                 MessageTemplateAction(
                     label='客服問卷',
