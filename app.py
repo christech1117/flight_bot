@@ -582,12 +582,12 @@ def get_ads_info():
     return photo_url, link_url, actions
 
 def get_ads_info_carousel(user_key):
-    url_photo = '/imagses/kurobe-dam-2538514_1920.jpg'
+    url_photo = 'https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/imagses/kurobe-dam-2538514_1920.jpg'
     address_url = "https://travel.liontravel.com/detail?NormGroupID=08a2caee-3aa1-4d19-8290-10b06b639369&GroupID=18JPN12BRB-T&_ga=2.11776183.2039194849.1532414860-420242525.1528167229&_gac=1.150918596.1530605816.Cj0KCQjwvezZBRDkARIsADKQyPmypYDGYB3Y_SrQhDSpDP2ED3RhJ4sWii4We7cN93IDbxLdHIXXynEaAhw3EALw_wcB"
     address_url_02 ="http://app.tahsintour.com.tw/page/Itinerary/ItineraryTH.aspx?ItnNo=180507JTT5BRN"
-    url_photo_02 = "/images/mickey-mause-832112_1920.jpg"
+    url_photo_02 = "https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/mickey-mause-832112_1920.jpg"
     address_url_03 = "http://www.ggogo.com/ggogoWeb/goProd.do?step=goStep1&mgrupCd=EFFD10"
-    url_photo_03 = "/images/prague-1168302_1920.jpg"
+    url_photo_03 = "https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/prague-1168302_1920.jpg"
     columns_list = []
     columns_list.append(
         CarouselColumn(
@@ -878,7 +878,7 @@ def ask_user_favorite_travel(user_key):
                 ]
             ),
             hero=ImageComponent(
-                url='/images/tom-barrett-318954-unsplash.jpg',
+                url='https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/tom-barrett-318954-unsplash.jpg',
                 size='full',
                 aspect_ratio='20:13',
                 aspect_mode='cover',
@@ -898,7 +898,7 @@ def ask_user_favorite_travel(user_key):
                         contents=[
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/beach-1630540_1920.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/beach-1630540_1920.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -913,7 +913,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/japanese-cherry-trees-3063992_1920.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/japanese-cherry-trees-3063992_1920.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -928,7 +928,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/264dc9dadd946494e236391231976bdc_m.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/264dc9dadd946494e236391231976bdc_m.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -943,7 +943,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/center.jpg?raw=true",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/dahshur-2292509_1920.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -958,7 +958,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="https://github.com/housekeepbao/flight_bot/blob/master/images/slider_img03.jpg?raw=true",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/bangkok-1020850_1920.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -1021,7 +1021,7 @@ def ask_user_favorite_travel(user_key):
                 ]
             ),
             hero=ImageComponent(
-                url='/images/tom-barrett-318954-unsplash.jpg',
+                url='https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/tom-barrett-318954-unsplash.jpg',
                 size='full',
                 aspect_ratio='20:13',
                 aspect_mode='cover',
@@ -1041,7 +1041,7 @@ def ask_user_favorite_travel(user_key):
                         contents=[
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/taj-mahal-1209004_1920.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/taj-mahal-1209004_1920.jpg",
                                 size='xl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -1056,7 +1056,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/0a16fa82381c4bb981d07841408329f1_s.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/0a16fa82381c4bb981d07841408329f1_s.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -1071,7 +1071,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/milan-cathedral-2704544_1280.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/milan-cathedral-2704544_1280.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -1086,7 +1086,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/buildings-2297210_1920.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev//images/buildings-2297210_1920.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -1101,7 +1101,7 @@ def ask_user_favorite_travel(user_key):
                             ),
                             SeparatorComponent(),
                             ImageComponent(
-                                url="/images/new-zealand-2089838_1920.jpg",
+                                url="https://raw.githubusercontent.com/housekeepbao/flight_bot/dev//images/new-zealand-2089838_1920.jpg",
                                 size='xxl',
                                 aspect_ratio='20:13',
                                 aspect_mode='cover',
@@ -1437,7 +1437,7 @@ def line_flex_example_01(user_key):
             ]
         ),
         hero=ImageComponent(
-            url='/images/kurobe-dam-2538514_1920.jpg',
+            url='https://raw.githubusercontent.com/housekeepbao/flight_bot/dev/images/kurobe-dam-2538514_1920.jpg',
             size='full',
             aspect_ratio='20:13',
             aspect_mode='cover',
