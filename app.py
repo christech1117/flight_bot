@@ -382,7 +382,7 @@ def menu_feature(event):
         message_content += "直接按下方選單，轉接客服，線上下單折2000元"
         message = TextSendMessage(text=message_content)
         message_slicker = StickerSendMessage(package_id=2, sticker_id=166)
-        push_message(event, [message, message_slicker])
+        push_message(user_key, [message, message_slicker])
 
 def customer_service_button(user_key):
     confirm_template = TemplateSendMessage(
