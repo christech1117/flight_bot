@@ -2037,7 +2037,7 @@ def get_rich_id(user_key):
                     data="menu,benefits")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=833, y=0, width=800, height=840),
-                action=URIAction(label='網站連結', uri="line://app/1580838292-MaDpx0AP")),
+                action=URIAction(label='網站連結', uri="line://app/1580838292-7exM2pDY")),
             RichMenuArea(
                 bounds=RichMenuBounds(x=1666, y=0, width=800, height=840),
                 action=PostbackTemplateAction(
